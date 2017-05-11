@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,27 +17,20 @@ public class LoginController {
     @FXML Button loginButton;
     @FXML TextField userField;
     @FXML PasswordField passField;
+    @FXML AnchorPane loginAnchor;
 
     @FXML
     private void login(ActionEvent event) {
         // connect to the db and check password and then spawn the new stage MainView or an error message
+        // then delete the text from user and pass fields
 
+        AnchorPane mainAnchor;
         try {
-            mainStage().show();
+            mainAnchor = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));
+            loginAnchor.getChildren().setAll(mainAnchor);
         } catch (IOException ex) {
-            ex.printStackTrace(); // or show later some kind of error
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
         }
-
-    }
-
-    private Stage mainStage() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getClassLoader().getResource("View/MainView.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Nordic Motorhomes");
-        stage.setScene(scene);
-        return stage;
     }
 
 }

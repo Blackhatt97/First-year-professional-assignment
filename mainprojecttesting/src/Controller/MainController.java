@@ -15,6 +15,4 @@ public class MainController {
     @FXML Button repairButton;
     @FXML TilePane menuPane;
 
-
-
 }
