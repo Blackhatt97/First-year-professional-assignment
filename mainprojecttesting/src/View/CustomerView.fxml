@@ -34,6 +34,7 @@
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Reset Fields" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="Load all" GridPane.halignment="LEFT" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="59.0" />
