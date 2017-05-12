@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
-      <TilePane fx:id="menuPane" prefHeight="450.0" prefWidth="109.0">
+      <TilePane fx:id="menuPane" prefHeight="267.0" prefWidth="112.0">
          <children>
             <Button fx:id="mhButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" text="Motorhome" />
             <Button fx:id="userButton" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" text="User" />
@@ -38,5 +38,6 @@
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" />
         </items>
       </SplitPane>
+      <Button fx:id="repairButton1" layoutY="412.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="112.0" text="Log out" />
    </children>
 </AnchorPane>
