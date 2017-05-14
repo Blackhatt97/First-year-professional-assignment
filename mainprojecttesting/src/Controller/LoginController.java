@@ -43,42 +43,42 @@ public class LoginController {
                     "WHERE `email` = ? AND `pass` = ?";
             PreparedStatement ps = conn.prepareStatement(query);
 
-            ps.setString(1,userName);
-            ps.setString(2,password);
+            ps.setString(1, userName);
+            ps.setString(2, password);
             ps.execute();
 
             ResultSet rs = ps.getResultSet();
-            if(rs.first()){
-            mainAnchor = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));
-            loginAnchor.getChildren().setAll(mainAnchor);
-            }
-            else
+            if (rs.first()) {
+                mainAnchor = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));
+                loginAnchor.getChildren().setAll(mainAnchor);
+            } else
                 popUp("Failed", "Invalid username and/or password", "Close");
 
         } catch (Exception ex) {
             ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
         }
     }
-    public void popUp(String title, String text, String button){
 
-        Stage popupwindow = new Stage();
+     private void popUp(String title, String text, String button) {
 
-        popupwindow.initModality(Modality.APPLICATION_MODAL);
+         Stage popupwindow = new Stage();
 
-        popupwindow.setTitle(title);
-        Label label1 = new Label(text);
-        Button button1 = new Button(button);
-        button1.setOnAction(e -> popupwindow.close());
+         popupwindow.initModality(Modality.APPLICATION_MODAL);
 
-        VBox layout = new VBox(10);
+         popupwindow.setTitle(title);
+         Label label1 = new Label(text);
+         Button button1 = new Button(button);
+         button1.setOnAction(e -> popupwindow.close());
 
-        layout.getChildren().addAll(label1, button1);
-        layout.setAlignment(Pos.CENTER);
+         VBox layout = new VBox(10);
 
-        Scene scene1 = new Scene(layout, 300, 250);
+         layout.getChildren().addAll(label1, button1);
+         layout.setAlignment(Pos.CENTER);
 
-        popupwindow.setScene(scene1);
-        popupwindow.showAndWait();
-    }
+         Scene scene1 = new Scene(layout, 300, 250);
+
+         popupwindow.setScene(scene1);
+         popupwindow.showAndWait();
+     }
 
 }
