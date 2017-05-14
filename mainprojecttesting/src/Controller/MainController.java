@@ -21,6 +21,7 @@ public class MainController {
     @FXML Button logoutButton;
     @FXML TilePane menuPane;
     @FXML AnchorPane mainViewAnchor;
+    @FXML AnchorPane workPlaceAnchor;
 
     @FXML
     public void logoutAction(ActionEvent actionEvent) {
@@ -28,6 +29,90 @@ public class MainController {
         try {
             mainAnchor = FXMLLoader.load(getClass().getResource("/View/LoginView.fxml"));
             mainViewAnchor.getChildren().setAll(mainAnchor);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        }
+    }
+
+    @FXML
+    public void mhScreen(ActionEvent actionEvent) {
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource("/View/MhView.fxml"));
+            workPlaceAnchor.getChildren().setAll(wpAnchor);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        }
+    }
+
+    @FXML
+    public void userScreen(ActionEvent actionEvent) {
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource("/View/UserView.fxml"));
+            workPlaceAnchor.getChildren().setAll(wpAnchor);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        }
+    }
+
+    @FXML
+    public void customerScreen(ActionEvent actionEvent) {
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource("/View/CustomerView.fxml"));
+            workPlaceAnchor.getChildren().setAll(wpAnchor);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        }
+    }
+
+    @FXML
+    public void rentalScreen(ActionEvent actionEvent) {
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource("/View/RentalView.fxml"));
+            workPlaceAnchor.getChildren().setAll(wpAnchor);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        }
+    }
+
+    @FXML
+    public void extrasScreen(ActionEvent actionEvent) {
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource("/View/ExtrasView.fxml"));
+            workPlaceAnchor.getChildren().setAll(wpAnchor);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        }
+    }
+
+    @FXML
+    public void reservScreen(ActionEvent actionEvent) {
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource("/View/ReservationView.fxml"));
+            workPlaceAnchor.getChildren().setAll(wpAnchor);
+
+        } catch (IOException ex) {
+            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        }
+    }
+
+    @FXML
+    public void repairScreen(ActionEvent actionEvent) {
+        AnchorPane wpAnchor;
+        try {
+            wpAnchor = FXMLLoader.load(getClass().getResource("/View/RepairView.fxml"));
+            workPlaceAnchor.getChildren().setAll(wpAnchor);
 
         } catch (IOException ex) {
             ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
