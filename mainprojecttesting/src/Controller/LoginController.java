@@ -1,7 +1,6 @@
 package Controller;
 
 
-import Model.DBConn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 public class LoginController {
 
@@ -24,6 +22,9 @@ public class LoginController {
     private void login(ActionEvent event) {
         // connect to the db and check password and then spawn the new stage MainView or an error message
         // then delete the text from user and pass fields
+        String userName = userField.getText();
+        String password = passField.getText();
+
         AnchorPane mainAnchor;
         try {
             mainAnchor = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));

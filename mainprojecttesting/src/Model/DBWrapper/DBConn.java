@@ -1,4 +1,4 @@
-package Model;
+package Model.DBWrapper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
