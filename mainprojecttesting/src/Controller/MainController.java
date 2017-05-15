@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -88,5 +89,12 @@ public class MainController {
     private void showError() {
         // to do : popup error could not login coz of fxml not found or sth else
         // do it here else it is redundant ^^
+    }
+
+    public void userNameLabel(){
+
+        LoginController loginController = new LoginController();
+        String userName = loginController.userField.getText();
+        usernameLabel.setText(userName);
     }
 }

@@ -1,3 +1,4 @@
+import Model.DBWrapper.DBConn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,5 +18,7 @@ public class Main extends Application {
 //testy
     public static void main(String[] args) {
         launch(args);
+        DBConn dbConnTest = new DBConn();
+        dbConnTest.addMotorHomeToDB("brandtest", 23, "plateTest", 99, "statusTest");
     }
 }

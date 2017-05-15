@@ -6,15 +6,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="26.0" layoutY="25.0" prefHeight="173.0" prefWidth="534.0">
+      <TableView layoutX="-1.0" prefHeight="198.0" prefWidth="586.0">
          <columns>
-            <TableColumn prefWidth="74.0" text="ID" />
-            <TableColumn prefWidth="171.0" text="Name" />
-            <TableColumn minWidth="0.0" prefWidth="211.0" text="Type" />
-            <TableColumn minWidth="0.0" prefWidth="92.0" text="Price" />
+            <TableColumn prefWidth="60.0" text="ID" />
+            <TableColumn prefWidth="195.0" text="Name" />
+            <TableColumn minWidth="0.0" prefWidth="94.0" text="Type" />
+            <TableColumn prefWidth="102.0" text="No. of units" />
+            <TableColumn minWidth="0.0" prefWidth="134.0" text="Price" />
          </columns>
       </TableView>
-      <GridPane layoutX="12.0" layoutY="212.0" prefHeight="153.0" prefWidth="508.0">
+      <GridPane layoutX="7.0" layoutY="202.0" prefHeight="180.0" prefWidth="573.0">
          <children>
             <Label text="ID:" GridPane.halignment="RIGHT" />
             <Label text="Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
