@@ -15,10 +15,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-//testy
     public static void main(String[] args) {
         launch(args);
-        DBConn dbConnTest = new DBConn();
-        dbConnTest.addMotorHomeToDB("brandtest", 23, "plateTest", 99, "statusTest");
     }
 }
