@@ -39,6 +39,7 @@ public class MainController {
     @FXML
     public void mhScreen(ActionEvent actionEvent) {
         updateWorkScreen("/View/MhView.fxml");
+        repairButton.setDisable(true);
     }
 
     @FXML
