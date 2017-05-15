@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainViewAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+   <children>
+      <TilePane fx:id="menuPane" prefHeight="267.0" prefWidth="112.0">
+         <children>
+            <Button fx:id="mhButton" mnemonicParsing="false" onAction="#mhScreen" prefHeight="38.0" prefWidth="112.0" text="Motorhome" />
+            <Button fx:id="userButton" mnemonicParsing="false" onAction="#userScreen" prefHeight="38.0" prefWidth="112.0" text="User" />
+            <Button fx:id="customerButton" mnemonicParsing="false" onAction="#customerScreen" prefHeight="38.0" prefWidth="112.0" text="Customer" />
+            <Button fx:id="rentalButton" mnemonicParsing="false" onAction="#rentalScreen" prefHeight="38.0" prefWidth="112.0" text="Rental" />
+            <Button fx:id="extrasButton" mnemonicParsing="false" onAction="#extrasScreen" prefHeight="38.0" prefWidth="112.0" text="Extras" />
+            <Button fx:id="reservButton" mnemonicParsing="false" onAction="#reservScreen" prefHeight="38.0" prefWidth="112.0" text="Reservation" />
+            <Button fx:id="repairButton" mnemonicParsing="false" onAction="#repairScreen" prefHeight="38.0" prefWidth="112.0" text="Repair" />
+         </children>
+      </TilePane>
+      <SplitPane dividerPositions="0.13392857142857142" layoutX="112.0" maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="450.0" prefWidth="588.0">
+        <items>
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="586.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="6.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="574.0" text="Nordic Motorhomes">
+                     <font>
+                        <Font name="Comic Sans MS" size="25.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="workPlaceAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" />
+        </items>
+      </SplitPane>
+      <Button fx:id="logoutButton" layoutY="412.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="38.0" prefWidth="112.0" text="Log out" />
+      <Label layoutX="27.0" layoutY="296.0" prefHeight="17.0" prefWidth="58.0" text="Account:" />
+      <Label id="labelnameid" fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="313.0" prefHeight="17.0" prefWidth="112.0" />
+   </children>
+</AnchorPane>

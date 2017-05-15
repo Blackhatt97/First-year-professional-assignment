@@ -32,6 +32,26 @@ public class DBConn {
         return DB_NAME;
     }
 
+    public void deleteMotorhomeFromDB(int id){
+
+        Connection con = getConn();
+
+        String deleteQuery = "DELETE FROM `motorhomes` WHERE `id` = ? ;";
+        PreparedStatement ps = null;
+        try{
+            ps = con.prepareStatement(deleteQuery);
+            ps.setInt(1,id);
+            ps.execute();
+            con.close();
+            
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+
+
+    }
+
     public void addMotorHomeToDB(String brand, int fab_year, String reg_plate, int mileage, String status) {
 
         Connection connection = getConn();
