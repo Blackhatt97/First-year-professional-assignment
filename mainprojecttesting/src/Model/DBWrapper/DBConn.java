@@ -52,7 +52,7 @@ public class DBConn {
 
     }
 
-    public void addMotorHomeToDB(String brand, int fab_year, String reg_plate, int mileage, String status) {
+    public void addMotorHomeToDB(String brand, int fab_year, String reg_plate, int mileage, int status) {
 
         Connection connection = getConn();
 //        brand = "brandtest";
@@ -71,7 +71,7 @@ public class DBConn {
             ps.setString(1, brand);
             ps.setInt(2, fab_year);
             ps.setInt(3, mileage);
-            ps.setString(4, status);
+            ps.setInt(4, status);
             ps.setString(5, reg_plate);
             ps.execute();
             connection.close();
