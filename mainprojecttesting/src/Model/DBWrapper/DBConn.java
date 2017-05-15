@@ -30,5 +30,7 @@ public class DBConn {
     public static String getDbName() {
         return DB_NAME;
     }
+
+    public static void deleteAction(){}
 }
 
