@@ -26,6 +26,8 @@ public class Motorhome {
         this.status = status;
     }
 
+
+
     public String getReg_plate() {
         return reg_plate;
     }

@@ -15,11 +15,11 @@ import static Model.ErrorHandler.popUp;
  */
 public class LoginWrapper {
 
-    public static User loginAuthentication(String userName, String password){
-
+    public User loginAuthentication(String userName, String password){
+        DBConn dbConn = new DBConn();
         Connection conn = null;
         try {
-            conn = DBConn.getConn();
+            conn = dbConn.getConn();
             String query = "SELECT * FROM `users` " +
                     "WHERE `email` = ? AND `pass` = ?";
             PreparedStatement ps = conn.prepareStatement(query);

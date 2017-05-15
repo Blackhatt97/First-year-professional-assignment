@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import sun.rmi.runtime.Log;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -36,8 +37,8 @@ public class LoginController {
         String userName = userField.getText();
         String password = passField.getText();
         AnchorPane mainAnchor;
-
-        if(LoginWrapper.loginAuthentication(userName,password) != null)
+        LoginWrapper loginWrapper = new LoginWrapper();
+        if(loginWrapper.loginAuthentication(userName,password) != null)
         {
 
             try{
