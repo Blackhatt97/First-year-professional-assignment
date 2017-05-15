@@ -10,16 +10,14 @@
          <columns>
             <TableColumn prefWidth="36.0" text="ID" />
             <TableColumn prefWidth="72.0" text="CustomerID" />
-            <TableColumn prefWidth="81.0" text="Reserv. Date" />
-            <TableColumn prefWidth="71.0" text="Start Date" />
+            <TableColumn prefWidth="82.0" text="Reserv. Date" />
+            <TableColumn prefWidth="70.0" text="Start Date" />
             <TableColumn prefWidth="73.0" text="End Date" />
-            <TableColumn prefWidth="70.0" text="Pickup km" />
-            <TableColumn prefWidth="70.0" text="Dropoff km" />
-            <TableColumn prefWidth="57.0" text="MH Type" />
-            <TableColumn prefWidth="55.0" text="Extras" />
+            <TableColumn prefWidth="68.0" text="MH Type" />
+            <TableColumn prefWidth="184.0" text="Extras" />
          </columns>
       </TableView>
-      <GridPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="221.0" prefHeight="150.0" prefWidth="566.0">
+      <GridPane alignment="CENTER_LEFT" layoutX="3.0" layoutY="204.0" prefHeight="179.0" prefWidth="579.0">
          <children>
             <TextField editable="false" GridPane.columnIndex="1" />
             <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
