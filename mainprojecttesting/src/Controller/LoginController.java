@@ -1,6 +1,5 @@
 package Controller;
 
-
 import Model.DBWrapper.DBConn;
 import Model.DBWrapper.LoginWrapper;
 import javafx.event.ActionEvent;
@@ -44,6 +43,9 @@ public class LoginController {
             try{
                 mainAnchor = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));
                 loginAnchor.getChildren().setAll(mainAnchor);
+
+                MainController mainController = new MainController();
+                mainController.userNameLabel();
             }
             catch(IOException ex){
                 ex.printStackTrace();
