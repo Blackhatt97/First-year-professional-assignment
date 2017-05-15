@@ -39,5 +39,7 @@
         </items>
       </SplitPane>
       <Button fx:id="logoutButton" layoutY="412.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="38.0" prefWidth="112.0" text="Log out" />
+      <Label layoutX="27.0" layoutY="296.0" prefHeight="17.0" prefWidth="58.0" text="Account:" />
+      <Label id="labelnameid" fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="313.0" prefHeight="17.0" prefWidth="112.0" />
    </children>
 </AnchorPane>
