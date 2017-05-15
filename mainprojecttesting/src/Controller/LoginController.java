@@ -2,6 +2,7 @@ package Controller;
 
 
 import Model.DBWrapper.DBConn;
+import Model.DBWrapper.LoginWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,51 +35,23 @@ public class LoginController {
         // then delete the text from user and pass fields
         String userName = userField.getText();
         String password = passField.getText();
-
         AnchorPane mainAnchor;
-        Connection conn = null;
-        try {
-            conn = DBConn.getConn();
-            String query = "SELECT * FROM `users` " +
-                    "WHERE `email` = ? AND `pass` = ?";
-            PreparedStatement ps = conn.prepareStatement(query);
 
-            ps.setString(1, userName);
-            ps.setString(2, password);
-            ps.execute();
+        if(LoginWrapper.loginAuthentication(userName,password) != null)
+        {
 
-            ResultSet rs = ps.getResultSet();
-            if (rs.first()) {
+            try{
                 mainAnchor = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));
                 loginAnchor.getChildren().setAll(mainAnchor);
-            } else
-                popUp("Failed", "Invalid username and/or password", "Close");
-
-        } catch (Exception ex) {
-            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+            }
+            catch(IOException ex){
+                ex.printStackTrace();
+            }
         }
+
+
+
     }
 
-     private void popUp(String title, String text, String button) {
-
-         Stage popupwindow = new Stage();
-
-         popupwindow.initModality(Modality.APPLICATION_MODAL);
-
-         popupwindow.setTitle(title);
-         Label label1 = new Label(text);
-         Button button1 = new Button(button);
-         button1.setOnAction(e -> popupwindow.close());
-
-         VBox layout = new VBox(10);
-
-         layout.getChildren().addAll(label1, button1);
-         layout.setAlignment(Pos.CENTER);
-
-         Scene scene1 = new Scene(layout, 300, 250);
-
-         popupwindow.setScene(scene1);
-         popupwindow.showAndWait();
-     }
 
 }
