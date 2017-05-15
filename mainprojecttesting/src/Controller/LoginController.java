@@ -3,6 +3,7 @@ package Controller;
 
 import Model.DBWrapper.DBConn;
 import Model.DBWrapper.LoginWrapper;
+import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +23,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 public class LoginController {
 
     @FXML Button loginButton;
     @FXML TextField userField;
     @FXML PasswordField passField;
     @FXML AnchorPane loginAnchor;
+
 
     @FXML
     private void login(ActionEvent event) {
@@ -37,7 +40,8 @@ public class LoginController {
         String password = passField.getText();
         AnchorPane mainAnchor;
 
-        if(LoginWrapper.loginAuthentication(userName,password) != null)
+        User user = LoginWrapper.loginAuthentication(userName,password);
+        if(user != null)
         {
 
             try{

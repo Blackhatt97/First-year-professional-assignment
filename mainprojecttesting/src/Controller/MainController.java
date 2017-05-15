@@ -4,10 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
+
 
 public class MainController {
 
@@ -22,6 +24,7 @@ public class MainController {
     @FXML TilePane menuPane;
     @FXML AnchorPane mainViewAnchor;
     @FXML AnchorPane workPlaceAnchor;
+    @FXML Label usernameLabel;
 
     @FXML
     public void logoutAction(ActionEvent actionEvent) {
@@ -39,7 +42,6 @@ public class MainController {
     @FXML
     public void mhScreen(ActionEvent actionEvent) {
         updateWorkScreen("/View/MhView.fxml");
-        repairButton.setDisable(true);
     }
 
     @FXML
