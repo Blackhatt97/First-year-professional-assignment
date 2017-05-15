@@ -9,15 +9,12 @@
       <TableView prefHeight="200.0" prefWidth="586.0">
          <columns>
             <TableColumn prefWidth="36.0" text="ID" />
-            <TableColumn prefWidth="45.0" text="Cust.ID" />
-            <TableColumn prefWidth="75.0" text="Reserv. Date" />
-            <TableColumn prefWidth="62.0" text="Start Date" />
-            <TableColumn prefWidth="69.0" text="End Date" />
-            <TableColumn prefWidth="69.0" text="Pickup km" />
-            <TableColumn prefWidth="74.0" text="Dropoff km" />
-            <TableColumn prefWidth="56.0" text="MH Type" />
-            <TableColumn prefWidth="52.0" text="Extras" />
-            <TableColumn prefWidth="47.0" text="Price" />
+            <TableColumn prefWidth="56.0" text="Cust.ID" />
+            <TableColumn prefWidth="97.0" text="Start Date" />
+            <TableColumn prefWidth="102.0" text="End Date" />
+            <TableColumn prefWidth="69.0" text="MH Type" />
+            <TableColumn prefWidth="108.0" text="Extras" />
+            <TableColumn prefWidth="117.0" text="Price" />
          </columns>
       </TableView>
       <GridPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="201.0" prefHeight="183.0" prefWidth="566.0">
@@ -47,7 +44,7 @@
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="40.0" text="Price:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <TextField editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
             <Button mnemonicParsing="false" text="Calculate price" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" text="Load all" />
+            <Button mnemonicParsing="false" text="Load all" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="59.0" />
