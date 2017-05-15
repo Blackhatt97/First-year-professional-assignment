@@ -9,14 +9,14 @@ public class Motorhome {
     private int fab_year;
     private String reg_plate;
     private int mileage;
-    private String status;
+    private int status;
 
     public Motorhome(int id,
                      String brand,
                      int fab_year,
                      String reg_plate,
                      int mileage,
-                     String status){
+                     int status){
 
         this.id = id;
         this.brand = brand;
@@ -69,11 +69,11 @@ public class Motorhome {
         this.mileage = mileage;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }
