@@ -6,14 +6,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="24.0" layoutY="14.0" prefHeight="200.0" prefWidth="538.0">
+      <TableView layoutX="27.0" layoutY="14.0" prefHeight="200.0" prefWidth="537.0">
          <columns>
-            <TableColumn prefWidth="36.0" text="ID" />
-            <TableColumn prefWidth="93.0" text="First Name" />
-            <TableColumn prefWidth="75.0" text="Last Name" />
-            <TableColumn prefWidth="75.0" text="Birthdate" />
-            <TableColumn prefWidth="163.0" text="Email" />
-            <TableColumn prefWidth="94.0" text="Address" />
+            <TableColumn prefWidth="59.0" text="ID" />
+            <TableColumn prefWidth="105.0" text="First Name" />
+            <TableColumn prefWidth="111.0" text="Last Name" />
+            <TableColumn prefWidth="261.0" text="Email" />
          </columns>
       </TableView>
       <GridPane alignment="CENTER_LEFT" layoutX="40.0" layoutY="221.0" prefHeight="150.0" prefWidth="506.0">
@@ -33,7 +31,7 @@
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Create" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" text="Reset Fields" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="Reset Fields" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
             <Button mnemonicParsing="false" text="Load all" GridPane.halignment="LEFT" />
          </children>
          <columnConstraints>
