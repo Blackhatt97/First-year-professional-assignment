@@ -11,15 +11,16 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MhViewController">
    <children>
       <TableView fx:id="motorhomeTable" prefHeight="200.0" prefWidth="586.0">
         <columns>
-          <TableColumn prefWidth="67.0" text="ID" />
-            <TableColumn prefWidth="117.0" text="Status" />
-            <TableColumn prefWidth="202.0" text="Plate number" />
-          <TableColumn minWidth="0.0" prefWidth="82.0" text="Type" />
-            <TableColumn prefWidth="117.0" text="Brand" />
+          <TableColumn prefWidth="67.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="117.0" text="Status"><cellValueFactory><PropertyValueFactory property="status" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="202.0" text="Plate number"><cellValueFactory><PropertyValueFactory property="reg_plate" /></cellValueFactory></TableColumn>
+          <TableColumn minWidth="0.0" prefWidth="82.0" text="Type"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="117.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
         </columns>
       </TableView>
       <GridPane layoutX="7.0" layoutY="206.0" prefHeight="172.0" prefWidth="573.0">
