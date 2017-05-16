@@ -1,11 +1,10 @@
 package Controller;
 
-import Controller.LoginController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
@@ -25,7 +24,7 @@ public class MainController {
     @FXML TilePane menuPane;
     @FXML AnchorPane mainViewAnchor;
     @FXML AnchorPane workPlaceAnchor;
-    @FXML Label usernameLabel;
+    @FXML TextField usernameField;
 
     @FXML
     public void logoutAction(ActionEvent actionEvent) {
@@ -89,5 +88,9 @@ public class MainController {
     private void showError() {
         // to do : popup error could not login coz of fxml not found or sth else
         // do it here else it is redundant ^^
+    }
+
+    public void setUsernameField(String username) {
+        usernameField.setText(username);
     }
 }
