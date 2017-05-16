@@ -37,6 +37,7 @@ public class MhViewController {
         data.loadList();
         motorhomeTable.setItems(data.getMotorhomeList());
     }
+
     //Vaidaras
     public void create(ActionEvent actionEvent) {
 
@@ -53,7 +54,8 @@ public class MhViewController {
         dbConn = null;
 
     }
-//TBD by Raz
+
+    //TBD by Raz
     public void update(ActionEvent actionEvent) {
 
 
