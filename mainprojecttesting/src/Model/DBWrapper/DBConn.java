@@ -1,6 +1,8 @@
 package Model.DBWrapper;
 
 import Model.Motorhome;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 
@@ -55,12 +57,6 @@ public class DBConn {
     public void addMotorHomeToDB(String brand, int fab_year, String reg_plate, int mileage, int status) {
 
         Connection connection = getConn();
-//        brand = "brandtest";
-//        fab_year = 23;
-//        reg_plate = "regplateTest";
-//        mileage = 99;
-//        status = "statustest";
-
         String sql = "INSERT INTO `motorhomes` (`brand`, `fab_year`, `mileage`, `mh_status`, `plate`) " +
                 "VALUES ( ?,  ?,  ?, ?, ?);";
         PreparedStatement ps = null;
@@ -80,7 +76,31 @@ public class DBConn {
             e.printStackTrace();
         }
 
+    }
 
+    public ObservableList<Motorhome> getAllMotorHomes(){
+
+        ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM motorhomes";
+        ResultSet resultSet = sqlQueryWithReturn(sql);
+
+        try {
+            while (resultSet.next()){
+                Motorhome motorhome = new Motorhome(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getInt(3),
+                        resultSet.getString(6),
+                        resultSet.getInt(4),
+                        resultSet.getInt(5));
+                motorhomes.add(motorhome);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < motorhomes.size() ; i++) {
+            System.out.println(motorhomes.get(i).getReg_plate());
+        }
+        return motorhomes;
     }
 
     public ResultSet sqlQueryWithReturn(String sqlQuery) {
@@ -90,8 +110,8 @@ public class DBConn {
         try {
 
             Connection connection = getConn();
-            Statement statement = connection.createStatement();
-            resultSet = statement.executeQuery(sqlQuery);
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            resultSet = preparedStatement.executeQuery();
             //connection.close();
             return resultSet;
 
