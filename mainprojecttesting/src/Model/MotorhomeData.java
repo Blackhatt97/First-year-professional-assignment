@@ -16,7 +16,6 @@ public class MotorhomeData {
         DBConn dbConn = new DBConn();
         motorhomeList = dbConn.getAllMotorHomes();
         dbConn = null;
-        //asd
     }
 
 }
