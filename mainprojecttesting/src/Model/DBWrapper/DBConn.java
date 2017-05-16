@@ -82,9 +82,11 @@ public class DBConn {
 
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
         String sql = "SELECT * FROM motorhomes";
-        ResultSet resultSet = sqlQueryWithReturn(sql);
 
         try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Motorhome motorhome = new Motorhome(resultSet.getInt(1),
                         resultSet.getString(2),
@@ -94,6 +96,7 @@ public class DBConn {
                         resultSet.getInt(5));
                 motorhomes.add(motorhome);
             }
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -103,26 +106,4 @@ public class DBConn {
         return motorhomes;
     }
 
-    public ResultSet sqlQueryWithReturn(String sqlQuery) {
-
-        ResultSet resultSet = null;
-
-        try {
-
-            Connection connection = getConn();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            resultSet = preparedStatement.executeQuery();
-            //connection.close();
-            return resultSet;
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-            return null;
-
-        }
-
-    }
-
 }
-
