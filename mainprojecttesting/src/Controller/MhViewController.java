@@ -2,11 +2,14 @@ package Controller;
 
 import Model.DBWrapper.DBConn;
 import Model.Motorhome;
+import Model.Motorhome;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
@@ -26,6 +29,7 @@ public class MhViewController {
     @FXML TextField fabYearField;
     @FXML TextField kilometrageField;
     @FXML TableView<Motorhome> motorhomeTable;
+//push
 
     ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
     DBConn dbConn = null;
@@ -33,12 +37,15 @@ public class MhViewController {
 
     @FXML
     public void initialize(){
+        loadAllMotorHomes();
+    }
+
+    public void loadAllMotorHomes(){
         dbConn = new DBConn();
         motorhomes = dbConn.getAllMotorHomes();
         dbConn = null;
         motorhomeTable.setItems(motorhomes);
     }
-
     public void create(ActionEvent actionEvent) {
 
         //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled, say which fields are missing
@@ -50,6 +57,7 @@ public class MhViewController {
                 Integer.valueOf(kilometrageField.getText()),
                 1);
         System.out.println("New Motorhome Created!");
+        loadAllMotorHomes();
         dbConn = null;
 
     }
@@ -61,6 +69,17 @@ public class MhViewController {
     }
 
     public void delete(ActionEvent actionEvent) {
+        Motorhome selectedCellIndex = motorhomeTable.getSelectionModel().getSelectedItem();
+        int motorhome = selectedCellIndex.getId();
+        dbConn = new DBConn();
+        dbConn.deleteFromDB(motorhome,"motorhomes");
+        for(int i = 0; i < motorhomes.size(); i++){
+            if(motorhome == motorhomes.get(i).getId())
+                motorhomes.remove(i);
+        }
+        motorhomeTable.refresh();
+
+        System.out.println(selectedCellIndex);
     }
 
     public void loadAll(ActionEvent actionEvent) {
@@ -68,4 +87,6 @@ public class MhViewController {
 
     public void resetAll(ActionEvent actionEvent) {
     }
+
 }
+

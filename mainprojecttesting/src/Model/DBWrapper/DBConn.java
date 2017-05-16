@@ -34,11 +34,11 @@ public class DBConn {
         return DB_NAME;
     }
 
-    public void deleteMotorhomeFromDB(int id){
+    public void deleteFromDB(int id, String tableName){
 
         Connection con = getConn();
 
-        String deleteQuery = "DELETE FROM `motorhomes` WHERE `id` = ? ;";
+        String deleteQuery = "DELETE FROM `"+ tableName + "` WHERE `id` = ? ;";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(deleteQuery);
