@@ -25,8 +25,8 @@ public class MhViewController {
     @FXML TextField brandField;
     @FXML TextField fabYearField;
     @FXML TextField kilometrageField;
-    @FXML TableView motorhomeTable;
-//push
+    @FXML TableView<Motorhome> motorhomeTable;
+
     ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
     DBConn dbConn = null;
 
@@ -36,7 +36,7 @@ public class MhViewController {
         dbConn = new DBConn();
         motorhomes = dbConn.getAllMotorHomes();
         dbConn = null;
-        motorhomeTable.setItems();
+        motorhomeTable.setItems(motorhomes);
     }
 
     public void create(ActionEvent actionEvent) {
