@@ -37,6 +37,7 @@ public class MhViewController {
         data.loadList();
         motorhomeTable.setItems(data.getMotorhomeList());
     }
+    //Vaidaras
     public void create(ActionEvent actionEvent) {
 
         //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled, say which fields are missing
@@ -52,13 +53,14 @@ public class MhViewController {
         dbConn = null;
 
     }
-
+//TBD by Raz
     public void update(ActionEvent actionEvent) {
 
 
 
     }
 
+    //Bogdan
     public void delete(ActionEvent actionEvent) {
         Motorhome selectedCellIndex = motorhomeTable.getSelectionModel().getSelectedItem();
         int motorhome = selectedCellIndex.getId();
@@ -72,6 +74,7 @@ public class MhViewController {
     }
 
     public void loadAll(ActionEvent actionEvent) {
+        loadAllMotorHomes();
     }
 
     public void resetAll(ActionEvent actionEvent) {
