@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView prefHeight="200.0" prefWidth="586.0">
+         <columns>
+            <TableColumn prefWidth="36.0" text="ID" />
+            <TableColumn prefWidth="56.0" text="Cust.ID" />
+            <TableColumn prefWidth="97.0" text="Start Date" />
+            <TableColumn prefWidth="102.0" text="End Date" />
+            <TableColumn prefWidth="69.0" text="MH Type" />
+            <TableColumn prefWidth="108.0" text="Extras" />
+            <TableColumn prefWidth="117.0" text="Price" />
+         </columns>
+      </TableView>
+      <GridPane alignment="CENTER_LEFT" layoutX="10.0" layoutY="201.0" prefHeight="183.0" prefWidth="566.0">
+         <children>
+            <TextField editable="false" GridPane.columnIndex="1" />
+            <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField GridPane.columnIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="20.0" text="ID:" GridPane.halignment="RIGHT" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="71.0" text="CustomerID:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="100.0" text="Reservation Date:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="58.0" text="Start Date:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="54.0" text="End Date:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="62.0" text="Pickup km:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Create" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Update" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+            <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="71.0" text="Dropoff km:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="100.0" text="Motorhome Type:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <ChoiceBox prefHeight="25.0" prefWidth="189.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="40.0" text="Extras:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <ComboBox prefHeight="25.0" prefWidth="192.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Clear" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="40.0" text="Price:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <TextField editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" text="Calculate price" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+            <Button mnemonicParsing="false" text="Load all" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="59.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="143.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="81.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="10.0" prefWidth="143.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>
