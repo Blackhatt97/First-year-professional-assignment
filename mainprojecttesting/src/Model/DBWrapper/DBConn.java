@@ -51,7 +51,6 @@ public class DBConn {
             ex.printStackTrace();
         }
 
-
     }
 
     public void addMotorHomeToDB(String brand, int fabYear, String regPlate, int mileage, int status, int type) {
