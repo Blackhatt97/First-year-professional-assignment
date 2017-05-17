@@ -83,7 +83,7 @@ public class MhViewController {
 
     //TBD by Raz
     public void update(ActionEvent actionEvent) {
-	    
+
 	    DBConn dbConn = new DBConn();
         dbConn.updateMotorHome(Integer.parseInt(idField.getText()),
                 (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
