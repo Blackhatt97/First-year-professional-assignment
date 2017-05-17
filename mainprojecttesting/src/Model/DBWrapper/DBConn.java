@@ -106,4 +106,29 @@ public class DBConn {
         return motorhomes;
     }
 
+    public void updateMotorHome(int id, int status, String plate, int type,
+                                String brand, int fabYear, int kilometrage) {
+
+        Connection connection = getConn();
+        String sql = "UPDATE `motorhomes` SET `mh_status` = ?, `plate` = ?, `brand` = ?," +
+                "`fab_year`= ?, `mileage` = ? WHERE `id` = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, status);
+            ps.setString(2, plate);
+            ps.setString(3, brand);
+            ps.setInt(4, fabYear);
+            ps.setInt(5, kilometrage);
+            ps.setInt(6, id);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
