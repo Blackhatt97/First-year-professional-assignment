@@ -119,6 +119,7 @@ public class CustomerViewController {
         emailField.setText("");
         addressField.setText("");
         birthDate.setValue(null);
+        customerTable.getSelectionModel().select(null);
     }
 
     public void load(ActionEvent actionEvent) { loadAllCustomers();
