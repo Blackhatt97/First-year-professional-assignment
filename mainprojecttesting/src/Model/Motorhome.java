@@ -15,9 +15,9 @@ public class Motorhome {
     public Motorhome(int id,
                      String brand,
                      int fabYear,
-                     String regPlate,
                      int mileage,
                      int status,
+                     String regPlate,
                      int type) {
 
         this.id = id;
