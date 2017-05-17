@@ -79,12 +79,16 @@ public class MhViewController {
         dbConn = null;
 
     }
+<<<<<<< HEAD
+//TBD by Raz
     @FXML
+=======
 
     //TBD by Raz
+>>>>>>> ddfafb1833d7299fb8b026c7ff39936579c3f76d
     public void update(ActionEvent actionEvent) {
-	    
-	    DBConn dbConn = new DBConn();
+
+        DBConn dbConn = new DBConn();
         dbConn.updateMotorHome(Integer.parseInt(idField.getText()),
                 (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
                 plateNumberField.getText(),
