@@ -12,6 +12,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.sql.Date;
+
 /**
  * Created by blackhatt on 16/05/2017.
  */
@@ -80,34 +82,45 @@ public class CustomerViewController {
         dbConn = null;
 
     }
-//    public void update(ActionEvent actionEvent) {
-//
-//        DBConn dbConn = new DBConn();
-//        dbConn.updateCustomer(Integer.parseInt(idField.getText()),
-//                (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
-//                plateNumberField.getText(),
-//                1,  // have to update type too somehow later
-//                brandField.getText(),
-//                Integer.parseInt(fabYearField.getText()),
-//                Integer.parseInt(kilometrageField.getText()));
-//        loadAllCustomers();
-//
-//    }
+    public void update(ActionEvent actionEvent) {
+
+        DatePicker datePicker = birthDate;
+        java.sql.Date timestamp = java.sql.Date.valueOf(datePicker.getValue());
+
+        DBConn dbConn = new DBConn();
+        dbConn.updateCustomer(Integer.parseInt(idField.getText()),
+                firstName.getText(),
+                lastNameField.getText(),
+                timestamp,
+                addressField.getText(),
+                emailField.getText());
+        loadAllCustomers();
+
+    }
 
     private void loadAllCustomers() {
         data.loadList();
         customerTable.setItems(data.getCustomerList());
     }
 
-    public void update(ActionEvent actionEvent) {
-    }
-
     public void delete(ActionEvent actionEvent) {
+        Customer selectedRow = customerTable.getSelectionModel().getSelectedItem();
+        int custId = selectedRow.getId();
+        DBConn dbConn = new DBConn();
+        dbConn.deleteFromDB(custId, "customers");
+        loadAllCustomers();
+        dbConn = null;
     }
 
     public void resetAll(ActionEvent actionEvent) {
+        idField.setText("");
+        firstName.setText("");
+        lastNameField.setText("");
+        emailField.setText("");
+        addressField.setText("");
+        birthDate.setValue(null);
     }
 
-    public void load(ActionEvent actionEvent) {
+    public void load(ActionEvent actionEvent) { loadAllCustomers();
     }
 }

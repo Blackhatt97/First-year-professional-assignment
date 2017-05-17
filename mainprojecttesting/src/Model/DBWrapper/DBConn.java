@@ -201,4 +201,33 @@ public class DBConn {
         }
 
     }
+public void updateCustomer(int id,
+                           String fname,
+                           String lname,
+                           java.sql.Date dateBirth,
+                           String address,
+                           String email) {
+
+        Connection connection = getConn();
+        String sql = "UPDATE customers SET f_name = ?, l_name = ?, date_birth = ?," +
+                "email = ?, address = ? WHERE id = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setDate(3, dateBirth);
+            ps.setString(4, email);
+            ps.setString(5, address);
+            ps.setInt(6, id);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
