@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainViewAnchor" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="812.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane fx:id="mainViewAnchor" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
       <TilePane fx:id="menuPane" prefHeight="267.0" prefWidth="112.0">
          <children>
@@ -24,22 +24,22 @@
             <Button fx:id="repairButton" mnemonicParsing="false" onAction="#repairScreen" prefHeight="38.0" prefWidth="112.0" text="Repair" />
          </children>
       </TilePane>
-      <SplitPane id="rightSplit" dividerPositions="0.13392857142857142" layoutX="112.0" maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="523.0" prefWidth="700.0">
+      <SplitPane id="rightSplit" dividerPositions="0.13392857142857142" layoutX="112.0" maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="498.0" prefWidth="702.0">
         <items>
-          <AnchorPane id="rightPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="586.0">
+          <AnchorPane id="rightPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="700.0">
                <children>
-                  <Label alignment="CENTER" layoutX="6.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="253.0" text="Nordic Motorhomes">
+                  <Label alignment="CENTER" layoutX="38.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="318.0" text="Nordic Motorhomes">
                      <font>
                         <Font name="Comic Sans MS" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="281.0" layoutY="12.0" prefHeight="17.0" prefWidth="58.0" text="Account:" />
-                  <TextField id="usernameField" fx:id="usernameField" editable="false" layoutX="339.0" layoutY="8.0" prefHeight="25.0" prefWidth="237.0" />
+                  <Label alignment="CENTER" layoutX="378.0" layoutY="12.0" prefHeight="17.0" prefWidth="69.0" text="Account:" />
+                  <TextField id="usernameField" fx:id="usernameField" editable="false" layoutX="447.0" layoutY="8.0" prefHeight="25.0" prefWidth="237.0" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="workPlaceAnchor" minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" />
         </items>
       </SplitPane>
-      <Button fx:id="logoutButton" layoutY="485.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="38.0" prefWidth="112.0" text="Log out" />
+      <Button fx:id="logoutButton" layoutY="460.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="38.0" prefWidth="112.0" text="Log out" />
    </children>
 </AnchorPane>
