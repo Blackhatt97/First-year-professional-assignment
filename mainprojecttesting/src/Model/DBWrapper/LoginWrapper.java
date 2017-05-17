@@ -33,10 +33,10 @@ public class LoginWrapper {
                 return new User(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getDate(4),
-                        rs.getString(5 ),
+                        rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7));
+                        rs.getString(7),
+                        rs.getDate(4));
 
             } else
                 popUp("Failed", "Invalid username and/or password", "Close");
