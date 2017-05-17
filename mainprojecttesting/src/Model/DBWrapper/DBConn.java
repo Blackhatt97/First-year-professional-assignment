@@ -54,21 +54,22 @@ public class DBConn {
 
     }
 
-    public void addMotorHomeToDB(String brand, int fab_year, String reg_plate, int mileage, int status) {
+    public void addMotorHomeToDB(String brand, int fabYear, String regPlate, int mileage, int status) {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `motorhomes` (`brand`, `fab_year`, `mileage`, `mh_status`, `plate`) " +
                 "VALUES ( ?,  ?,  ?, ?, ?);";
+
         PreparedStatement ps = null;
 
         try {
 
             ps = connection.prepareStatement(sql);
             ps.setString(1, brand);
-            ps.setInt(2, fab_year);
+            ps.setInt(2, fabYear);
             ps.setInt(3, mileage);
             ps.setInt(4, status);
-            ps.setString(5, reg_plate);
+            ps.setString(5, regPlate);
             ps.execute();
             connection.close();
 
@@ -81,7 +82,7 @@ public class DBConn {
     public ObservableList<Motorhome> getAllMotorHomes(){
 
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM motorhomes";
+        String sql = "SELECT * FROM motorhomes JOIN motorhometype ON motorhomes.id = motorhometype.motorhome_id";
 
         try {
             Connection connection = getConn();
@@ -93,7 +94,8 @@ public class DBConn {
                         resultSet.getInt(3),
                         resultSet.getString(6),
                         resultSet.getInt(4),
-                        resultSet.getInt(5));
+                        resultSet.getInt(5),
+                        resultSet.getInt(6));
                 motorhomes.add(motorhome);
             }
             connection.close();
@@ -101,7 +103,7 @@ public class DBConn {
             e.printStackTrace();
         }
         for (int i = 0; i < motorhomes.size() ; i++) {
-            System.out.println(motorhomes.get(i).getReg_plate());
+            System.out.println(motorhomes.get(i).getRegPlate());
         }
         return motorhomes;
     }

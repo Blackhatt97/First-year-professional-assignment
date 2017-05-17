@@ -6,34 +6,37 @@ package Model;
 public class Motorhome {
     private int id;
     private String brand;
-    private int fab_year;
-    private String reg_plate;
+    private int fabYear;
+    private String regPlate;
     private int mileage;
     private int status;
+    private int type;
 
     public Motorhome(int id,
                      String brand,
-                     int fab_year,
-                     String reg_plate,
+                     int fabYear,
+                     String regPlate,
                      int mileage,
-                     int status){
+                     int status,
+                     int type) {
 
         this.id = id;
         this.brand = brand;
-        this.fab_year = fab_year;
-        this.reg_plate = reg_plate;
+        this.fabYear = fabYear;
+        this.regPlate = regPlate;
         this.mileage = mileage;
         this.status = status;
+        this.type = type;
     }
 
 
 
-    public String getReg_plate() {
-        return reg_plate;
+    public String getRegPlate() {
+        return regPlate;
     }
 
-    public void setReg_plate(String reg_plate) {
-        this.reg_plate = reg_plate;
+    public void setRegPlate(String regPlate) {
+        this.regPlate = regPlate;
     }
 
     public int getId() {
@@ -53,12 +56,12 @@ public class Motorhome {
         this.brand = brand;
     }
 
-    public int getFab_year() {
-        return fab_year;
+    public int getFabYear() {
+        return fabYear;
     }
 
-    public void setFab_year(int fab_year) {
-        this.fab_year = fab_year;
+    public void setFabYear(int fabYear) {
+        this.fabYear = fabYear;
     }
 
     public int getMileage() {
@@ -75,5 +78,13 @@ public class Motorhome {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

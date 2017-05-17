@@ -25,6 +25,10 @@
             <TableColumn prefWidth="216.0" text="Plate number"><cellValueFactory><PropertyValueFactory property="reg_plate" /></cellValueFactory></TableColumn>
           <TableColumn minWidth="0.0" prefWidth="123.0" text="Type"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="147.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="117.0" text="Status"><cellValueFactory><PropertyValueFactory property="status" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="202.0" text="Plate number"><cellValueFactory><PropertyValueFactory property="regPlate" /></cellValueFactory></TableColumn>
+          <TableColumn minWidth="0.0" prefWidth="82.0" text="Type"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="117.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
         </columns>
       </TableView>
       <GridPane layoutX="8.0" layoutY="205.0" prefHeight="240.0" prefWidth="687.0">

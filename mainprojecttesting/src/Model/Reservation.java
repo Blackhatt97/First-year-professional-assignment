@@ -1,7 +1,6 @@
 package Model;
 
 import java.sql.Date;
-import java.util.ArrayList;
 
 /**
  * Created by blackhatt on 14/05/2017.
@@ -9,10 +8,10 @@ import java.util.ArrayList;
 public class Reservation {
 
     private int id;
-    private int cust_id;
-    private Date current_date;
-    private Date start_date;
-    private Date end_date;
+    private int custId;
+    private Date currentDate;
+    private Date startDate;
+    private Date endDate;
     private double pickup;
     private double dropoff;
     private int type;
@@ -20,7 +19,7 @@ public class Reservation {
 
     public Reservation(int id,
                   int cust_id,
-                  Date current_date,
+                  Date currentDate,
                   Date start_date,
                   Date end_date,
                   double pickup,
@@ -28,10 +27,10 @@ public class Reservation {
                   int type){
 
         this.id = id;
-        this.cust_id = cust_id;
-        this.current_date = current_date;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.custId = cust_id;
+        this.currentDate = currentDate;
+        this.startDate = start_date;
+        this.endDate = end_date;
         this.pickup = pickup;
         this.dropoff = dropoff;
         this.type = type;
@@ -46,36 +45,36 @@ public class Reservation {
         this.id = id;
     }
 
-    public int getCust_id() {
-        return cust_id;
+    public int getCustId() {
+        return custId;
     }
 
-    public void setCust_id(int cust_id) {
-        this.cust_id = cust_id;
+    public void setCustId(int custId) {
+        this.custId = custId;
     }
 
-    public Date getCurrent_date() {
-        return current_date;
+    public Date getCurrentDate() {
+        return currentDate;
     }
 
-    public void setCurrent_date(Date current_date) {
-        this.current_date = current_date;
+    public void setCurrentDate(Date currentDate) {
+        this.currentDate = currentDate;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public double getPickup() {

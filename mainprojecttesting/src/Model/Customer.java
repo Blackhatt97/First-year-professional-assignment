@@ -10,19 +10,19 @@ public class Customer {
     private int id;
     private String fname;
     private String lname;
-    private Date date_birth;
+    private Date dateBirth;
     private String address;
     private String email;
 
     public Customer(int id,
                     String fname,
                     String lname,
-                    Date date_birth,
+                    Date dateBirth,
                     String address,
                     String email){
         this.fname = fname;
         this.lname = lname;
-        this.date_birth = date_birth;
+        this.dateBirth = dateBirth;
         this.address = address;
         this.email = email;
 
@@ -52,12 +52,12 @@ public class Customer {
         this.lname = lname;
     }
 
-    public Date getDate_birth() {
-        return date_birth;
+    public Date getDateBirth() {
+        return dateBirth;
     }
 
-    public void setDate_birth(Date date_birth) {
-        this.date_birth = date_birth;
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
     }
 
     public String getAddress() {
