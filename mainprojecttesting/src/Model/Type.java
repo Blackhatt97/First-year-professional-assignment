@@ -6,33 +6,33 @@ package Model;
 public class Type {
 
     private int id;
-    private int no_of_beds;
-    private double price_per_day;
+    private int noOfBeds;
+    private double pricePerDay;
 
     public Type(int id,
                 int no_of_beds,
                 double price_per_day){
 
         this.id = id;
-        this.no_of_beds = no_of_beds;
-        this.price_per_day = price_per_day;
+        this.noOfBeds = no_of_beds;
+        this.pricePerDay = price_per_day;
 
     }
 
-    public int getNo_of_beds() {
-        return no_of_beds;
+    public int getNoOfBeds() {
+        return noOfBeds;
     }
 
-    public void setNo_of_beds(int no_of_beds) {
-        this.no_of_beds = no_of_beds;
+    public void setNoOfBeds(int noOfBeds) {
+        this.noOfBeds = noOfBeds;
     }
 
-    public double getPrice_per_day() {
-        return price_per_day;
+    public double getPricePerDay() {
+        return pricePerDay;
     }
 
-    public void setPrice_per_day(double price_per_day) {
-        this.price_per_day = price_per_day;
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
     }
 
     public int getId() {

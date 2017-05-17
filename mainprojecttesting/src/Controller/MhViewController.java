@@ -49,10 +49,10 @@ public class MhViewController {
     private void updateFields(Motorhome mh) {
         idField.setText(Integer.toString(mh.getId()));
         statusChoiceBox.getSelectionModel().select(new Integer(mh.getStatus()));
-        plateNumberField.setText(mh.getReg_plate());
+        plateNumberField.setText(mh.getRegPlate());
         //typeChoiceBox.getSelectionModel().select(); we have no type yet :-??
         brandField.setText(mh.getBrand());
-        fabYearField.setText(Integer.toString(mh.getFab_year()));
+        fabYearField.setText(Integer.toString(mh.getFabYear()));
         kilometrageField.setText(Integer.toString(mh.getMileage()));
     }
 

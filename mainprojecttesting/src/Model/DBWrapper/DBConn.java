@@ -59,6 +59,7 @@ public class DBConn {
         Connection connection = getConn();
         String sql = "INSERT INTO `motorhomes` (`brand`, `fab_year`, `mileage`, `mh_status`, `plate`) " +
                 "VALUES ( ?,  ?,  ?, ?, ?);";
+
         PreparedStatement ps = null;
 
         try {
@@ -81,7 +82,7 @@ public class DBConn {
     public ObservableList<Motorhome> getAllMotorHomes(){
 
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM motorhomes";
+        String sql = "SELECT * FROM motorhomes JOIN motorhometype ON motorhomes.id = motorhometype.motorhome_id";
 
         try {
             Connection connection = getConn();
@@ -93,7 +94,8 @@ public class DBConn {
                         resultSet.getInt(3),
                         resultSet.getString(6),
                         resultSet.getInt(4),
-                        resultSet.getInt(5));
+                        resultSet.getInt(5),
+                        resultSet.getInt(6));
                 motorhomes.add(motorhome);
             }
             connection.close();
@@ -101,7 +103,7 @@ public class DBConn {
             e.printStackTrace();
         }
         for (int i = 0; i < motorhomes.size() ; i++) {
-            System.out.println(motorhomes.get(i).getReg_plate());
+            System.out.println(motorhomes.get(i).getRegPlate());
         }
         return motorhomes;
     }

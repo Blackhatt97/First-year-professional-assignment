@@ -18,7 +18,7 @@
         <columns>
           <TableColumn prefWidth="67.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="117.0" text="Status"><cellValueFactory><PropertyValueFactory property="status" /></cellValueFactory></TableColumn>
-            <TableColumn prefWidth="202.0" text="Plate number"><cellValueFactory><PropertyValueFactory property="reg_plate" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="202.0" text="Plate number"><cellValueFactory><PropertyValueFactory property="regPlate" /></cellValueFactory></TableColumn>
           <TableColumn minWidth="0.0" prefWidth="82.0" text="Type"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="117.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
         </columns>

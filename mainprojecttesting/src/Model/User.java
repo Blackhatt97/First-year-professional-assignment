@@ -11,7 +11,7 @@ public class User {
     private int id;
     private String fname;
     private String lname;
-    private Date date_birth;
+    private Date dateBirth;
     private String email;
     private String address;
     private String type;
@@ -19,7 +19,7 @@ public class User {
     public User(int id,
                 String fname,
                 String lname,
-                Date date_birth,
+                Date dateBirth,
                 String email,
                 String address,
                 String type){
@@ -27,7 +27,7 @@ public class User {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
-        this.date_birth = date_birth;
+        this.dateBirth = dateBirth;
         this.email = email;
         this.address = address;
         this.type = type;
@@ -57,12 +57,12 @@ public class User {
         this.lname = lname;
     }
 
-    public Date getDate_birth() {
-        return date_birth;
+    public Date getDateBirth() {
+        return dateBirth;
     }
 
-    public void setDate_birth(Date date_birth) {
-        this.date_birth = date_birth;
+    public void setDateBirth(Date dateBirth) {
+        this.dateBirth = dateBirth;
     }
 
     public String getEmail() {
