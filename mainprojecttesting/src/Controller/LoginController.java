@@ -1,15 +1,16 @@
 package Controller;
 
+import Model.DBWrapper.LoginWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class LoginController {
@@ -21,16 +22,18 @@ public class LoginController {
 
     @FXML
     private void login(ActionEvent event) {
-        // connect to the db and check password and then spawn the new stage MainView or an error message
-        // then delete the text from user and pass fields
-
-        AnchorPane mainAnchor;
-        try {
-            mainAnchor = FXMLLoader.load(getClass().getResource("/View/MainView.fxml"));
-            loginAnchor.getChildren().setAll(mainAnchor);
-        } catch (IOException ex) {
-            ex.printStackTrace(); // to do : popup error could not login coz of fxml not found
+        String userName = userField.getText();
+        String password = passField.getText();
+        LoginWrapper loginWrapper = new LoginWrapper();
+        if(loginWrapper.loginAuthentication(userName,password) != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/MainView.fxml"));
+                AnchorPane mainAnchor = fxmlLoader.load();
+                ((MainController)fxmlLoader.getController()).setUsernameField(userName);
+                loginAnchor.getChildren().setAll(mainAnchor);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
-
 }

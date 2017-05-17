@@ -1,3 +1,4 @@
+import Model.DBWrapper.DBConn;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,14 +9,16 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("View/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/LoginView.fxml"));
         primaryStage.setTitle("Nordic Motorhomes");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
-
+//testy
     public static void main(String[] args) {
+
         launch(args);
+
     }
 }
