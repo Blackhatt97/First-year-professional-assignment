@@ -38,7 +38,7 @@ public class DBConn {
 
         Connection con = getConn();
 
-        String deleteQuery = "DELETE FROM `"+ tableName + "` WHERE `id` = ? ;";
+        String deleteQuery = "DELETE FROM `"+ tableName + "` WHERE `id` = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(deleteQuery);
@@ -84,7 +84,7 @@ public class DBConn {
                 ps.setInt(2, type);
                 ps.execute();
             }
-            
+
             connection.close();
 
         } catch (SQLException e) {
