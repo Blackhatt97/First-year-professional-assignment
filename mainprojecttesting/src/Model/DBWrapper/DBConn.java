@@ -1,10 +1,13 @@
 package Model.DBWrapper;
 
+import Model.Customer;
 import Model.Motorhome;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.*;
+import java.util.Date;
 
 public class DBConn {
 
@@ -79,6 +82,31 @@ public class DBConn {
 
     }
 
+    public void addCustomerToDB(String fname, String lname, java.sql.Date dateBirth, String email, String address) {
+
+        Connection connection = getConn();
+        String sql = "INSERT INTO `customers` (`f_name`, `l_name`, `date_birth`, `email`, `address`) " +
+                "VALUES ( ?,  ?,  ?, ?, ?);";
+
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setDate(3, dateBirth);
+            ps.setString(4, email);
+            ps.setString(5, address);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public ObservableList<Motorhome> getAllMotorHomes(){
 
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
@@ -108,6 +136,30 @@ public class DBConn {
         return motorhomes;
     }
 
+    public ObservableList<Customer> getAllCustomers(){
+
+        ObservableList<Customer> customers = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM customers";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Customer customer = new Customer(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getDate(4),
+                        resultSet.getString(5),
+                        resultSet.getString(5));
+                customers.add(customer);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
     public void updateMotorHome(int id, int status, String plate, int type,
                                 String brand, int fabYear, int kilometrage) {
 
@@ -133,4 +185,6 @@ public class DBConn {
         }
 
     }
+
+
 }
