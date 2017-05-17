@@ -54,7 +54,7 @@ public class DBConn {
 
     }
 
-    public void addMotorHomeToDB(String brand, int fab_year, String reg_plate, int mileage, int status) {
+    public void addMotorHomeToDB(String brand, int fabYear, String regPlate, int mileage, int status) {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `motorhomes` (`brand`, `fab_year`, `mileage`, `mh_status`, `plate`) " +
@@ -66,10 +66,10 @@ public class DBConn {
 
             ps = connection.prepareStatement(sql);
             ps.setString(1, brand);
-            ps.setInt(2, fab_year);
+            ps.setInt(2, fabYear);
             ps.setInt(3, mileage);
             ps.setInt(4, status);
-            ps.setString(5, reg_plate);
+            ps.setString(5, regPlate);
             ps.execute();
             connection.close();
 
