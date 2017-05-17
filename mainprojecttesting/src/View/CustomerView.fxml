@@ -4,14 +4,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerViewController">
    <children>
       <TableView fx:id="customerTable" prefHeight="214.0" prefWidth="586.0">
          <columns>
-            <TableColumn prefWidth="59.0" text="ID" />
-            <TableColumn prefWidth="124.0" text="First Name" />
-            <TableColumn prefWidth="124.0" text="Last Name" />
-            <TableColumn prefWidth="282.0" text="Email" />
+            <TableColumn prefWidth="59.0" text="ID" ><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="124.0" text="First Name" ><cellValueFactory><PropertyValueFactory property="fname" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="124.0" text="Last Name" ><cellValueFactory><PropertyValueFactory property="lname" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="282.0" text="Email" ><cellValueFactory><PropertyValueFactory property="email" /></cellValueFactory></TableColumn>
          </columns>
       </TableView>
       <GridPane alignment="CENTER_LEFT" layoutX="3.0" layoutY="221.0" prefHeight="160.0" prefWidth="579.0">

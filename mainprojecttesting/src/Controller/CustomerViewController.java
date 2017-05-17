@@ -53,6 +53,7 @@ public class CustomerViewController {
         idField.setText(Integer.toString(cs.getId()));
         firstName.setText(cs.getFname());
         lastNameField.setText(cs.getLname());
+        birthDate.setValue(cs.getDateBirth().toLocalDate());
         emailField.setText(cs.getEmail());
         addressField.setText(cs.getAddress());
     }

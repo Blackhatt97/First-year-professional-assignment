@@ -117,6 +117,7 @@ public class DBConn {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
+
                 Motorhome motorhome = new Motorhome(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getInt(3),
@@ -146,6 +147,7 @@ public class DBConn {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
+                System.out.println(resultSet.getInt(1));
                 Customer customer = new Customer(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
