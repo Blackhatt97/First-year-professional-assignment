@@ -4,35 +4,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="385.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerViewController">
    <children>
-      <TableView prefHeight="214.0" prefWidth="700.0">
+      <TableView fx:id="customerTable" prefHeight="214.0" prefWidth="700.0">
          <columns>
-            <TableColumn prefWidth="59.0" text="ID" />
-            <TableColumn prefWidth="169.0" text="First Name" />
-            <TableColumn prefWidth="165.0" text="Last Name" />
-            <TableColumn prefWidth="306.0" text="Email" />
+            <TableColumn prefWidth="59.0" text="ID" ><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="124.0" text="First Name" ><cellValueFactory><PropertyValueFactory property="fname" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="124.0" text="Last Name" ><cellValueFactory><PropertyValueFactory property="lname" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="282.0" text="Email" ><cellValueFactory><PropertyValueFactory property="email" /></cellValueFactory></TableColumn>
          </columns>
       </TableView>
       <GridPane alignment="CENTER_LEFT" layoutX="7.0" layoutY="221.0" prefHeight="226.0" prefWidth="687.0">
          <children>
-            <TextField editable="false" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <DatePicker editable="false" prefHeight="25.0" prefWidth="230.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="3" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="32.0" text="ID:" GridPane.halignment="RIGHT" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="76.0" text="First Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="71.0" text="Last Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="68.0" text="Birthdate:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="55.0" text="Email:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="65.0" text="Address:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Create" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" text="Reset Fields" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="66.0" text="Load all" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+
+            <TextField fx:id="idField" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="birthDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="addressField" GridPane.columnIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="22.0" text="ID:" GridPane.halignment="RIGHT" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="69.0" text="First Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="61.0" text="Last Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="52.0" text="Birthdate:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="40.0" text="Email:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="49.0" text="Address:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+            <Button fx:id="createButton" mnemonicParsing="false" onAction="#create" prefHeight="25.0" prefWidth="65.0" text="Create" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#update" prefHeight="25.0" prefWidth="65.0" text="Update" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Button fx:id="deleteButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#delete" prefHeight="25.0" prefWidth="65.0" text="Delete" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+            <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetAll" text="Reset Fields" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+            <Button fx:id="loadButton" mnemonicParsing="false" onAction="#load" prefHeight="27.0" prefWidth="66.0" text="Load all" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="112.0" minWidth="10.0" prefWidth="112.0" />

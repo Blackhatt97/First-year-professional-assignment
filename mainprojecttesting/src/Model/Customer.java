@@ -20,6 +20,7 @@ public class Customer {
                     Date dateBirth,
                     String address,
                     String email){
+        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.dateBirth = dateBirth;
