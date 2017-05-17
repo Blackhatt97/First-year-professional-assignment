@@ -32,7 +32,7 @@ public class MhViewController {
         loadAllMotorHomes();
 
         statusChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6); // maybe change it later with more info etc
-        typeChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6); // maybe change it later with more info etc
+        typeChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8);
 
         motorhomeTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {
             @Override
@@ -83,8 +83,8 @@ public class MhViewController {
 
     //TBD by Raz
     public void update(ActionEvent actionEvent) {
-	    
-	DBConn dbConn = new DBConn();
+
+	    DBConn dbConn = new DBConn();
         dbConn.updateMotorHome(Integer.parseInt(idField.getText()),
                 (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
                 plateNumberField.getText(),
