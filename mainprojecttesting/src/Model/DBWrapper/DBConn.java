@@ -41,7 +41,7 @@ public class DBConn {
 
         Connection con = getConn();
 
-        String deleteQuery = "DELETE FROM `"+ tableName + "` WHERE `id` = ? ;";
+        String deleteQuery = "DELETE FROM `"+ tableName + "` WHERE `id` = ?";
         PreparedStatement ps = null;
         try{
             ps = con.prepareStatement(deleteQuery);
@@ -57,23 +57,37 @@ public class DBConn {
 
     }
 
-    public void addMotorHomeToDB(String brand, int fabYear, String regPlate, int mileage, int status) {
+    public void addMotorHomeToDB(String brand, int fabYear, String regPlate, int mileage, int status, int type) {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `motorhomes` (`brand`, `fab_year`, `mileage`, `mh_status`, `plate`) " +
-                "VALUES ( ?,  ?,  ?, ?, ?);";
+                "VALUES (?, ?, ?, ?, ?)";
+        String typeSql = "INSERT INTO `motorhometype` (`motorhome_id`, `type_id`)" +
+                "VALUES (?, ?)";
 
         PreparedStatement ps = null;
 
         try {
 
-            ps = connection.prepareStatement(sql);
+            ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, brand);
             ps.setInt(2, fabYear);
             ps.setInt(3, mileage);
             ps.setInt(4, status);
             ps.setString(5, regPlate);
             ps.execute();
+            ResultSet rs = ps.getGeneratedKeys();
+            int id = 0;
+            if (rs != null && rs.next()) {
+                id = rs.getInt(1);
+            }
+            if (id > 0) {
+                ps = connection.prepareStatement(typeSql);
+                ps.setInt(1, id);
+                ps.setInt(2, type);
+                ps.execute();
+            }
+
             connection.close();
 
         } catch (SQLException e) {
@@ -116,15 +130,16 @@ public class DBConn {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-
-                Motorhome motorhome = new Motorhome(resultSet.getInt(1),
+            while (resultSet.next()) {
+                Motorhome motorhome = new Motorhome(
+                        resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getInt(3),
-                        resultSet.getString(6),
                         resultSet.getInt(4),
                         resultSet.getInt(5),
-                        resultSet.getInt(6));
+                        resultSet.getString(6),
+                        resultSet.getInt(8)
+                );
                 motorhomes.add(motorhome);
             }
             connection.close();
@@ -166,8 +181,8 @@ public class DBConn {
                                 String brand, int fabYear, int kilometrage) {
 
         Connection connection = getConn();
-        String sql = "UPDATE `motorhomes` SET `mh_status` = ?, `plate` = ?, `brand` = ?," +
-                "`fab_year`= ?, `mileage` = ? WHERE `id` = ?";
+        String sql = "UPDATE motorhomes SET mh_status = ?, plate = ?, brand = ?," +
+                "fab_year= ?, mileage = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -187,6 +202,4 @@ public class DBConn {
         }
 
     }
-
-
 }

@@ -36,7 +36,6 @@ public class Type {
     }
 
     public int getId() {
-
         return id;
     }
 

@@ -32,7 +32,7 @@ public class MhViewController {
         loadAllMotorHomes();
 
         statusChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6); // maybe change it later with more info etc
-        typeChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8);
+        typeChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8); // change later to typename -----------
 
         motorhomeTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {
             @Override
@@ -50,7 +50,7 @@ public class MhViewController {
         idField.setText(Integer.toString(mh.getId()));
         statusChoiceBox.getSelectionModel().select(new Integer(mh.getStatus()));
         plateNumberField.setText(mh.getRegPlate());
-        //typeChoiceBox.getSelectionModel().select(); we have no type yet :-??
+        typeChoiceBox.getSelectionModel().select(new Integer(mh.getType()));
         brandField.setText(mh.getBrand());
         fabYearField.setText(Integer.toString(mh.getFabYear()));
         kilometrageField.setText(Integer.toString(mh.getMileage()));
@@ -73,7 +73,8 @@ public class MhViewController {
                 Integer.valueOf(fabYearField.getText()),
                 plateNumberField.getText(),
                 Integer.valueOf(kilometrageField.getText()),
-                1);
+                (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
+                (Integer) typeChoiceBox.getSelectionModel().getSelectedItem());
         System.out.println("New Motorhome Created!");
         loadAllMotorHomes();
         dbConn = null;
@@ -88,7 +89,7 @@ public class MhViewController {
         dbConn.updateMotorHome(Integer.parseInt(idField.getText()),
                 (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
                 plateNumberField.getText(),
-                1,  // have to update type too somehow later
+                (Integer) typeChoiceBox.getSelectionModel().getSelectedItem(),
                 brandField.getText(),
                 Integer.parseInt(fabYearField.getText()),
                 Integer.parseInt(kilometrageField.getText()));
@@ -117,6 +118,7 @@ public class MhViewController {
 
     @FXML
     public void resetAll(ActionEvent actionEvent) {
+        motorhomeTable.getSelectionModel().select(null);
         idField.setText("");
         statusChoiceBox.setValue(null);
         plateNumberField.setText("");
