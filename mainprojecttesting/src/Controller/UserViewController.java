@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Customer;
 import Model.DBWrapper.DBConn;
 import Model.User;
 import Model.UserData;
@@ -9,12 +8,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import sun.security.jca.GetInstance;
-
-import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 
 /**
  * Created by blackhatt on 16/05/2017.
@@ -103,7 +96,7 @@ public class UserViewController {
                 (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
                 retypePassField.getText());
 
-        System.out.println("New Motorhome Created!");
+        System.out.println("New User Created!");
         loadAllUsers();
         dbConn = null;
 
