@@ -1,8 +1,5 @@
 package Model;
 
-/**
- * Created by blackhatt on 17/05/2017.
- */
 public class TypeName {
     private int id;
     private String text;
