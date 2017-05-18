@@ -145,7 +145,7 @@ public class DBConn {
                 ) {
                     @Override
                     public String toString() {
-                        return this.getValue();
+                        return this.getKey() + " " + this.getValue();
                     }
                 };
                 types.add(pair);
