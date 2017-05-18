@@ -32,7 +32,11 @@ public class UserViewController {
 
     @FXML
     public void initialize() {
+
         loadAllUsers();
+
+        typeChoiceBox.getItems().addAll("Administrator","Staff","Maintenance");
+
         usersTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
             @Override
             public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) {
@@ -51,7 +55,7 @@ public class UserViewController {
         birthDatePicker.setValue(cs.getDateBirth().toLocalDate());
         emailField.setText(cs.getEmail());
         addressField.setText(cs.getAddress());
-        typeChoiceBox.setValue(cs.getType());
+        //typeChoiceBox.getItems().set(4, cs.getType());
 
     }
 
