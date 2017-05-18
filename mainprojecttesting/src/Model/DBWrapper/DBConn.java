@@ -4,10 +4,10 @@ import Model.Customer;
 import Model.Motorhome;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 
 public class DBConn {
 
@@ -37,20 +37,19 @@ public class DBConn {
         return DB_NAME;
     }
 
-    public void deleteFromDB(int id, String tableName){
+    public void deleteFromDB(int id, String tableName) {
 
         Connection con = getConn();
 
-        String deleteQuery = "DELETE FROM `"+ tableName + "` WHERE `id` = ?";
+        String deleteQuery = "DELETE FROM `" + tableName + "` WHERE `id` = ?";
         PreparedStatement ps = null;
-        try{
+        try {
             ps = con.prepareStatement(deleteQuery);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ps.execute();
             con.close();
-            
-        }
-        catch(SQLException ex){
+
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
@@ -120,7 +119,38 @@ public class DBConn {
 
     }
 
-    public ObservableList<Motorhome> getAllMotorHomes(){
+    public ArrayList<Pair<Integer, String>> getMotorhomeTypes() {
+
+        ArrayList<Pair<Integer, String>> types = new ArrayList<>();
+        String sql = "SELECT * FROM types";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Pair<Integer, String> pair = new Pair<Integer, String>(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name") + " - " +
+                                resultSet.getInt("no_beds") + " beds - Price: " +
+                                resultSet.getFloat("price_day")
+                ) {
+                    @Override
+                    public String toString() {
+                        return this.getValue();
+                    }
+                };
+                types.add(pair);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return types;
+
+    }
+
+    public ObservableList<Motorhome> getAllMotorHomes() {
 
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
         String sql = "SELECT * FROM motorhomes JOIN motorhometype ON motorhomes.id = motorhometype.motorhome_id";
@@ -145,13 +175,10 @@ public class DBConn {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < motorhomes.size() ; i++) {
-            System.out.println(motorhomes.get(i).getRegPlate());
-        }
         return motorhomes;
     }
 
-    public ObservableList<Customer> getAllCustomers(){
+    public ObservableList<Customer> getAllCustomers() {
 
         ObservableList<Customer> customers = FXCollections.observableArrayList();
         String sql = "SELECT * FROM customers";
@@ -160,7 +187,7 @@ public class DBConn {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 System.out.println(resultSet.getInt(1));
                 Customer customer = new Customer(resultSet.getInt(1),
                         resultSet.getString(2),
@@ -176,12 +203,14 @@ public class DBConn {
         }
         return customers;
     }
+
     public void updateMotorHome(int id, int status, String plate, int type,
                                 String brand, int fabYear, int kilometrage) {
 
         Connection connection = getConn();
         String sql = "UPDATE motorhomes SET mh_status = ?, plate = ?, brand = ?," +
                 "fab_year= ?, mileage = ? WHERE id = ?";
+        String typeSql = "UPDATE motorhometype SET type_id = ? WHERE motorhome_id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -194,6 +223,12 @@ public class DBConn {
             ps.setInt(5, kilometrage);
             ps.setInt(6, id);
             ps.execute();
+
+            ps = connection.prepareStatement(typeSql);
+            ps.setInt(1, type);
+            ps.setInt(2, id);
+            ps.execute();
+
             connection.close();
 
         } catch (SQLException e) {
@@ -201,12 +236,13 @@ public class DBConn {
         }
 
     }
-public void updateCustomer(int id,
-                           String fname,
-                           String lname,
-                           java.sql.Date dateBirth,
-                           String address,
-                           String email) {
+
+    public void updateCustomer(int id,
+                               String fname,
+                               String lname,
+                               java.sql.Date dateBirth,
+                               String address,
+                               String email) {
 
         Connection connection = getConn();
         String sql = "UPDATE customers SET f_name = ?, l_name = ?, date_birth = ?," +

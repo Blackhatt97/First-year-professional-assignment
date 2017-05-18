@@ -3,11 +3,13 @@ package Controller;
 import Model.DBWrapper.DBConn;
 import Model.Motorhome;
 import Model.MotorhomeData;
+import Model.TypeData;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Pair;
 
 
 /**
@@ -26,13 +28,14 @@ public class MhViewController {
     @FXML Button resetButton;
 
     private MotorhomeData data = new MotorhomeData();
+    private TypeData typeData = new TypeData();
 
     @FXML
     public void initialize(){
         loadAllMotorHomes();
 
         statusChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6); // maybe change it later with more info etc
-        typeChoiceBox.getItems().addAll(1, 2, 3, 4, 5, 6, 7, 8); // change later to typename -----------
+        typeChoiceBox.getItems().setAll(typeData.getData());
 
         motorhomeTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {
             @Override
@@ -50,12 +53,20 @@ public class MhViewController {
         idField.setText(Integer.toString(mh.getId()));
         statusChoiceBox.getSelectionModel().select(new Integer(mh.getStatus()));
         plateNumberField.setText(mh.getRegPlate());
-        typeChoiceBox.getSelectionModel().select(new Integer(mh.getType()));
+        typeChoiceBox.getSelectionModel().select(searchType(mh.getType()));
         brandField.setText(mh.getBrand());
         fabYearField.setText(Integer.toString(mh.getFabYear()));
         kilometrageField.setText(Integer.toString(mh.getMileage()));
     }
 
+    private Pair<Integer, String> searchType(int key) {
+        for(Pair<Integer, String> pair : typeData.getData()) {
+            if(pair.getKey() == key) {
+                return pair;
+            }
+        }
+        return null;
+    }
 
     private void loadAllMotorHomes() {
         data.loadList();
@@ -74,22 +85,22 @@ public class MhViewController {
                 plateNumberField.getText(),
                 Integer.valueOf(kilometrageField.getText()),
                 (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
-                (Integer) typeChoiceBox.getSelectionModel().getSelectedItem());
+                (Integer)((Pair)typeChoiceBox.getValue()).getKey());
         System.out.println("New Motorhome Created!");
         loadAllMotorHomes();
         dbConn = null;
 
     }
-    @FXML
 
     //TBD by Raz
+    @FXML
     public void update(ActionEvent actionEvent) {
 
 	    DBConn dbConn = new DBConn();
         dbConn.updateMotorHome(Integer.parseInt(idField.getText()),
                 (Integer) statusChoiceBox.getSelectionModel().getSelectedItem(),
                 plateNumberField.getText(),
-                (Integer) typeChoiceBox.getSelectionModel().getSelectedItem(),
+                (Integer)((Pair)typeChoiceBox.getValue()).getKey(),
                 brandField.getText(),
                 Integer.parseInt(fabYearField.getText()),
                 Integer.parseInt(kilometrageField.getText()));
