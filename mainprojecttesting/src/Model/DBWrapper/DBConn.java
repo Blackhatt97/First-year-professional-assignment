@@ -1,6 +1,7 @@
 package Model.DBWrapper;
 
 import Model.Customer;
+import Model.Extras;
 import Model.Motorhome;
 import Model.User;
 import javafx.collections.FXCollections;
@@ -36,6 +37,13 @@ public class DBConn {
 
     public String getDbName() {
         return DB_NAME;
+    }
+
+    public void createExtras(){
+
+        Connection connection = getConn();
+        String sql = "";
+
     }
 
     public void deleteFromDB(int id, String tableName){
