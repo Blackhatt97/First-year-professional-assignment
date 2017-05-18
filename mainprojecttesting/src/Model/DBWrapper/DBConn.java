@@ -1,7 +1,9 @@
 package Model.DBWrapper;
 
 import Model.Customer;
+import Model.Extras;
 import Model.Motorhome;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
@@ -37,6 +39,13 @@ public class DBConn {
         return DB_NAME;
     }
 
+    public void createExtras(){
+
+        Connection connection = getConn();
+        String sql = "";
+
+    }
+
     public void deleteFromDB(int id, String tableName) {
 
         Connection con = getConn();
@@ -48,7 +57,6 @@ public class DBConn {
             ps.setInt(1, id);
             ps.execute();
             con.close();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -266,4 +274,88 @@ public class DBConn {
         }
 
     }
+
+    public ObservableList<User> getAllUsers(){
+
+        ObservableList<User> usersOL = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM users";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                User user = new User(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getDate(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7));
+                usersOL.add(user);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < usersOL.size() ; i++) {
+            System.out.println(usersOL.get(i).getLname());
+        }
+
+        return usersOL;
+    }
+
+    public void updateUser(int id, String fname, String lname, String email,
+                           String type, String address, java.sql.Date date_birth) {
+
+        Connection connection = getConn();
+        String sql = "UPDATE `users` SET `f_name` = ?, `l_name` = ?, `email` = ?," +
+                "`type_user`= ?, `address` = ?, `date_birth` = ?  WHERE `id` = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,fname );
+            ps.setString(2, lname);
+            ps.setString(3, email);
+            ps.setString(4, type);
+            ps.setString(5, address);
+            ps.setDate(6, date_birth);
+            ps.setInt(7, id);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void addUserToDB(String f_name, String l_name, java.sql.Date date_birth, String email, String address, String type_user, String pass) {
+
+        Connection connection = getConn();
+        String sql = "INSERT INTO `users` (`f_name`, `l_name`, `date_birth`, `email`, `address`, `type_user`, `pass`) " +
+                "VALUES ( ?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, f_name);
+            ps.setString(2, l_name);
+            ps.setDate(3, date_birth);
+            ps.setString(4, email);
+            ps.setString(5, address);
+            ps.setString(6, type_user);
+            ps.setString(7, pass);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
