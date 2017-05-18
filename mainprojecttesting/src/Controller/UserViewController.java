@@ -1,8 +1,8 @@
 package Controller;
 
-import Model.DBWrapper.DBConn;
 import Model.User;
 import Model.UserData;
+import Model.DBWrapper.DBConn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -15,7 +15,7 @@ import javafx.scene.control.*;
 public class UserViewController {
 
 
-    public TableView usersTable;
+    public TableView<User> usersTable;
     public TextField idField;
     public TextField fNameField;
     public TextField lNameField;
@@ -103,5 +103,11 @@ public class UserViewController {
     }
 
     public void delete(ActionEvent event) {
+        User selectedRow = usersTable.getSelectionModel().getSelectedItem();
+        int custId = selectedRow.getId();
+        DBConn dbConn = new DBConn();
+        dbConn.deleteFromDB(custId, "customers");
+        loadAllUsers();
+        dbConn = null;
     }
 }
