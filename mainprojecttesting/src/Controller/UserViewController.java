@@ -104,10 +104,23 @@ public class UserViewController {
 
     public void delete(ActionEvent event) {
         User selectedRow = usersTable.getSelectionModel().getSelectedItem();
-        int custId = selectedRow.getId();
+        int usrId = selectedRow.getId();
         DBConn dbConn = new DBConn();
-        dbConn.deleteFromDB(custId, "customers");
+        dbConn.deleteFromDB(usrId, "users");
         loadAllUsers();
         dbConn = null;
+    }
+
+    public void resetAll(ActionEvent actionEvent) {
+        idField.setText("");
+        fNameField.setText("");
+        lNameField.setText("");
+        emailField.setText("");
+        addressField.setText("");
+        birthDatePicker.setValue(null);
+        typeChoiceBox.setValue(null);
+        passField.setText("");
+        retypePassField.setText("");
+        usersTable.getSelectionModel().select(null);
     }
 }
