@@ -90,6 +90,7 @@ public class UserViewController {
     @FXML
     public void create(ActionEvent actionEvent) {
         java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
+
         //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled, say which fields are missing
         //if the user fails to enter stuff into them, if a field is incorrect tell the user which field is incorrect
 
