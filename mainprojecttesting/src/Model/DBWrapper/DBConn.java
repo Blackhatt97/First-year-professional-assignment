@@ -39,10 +39,27 @@ public class DBConn {
         return DB_NAME;
     }
 
-    public void createExtras(){
+    public void addExtrasToDB(String type, String name, double price, int isRented){
 
         Connection connection = getConn();
-        String sql = "";
+        String sql = "INSERT INTO `extras` (`type`, `name`, `price`, `isRented`) " +
+                "VALUES (?, ?, ?, ?)";
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, type);
+            preparedStatement.setString(2, name);
+            preparedStatement.setDouble(3, price);
+            preparedStatement.setInt(4, isRented);
+            preparedStatement.execute();
+            connection.close();
+
+        } catch (java.sql.SQLException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -53,10 +70,12 @@ public class DBConn {
         String deleteQuery = "DELETE FROM `" + tableName + "` WHERE `id` = ?";
         PreparedStatement ps = null;
         try {
+
             ps = con.prepareStatement(deleteQuery);
             ps.setInt(1, id);
             ps.execute();
             con.close();
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -336,7 +355,7 @@ public class DBConn {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `users` (`f_name`, `l_name`, `date_birth`, `email`, `address`, `type_user`, `pass`) " +
-                "VALUES ( ?, ?, ?, ?, ?, ?, ?);";
+                "VALUES ( ?, ?, ?, ?, ?, ?, MD5(?))";
         PreparedStatement ps = null;
 
         try {
@@ -358,4 +377,54 @@ public class DBConn {
 
     }
 
+    public ObservableList<Extras> getAllExtras() {
+
+        ObservableList<Extras> extras = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM extras";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Extras extra = new Extras(
+                        resultSet.getInt(1),
+                        resultSet.getString(3),
+                        resultSet.getString(2),
+                        resultSet.getInt(4)
+                );
+                extras.add(extra);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return extras;
+
+    }
+
+    @SuppressWarnings("DUPLICATES")
+    public void updateExtras(int id,
+                             String name,
+                             String type,
+                             double price) {
+
+        Connection connection = getConn();
+        String sql = "UPDATE `extras` SET `name` = ?, `type` = ?, `price` = ? WHERE `id` = ?";
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, type);
+            preparedStatement.setDouble(3, price);
+            preparedStatement.setInt(4, id);
+            preparedStatement.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -21,7 +21,7 @@ public class LoginWrapper {
         try {
             conn = dbConn.getConn();
             String query = "SELECT * FROM `users` " +
-                    "WHERE `email` = ? AND `pass` = ?";
+                    "WHERE `email` = ? AND `pass` = MD5(?)";
             PreparedStatement ps = conn.prepareStatement(query);
 
             ps.setString(1, userName);
