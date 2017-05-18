@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.ErrorHandler;
 import Model.User;
 import Model.UserData;
 import Model.DBWrapper.DBConn;
@@ -91,6 +92,12 @@ public class UserViewController {
         java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
         //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled, say which fields are missing
         //if the user fails to enter stuff into them, if a field is incorrect tell the user which field is incorrect
+
+        String pass = passField.getText();
+        String rPass = retypePassField.getText();
+
+        //HERE WE MAKE SECURITY FOR FIELDS AND PASS
+
         DBConn dbConn = new DBConn();
         dbConn.addUserToDB(fNameField.getText(),
                 lNameField.getText(),
@@ -99,6 +106,8 @@ public class UserViewController {
                 addressField.getText(),
                 (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
                 retypePassField.getText());
+
+
 
         System.out.println("New User Created!");
         loadAllUsers();
