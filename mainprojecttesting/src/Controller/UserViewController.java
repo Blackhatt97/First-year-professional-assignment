@@ -56,8 +56,7 @@ public class UserViewController {
         birthDatePicker.setValue(cs.getDateBirth().toLocalDate());
         emailField.setText(cs.getEmail());
         addressField.setText(cs.getAddress());
-        //typeChoiceBox.getItems().set(4, cs.getType());
-
+        typeChoiceBox.setValue(cs.getType());
     }
 
     private void loadAllUsers() {
