@@ -18,11 +18,7 @@
          <columns>
             <TableColumn prefWidth="59.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="174.0" text="First Name"><cellValueFactory><PropertyValueFactory property="fname" /></cellValueFactory></TableColumn>
-            <TableColumn prefWidth="163.0" text="Last Name">
-               <cellValueFactory>
-                  <PropertyValueFactory property="lname" />
-               </cellValueFactory>
-            </TableColumn>
+            <TableColumn prefWidth="163.0" text="Last Name"><cellValueFactory><PropertyValueFactory property="lname" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="303.0" text="Email"><cellValueFactory><PropertyValueFactory property="email" /></cellValueFactory></TableColumn>
          </columns>
       </TableView>
