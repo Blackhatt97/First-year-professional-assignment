@@ -30,6 +30,16 @@ public class ErrorHandler {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene1 = new Scene(layout, 300, 250);
+        layout.setStyle("-fx-background-image: url(\"backGroundImage.png\");");
+        label1.setStyle("-fx-text-fill: #FFFFFF;");
+        button1.setStyle("-fx-background-color: #5B5B5B;\n" +
+                         "-fx-border: 5px;\n" +
+                         "-fx-border-color: #000000;\n" +
+                         "-fx-border-radius: 10.0;\n" +
+                         "-fx-text-fill: #FFFFFF;\n" +
+                         "-fx-background-radius: 6,5,4;\n" +
+                         "-fx-background-insets: 2,3,4;\n" +
+                         "-fx-focus-color: #E8E8E8;");
 
         popupwindow.setScene(scene1);
         popupwindow.showAndWait();

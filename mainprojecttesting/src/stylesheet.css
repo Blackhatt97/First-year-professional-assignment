@@ -15,6 +15,10 @@
    -fx-border-color: #000000;
    -fx-border-radius: 10.0;
    -fx-text-fill: #FFFFFF;
-   -fx-background-radius: 6,5,4;
-   -fx-background-insets: 2,3,4;
+   -fx-background-radius: 10;
+   -fx-background-insets: 1;
+   -fx-focus-color: #E8E8E8;
+}
+.button:hover{
+    -fx-focus-color: #FFFFFF;
 }
