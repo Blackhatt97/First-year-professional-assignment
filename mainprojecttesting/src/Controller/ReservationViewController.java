@@ -22,7 +22,7 @@ public class ReservationViewController {
     int dateButtonClicks = 0;
 
     @FXML public void initialize(){
-
+        //add css coloring for the datepicker between the ranges
         reservationPicker.setOnAction(event -> {
             if (dateButtonClicked){
                 dateButtonClicked = false;
