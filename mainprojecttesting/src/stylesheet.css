@@ -6,3 +6,12 @@
 .split-pane-divider {
    -fx-background-color: transparent;
 }
+.label{
+   -fx-text-fill: #FFFFFF;
+}
+.button{
+   -fx-background-color: #5B5B5B;
+   -fx-border-size: 10;
+   -fx-border-color: #000000;
+   -fx-text-fill: #FFFFFF;
+}
