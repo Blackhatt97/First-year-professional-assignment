@@ -20,7 +20,6 @@ public class ExtrasViewController {
 
     @FXML private TextField idField;
     @FXML private TextField nameField;
-    @FXML private TextField unitsField;
     @FXML private TextField priceField;
     @FXML private ChoiceBox<ExtrasTypes> typeChoiceBox;
     @FXML private TableView<Extras> extrasTable;
@@ -47,6 +46,7 @@ public class ExtrasViewController {
 
     public void updateFields(Extras extras){
 
+        System.out.println(extras.getId());
         idField.setText(String.valueOf(extras.getId()));
         nameField.setText(extras.getName());
         priceField.setText(String.valueOf(extras.getPrice()));
