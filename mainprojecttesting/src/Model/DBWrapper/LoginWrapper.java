@@ -15,7 +15,7 @@ import static Model.ErrorHandler.popUp;
  */
 public class LoginWrapper {
 
-    public User loginAuthentication(String userName, String password){
+    public User loginAuthentication(String userName, String password) {
         DBConn dbConn = new DBConn();
         Connection conn = null;
         try {
@@ -34,10 +34,9 @@ public class LoginWrapper {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getDate(4),
-                        rs.getString(5 ),
+                        rs.getString(5),
                         rs.getString(6),
                         rs.getString(7));
-
             } else
                 popUp("Failed", "Invalid username and/or password", "Close");
 

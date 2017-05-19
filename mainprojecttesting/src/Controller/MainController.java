@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class MainController {
@@ -90,7 +91,30 @@ public class MainController {
         // do it here else it is redundant ^^
     }
 
-    public void setUsernameField(String username) {
+    void setUsernameField(String username) {
         usernameField.setText(username);
+    }
+
+    ArrayList<Button> getButtonsStaff() {
+        ArrayList<Button> buttons = new ArrayList<>();
+        buttons.add(mhButton);
+        buttons.add(repairButton);
+        buttons.add(userButton);
+        return buttons;
+    }
+
+    ArrayList<Button> getButtonsMaintenance() {
+        ArrayList<Button> buttons = new ArrayList<>();
+        buttons.add(mhButton);
+        buttons.add(userButton);
+        buttons.add(customerButton);
+        buttons.add(rentalButton);
+        buttons.add(extrasButton);
+        buttons.add(reservButton);
+        return buttons;
+    }
+
+    TilePane getMenuPane() {
+        return menuPane;
     }
 }
