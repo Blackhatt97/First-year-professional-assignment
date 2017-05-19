@@ -33,15 +33,16 @@ public class CustomerViewController {
     @FXML TableView<Customer> customerTable;
 
     private CustomerData data = new CustomerData();
+    
     @FXML
-    public void initialize(){
+    public void initialize() {
 
         loadAllCustomers();
 
         customerTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Customer>() {
             @Override
             public void changed(ObservableValue<? extends Customer> observable, Customer oldValue, Customer newValue) {
-                if(customerTable.getSelectionModel().getSelectedItem() != null) {
+                if (customerTable.getSelectionModel().getSelectedItem() != null) {
                     TableView.TableViewSelectionModel selectionModel = customerTable.getSelectionModel();
                     Object selectedItem = selectionModel.getSelectedItem();
                     updateFields((Customer) selectedItem);
