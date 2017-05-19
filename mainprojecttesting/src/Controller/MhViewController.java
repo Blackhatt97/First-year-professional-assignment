@@ -9,10 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Pair;
 
-
-/**
- * Created by CIA on 15/05/2017.
- */
 public class MhViewController {
 
     @FXML TextField idField;
@@ -30,7 +26,7 @@ public class MhViewController {
     private StatusData statusData = new StatusData();
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         loadAllMotorHomes();
 
         statusChoiceBox.getItems().addAll(statusData.getData()); // maybe change it later with more info etc
@@ -39,7 +35,7 @@ public class MhViewController {
         motorhomeTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {
             @Override
             public void changed(ObservableValue<? extends Motorhome> observable, Motorhome oldValue, Motorhome newValue) {
-                if(motorhomeTable.getSelectionModel().getSelectedItem() != null) {
+                if (motorhomeTable.getSelectionModel().getSelectedItem() != null) {
                     TableView.TableViewSelectionModel selectionModel = motorhomeTable.getSelectionModel();
                     Object selectedItem = selectionModel.getSelectedItem();
                     updateFields((Motorhome) selectedItem);
@@ -59,8 +55,8 @@ public class MhViewController {
     }
 
     private Pair<Integer, String> searchType(int key, DataInterface data) {
-        for(Pair<Integer, String> pair : data.getData()) {
-            if(pair.getKey() == key) {
+        for (Pair<Integer, String> pair : data.getData()) {
+            if (pair.getKey() == key) {
                 return pair;
             }
         }
@@ -83,11 +79,9 @@ public class MhViewController {
                 Integer.valueOf(fabYearField.getText()),
                 plateNumberField.getText(),
                 Integer.valueOf(kilometrageField.getText()),
-                (Integer)((Pair)statusChoiceBox.getValue()).getKey(),
-                (Integer)((Pair)typeChoiceBox.getValue()).getKey());
-        System.out.println("New Motorhome Created!");
+                (Integer) ((Pair) statusChoiceBox.getValue()).getKey(),
+                (Integer) ((Pair) typeChoiceBox.getValue()).getKey());
         loadAllMotorHomes();
-        dbConn = null;
 
     }
 
@@ -113,12 +107,9 @@ public class MhViewController {
         Motorhome selectedCellIndex = motorhomeTable.getSelectionModel().getSelectedItem();
         int motorhome = selectedCellIndex.getId();
         DBConn dbConn = new DBConn();
-        dbConn.deleteFromDB(motorhome,"motorhomes");
+        dbConn.deleteFromDB(motorhome, "motorhomes");
         loadAllMotorHomes();
         motorhomeTable.refresh();
-        dbConn = null;
-
-        System.out.println(selectedCellIndex);
     }
 
     @FXML
