@@ -4,17 +4,17 @@ import Model.DBWrapper.DBConn;
 import javafx.util.Pair;
 import java.util.ArrayList;
 
-public class TypeData implements DataInterface {
+public class StatusData implements DataInterface {
 
     private ArrayList<Pair<Integer, String>> data = null;
 
-    public TypeData() {
+    public StatusData() {
         data = loadData();
     }
 
     public ArrayList<Pair<Integer, String>> loadData() {
         DBConn dbConn = new DBConn();
-        return dbConn.getMotorhomeTypes();
+        return dbConn.getMotorhomeStatuses();
     }
 
     public ArrayList<Pair<Integer, String>> getData() {

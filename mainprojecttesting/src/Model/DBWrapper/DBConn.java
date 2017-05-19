@@ -177,10 +177,40 @@ public class DBConn {
 
     }
 
+    public ArrayList<Pair<Integer, String>> getMotorhomeStatuses() {
+
+        ArrayList<Pair<Integer, String>> statuses = new ArrayList<>();
+        String sql = "SELECT * FROM status ORDER BY id";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Pair<Integer, String> pair = new Pair<Integer, String>(
+                        resultSet.getInt("id"),
+                        resultSet.getString("description")
+                ) {
+                    @Override
+                    public String toString() {
+                        return this.getKey() + " " + this.getValue();
+                    }
+                };
+                statuses.add(pair);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statuses;
+
+    }
+
     public ObservableList<Motorhome> getAllMotorHomes() {
 
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM motorhomes JOIN motorhometype ON motorhomes.id = motorhometype.motorhome_id";
+        String sql = "SELECT * FROM motorhomes JOIN motorhometype ON motorhomes.id = motorhometype.motorhome_id" +
+                " ORDER BY id DESC";
 
         try {
             Connection connection = getConn();
