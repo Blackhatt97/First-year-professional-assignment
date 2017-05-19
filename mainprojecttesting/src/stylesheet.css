@@ -1,23 +1,23 @@
 .anchorPane{
-   -fx-background-image: url("backGroundImage.png");
-   -fx-background-repeat: repeat;
-   -fx-background-size: auto;
+    -fx-background-image: url("backGroundImage.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: auto;
 }
 .split-pane-divider {
-   -fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 .label{
-   -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #FFFFFF;
 }
 .button{
-   -fx-background-color: #5B5B5B;
-   -fx-border: 5px;
-   -fx-border-color: #000000;
-   -fx-border-radius: 10.0;
-   -fx-text-fill: #FFFFFF;
-   -fx-background-radius: 10;
-   -fx-background-insets: 1;
-   -fx-focus-color: #E8E8E8;
+    -fx-background-color: #5B5B5B;
+    -fx-border: 5px;
+    -fx-border-color: #000000;
+    -fx-border-radius: 10.0;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-background-insets: 1;
+    -fx-focus-color: #E8E8E8;
 }
 .button:hover{
     -fx-focus-color: #FFFFFF;

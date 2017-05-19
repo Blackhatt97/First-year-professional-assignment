@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="anchorPaneBckg" minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CustomerViewController">
    <children>
-      <TableView fx:id="customerTable" prefHeight="214.0" prefWidth="700.0">
+      <TableView fx:id="customerTable" prefHeight="214.0" prefWidth="700.0" styleClass="tableView">
          <columns>
             <TableColumn prefWidth="59.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="174.0" text="First Name"><cellValueFactory><PropertyValueFactory property="fname" /></cellValueFactory></TableColumn>
