@@ -355,11 +355,11 @@ public class DBConn {
     }
 
     public void updateUser(int id, String fname, String lname, String email,
-                           String type, String address, java.sql.Date date_birth) {
+                           String type, String address, java.sql.Date date_birth, String newPass) {
 
         Connection connection = getConn();
         String sql = "UPDATE `users` SET `f_name` = ?, `l_name` = ?, `email` = ?," +
-                "`type_user`= ?, `address` = ?, `date_birth` = ?  WHERE `id` = ?";
+                "`type_user`= ?, `address` = ?, `date_birth` = ?, `pass` = MD5(?)  WHERE `id` = ?";
         PreparedStatement ps = null;
 
         try {
@@ -372,6 +372,7 @@ public class DBConn {
             ps.setString(5, address);
             ps.setDate(6, date_birth);
             ps.setInt(7, id);
+            ps.setString(8, newPass);
             ps.execute();
             connection.close();
 
@@ -381,7 +382,8 @@ public class DBConn {
 
     }
 
-    public void addUserToDB(String f_name, String l_name, java.sql.Date date_birth, String email, String address, String type_user, String pass) {
+    public void addUserToDB(String fName, String lName, java.sql.Date dateBirth,
+                            String email, String address, String typeUser, String pass) {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `users` (`f_name`, `l_name`, `date_birth`, `email`, `address`, `type_user`, `pass`) " +
@@ -391,12 +393,12 @@ public class DBConn {
         try {
 
             ps = connection.prepareStatement(sql);
-            ps.setString(1, f_name);
-            ps.setString(2, l_name);
-            ps.setDate(3, date_birth);
+            ps.setString(1, fName);
+            ps.setString(2, lName);
+            ps.setDate(3, dateBirth);
             ps.setString(4, email);
             ps.setString(5, address);
-            ps.setString(6, type_user);
+            ps.setString(6, typeUser);
             ps.setString(7, pass);
             ps.execute();
             connection.close();

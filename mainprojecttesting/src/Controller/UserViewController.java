@@ -73,6 +73,10 @@ public class UserViewController {
 
         DBConn dbConn = new DBConn();
 
+           String newPass = null;
+        if (!passField.getText().equals("")){
+            newPass = passField.getText();
+        }
         java.sql.Date date = java.sql.Date.valueOf(birthDatePicker.getValue());
         dbConn.updateUser(Integer.parseInt(idField.getText()),
                 fNameField.getText(),
@@ -81,7 +85,8 @@ public class UserViewController {
                 (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
                 // have to update type too somehow later
                 addressField.getText(),
-                date);
+                date,
+                newPass);
 
         loadAllUsers();
     }
