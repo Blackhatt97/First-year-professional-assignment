@@ -15,13 +15,13 @@ public class Repair {
                   String type,
                   int price,
                   String description,
-                  int mh_id_fk){
+                  int mhIdFk){
 
         this.id = id;
         this.type = type;
         this.description = description;
         this.price = price;
-        this.mhIdFk = mh_id_fk;
+        this.mhIdFk = mhIdFk;
     }
 
 

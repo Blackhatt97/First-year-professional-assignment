@@ -18,19 +18,19 @@ public class Reservation {
 
 
     public Reservation(int id,
-                  int cust_id,
+                  int custId,
                   Date currentDate,
-                  Date start_date,
-                  Date end_date,
+                  Date startDate,
+                  Date endDate,
                   double pickup,
                   double dropoff,
                   int type){
 
         this.id = id;
-        this.custId = cust_id;
+        this.custId = custId;
         this.currentDate = currentDate;
-        this.startDate = start_date;
-        this.endDate = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.pickup = pickup;
         this.dropoff = dropoff;
         this.type = type;
