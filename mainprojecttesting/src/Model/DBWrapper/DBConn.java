@@ -371,8 +371,8 @@ public class DBConn {
             ps.setString(4, type);
             ps.setString(5, address);
             ps.setDate(6, date_birth);
-            ps.setInt(7, id);
-            ps.setString(8, newPass);
+            ps.setString(7, newPass);
+            ps.setInt(8, id);
             ps.execute();
             connection.close();
 
