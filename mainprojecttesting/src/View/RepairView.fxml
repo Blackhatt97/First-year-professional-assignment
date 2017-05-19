@@ -21,10 +21,8 @@
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="69.0" text="Repair ID:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="100.0" text="Motorhome ID:" GridPane.halignment="RIGHT" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="45.0" text="Type:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="80.0" text="No. of units" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="44.0" text="Price:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="44.0" text="Price:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ChoiceBox prefHeight="25.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ChoiceBox prefHeight="25.0" prefWidth="246.0" GridPane.columnIndex="1" />
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -34,7 +32,6 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="272.0" minWidth="10.0" prefWidth="141.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
