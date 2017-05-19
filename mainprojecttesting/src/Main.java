@@ -10,7 +10,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/View/LoginView.fxml"));
         primaryStage.setTitle("Nordic Motorhomes");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().addAll(this.getClass().getResource("stylesheet.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

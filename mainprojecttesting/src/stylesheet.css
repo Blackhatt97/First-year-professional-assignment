@@ -1,0 +1,8 @@
+.anchorPane{
+   -fx-background-image: url("backgroundImage.jpeg");
+   -fx-background-repeat: stretch;
+   -fx-background-size: auto;
+}
+.split-pane-divider {
+   -fx-background-color: transparent;
+}

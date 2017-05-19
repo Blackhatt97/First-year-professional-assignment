@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ExtrasViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ExtrasViewController">
    <children>
       <TableView fx:id="extrasTable" prefHeight="198.0" prefWidth="700.0">
          <columns>
@@ -22,7 +22,7 @@
             <TableColumn minWidth="0.0" prefWidth="177.0" text="Price"><cellValueFactory><PropertyValueFactory property="price" /></cellValueFactory></TableColumn>
          </columns>
       </TableView>
-      <GridPane layoutX="7.0" layoutY="202.0" prefHeight="245.0" prefWidth="685.0">
+      <GridPane layoutX="7.0" layoutY="202.0" prefHeight="245.0" prefWidth="685.0" styleClass="gridPane" stylesheets="@../stylesheet.css">
          <children>
             <TextField editable="false" GridPane.columnIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="28.0" text="ID:" GridPane.halignment="RIGHT" />

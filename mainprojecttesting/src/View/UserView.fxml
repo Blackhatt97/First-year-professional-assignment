@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserViewController">
    <children>
       <TableView fx:id="usersTable" prefHeight="207.0" prefWidth="700.0">
         <columns>
