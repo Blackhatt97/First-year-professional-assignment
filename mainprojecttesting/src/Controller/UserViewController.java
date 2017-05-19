@@ -56,8 +56,7 @@ public class UserViewController {
         birthDatePicker.setValue(cs.getDateBirth().toLocalDate());
         emailField.setText(cs.getEmail());
         addressField.setText(cs.getAddress());
-        //typeChoiceBox.getItems().set(4, cs.getType());
-
+        typeChoiceBox.setValue(cs.getType());
     }
 
     private void loadAllUsers() {
@@ -74,15 +73,20 @@ public class UserViewController {
 
         DBConn dbConn = new DBConn();
 
+           String newPass = null;
+        if (!passField.getText().trim().isEmpty() && retypePassField.getText().equals(passField.getText())){
+            newPass = passField.getText();
+        }
+
         java.sql.Date date = java.sql.Date.valueOf(birthDatePicker.getValue());
         dbConn.updateUser(Integer.parseInt(idField.getText()),
                 fNameField.getText(),
                 lNameField.getText(),
                 emailField.getText(),
                 (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
-                // have to update type too somehow later
                 addressField.getText(),
-                date);
+                date,
+                newPass);
 
         loadAllUsers();
     }
@@ -91,7 +95,8 @@ public class UserViewController {
     public void create(ActionEvent actionEvent) {
         java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
 
-        //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled, say which fields are missing
+        //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled,
+        // say which fields are missing
         //if the user fails to enter stuff into them, if a field is incorrect tell the user which field is incorrect
 
         String pass = passField.getText();
