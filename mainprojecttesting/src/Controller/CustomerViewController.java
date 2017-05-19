@@ -33,7 +33,7 @@ public class CustomerViewController {
     @FXML TableView<Customer> customerTable;
 
     private CustomerData data = new CustomerData();
-    
+
     @FXML
     public void initialize() {
 
