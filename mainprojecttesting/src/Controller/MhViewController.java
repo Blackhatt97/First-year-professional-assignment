@@ -29,7 +29,7 @@ public class MhViewController {
     public void initialize() {
         loadAllMotorHomes();
 
-        statusChoiceBox.getItems().addAll(statusData.getData()); // maybe change it later with more info etc
+        statusChoiceBox.getItems().addAll(statusData.getData());
         typeChoiceBox.getItems().setAll(typeData.getData());
 
         motorhomeTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {

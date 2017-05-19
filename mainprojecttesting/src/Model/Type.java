@@ -10,12 +10,12 @@ public class Type {
     private double pricePerDay;
 
     public Type(int id,
-                int no_of_beds,
-                double price_per_day){
+                int noOfBeds,
+                double pricePerDay){
 
         this.id = id;
-        this.noOfBeds = no_of_beds;
-        this.pricePerDay = price_per_day;
+        this.noOfBeds = noOfBeds;
+        this.pricePerDay = pricePerDay;
 
     }
 
