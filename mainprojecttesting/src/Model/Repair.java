@@ -1,29 +1,46 @@
 package Model;
 
+import Model.DBWrapper.DBConn;
+
+import java.sql.Date;
+
 /**
  * Created by blackhatt on 14/05/2017.
  */
 public class Repair {
 
     private int id;
-    private String type;
-    private int price;
+    private int type;
+    private double price;
     private String description;
     private int mhIdFk;
+    private Date repDate;
+    private String plate ;
 
     public Repair(int id,
-                  String type,
-                  int price,
+                  int mhIdFk,
+                  int type,
+                  String plate,
+                  double price,
                   String description,
-                  int mhIdFk){
+                  Date repDate){
 
         this.id = id;
         this.type = type;
         this.description = description;
         this.price = price;
         this.mhIdFk = mhIdFk;
+        this.repDate = repDate;
+        this.plate = plate;
     }
 
+    public Date getRepDate() {
+        return repDate;
+    }
+
+    public void setRepDate(Date repDate) {
+        this.repDate = repDate;
+    }
 
     public int getId() {
         return id;
@@ -33,19 +50,19 @@ public class Repair {
         this.id = id;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

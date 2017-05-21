@@ -1,14 +1,12 @@
 package Model.DBWrapper;
 
-import Model.Customer;
-import Model.Extras;
-import Model.Motorhome;
-import Model.User;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
 
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 public class DBConn {
@@ -146,6 +144,28 @@ public class DBConn {
 
     }
 
+    public void addRepairToDB(int mhIdFk, int type, double price, String descr, java.sql.Date repDate){
+
+        Connection con = getConn();
+        String sql = "INSERT INTO `repairs` (`id`, `mh_id`, `type`, `plate`, `price`, `descr`,`date`)" +
+                " VALUES (null, ?, ?, ?, ?, ?, ?);";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, mhIdFk);
+            ps.setInt(2, type);
+            ps.setString(3, getPlate(mhIdFk));
+            ps.setDouble(4, price);
+            ps.setString(5,descr);
+            ps.setDate(6,repDate);
+            ps.execute();
+            con.close();
+
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+
     public ArrayList<Pair<Integer, String>> getMotorhomeTypes() {
 
         ArrayList<Pair<Integer, String>> types = new ArrayList<>();
@@ -176,6 +196,36 @@ public class DBConn {
         return types;
 
     }
+
+    public ArrayList<Pair<Integer, String>> getRepairTypes() {
+
+        ArrayList<Pair<Integer, String>> repairtype = new ArrayList<>();
+        String sql = "SELECT * FROM repairtype";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Pair<Integer, String> pair = new Pair<Integer, String>(
+                        resultSet.getInt("id"),
+                        resultSet.getString("type")
+                ) {
+                    @Override
+                    public String toString() {
+                        return this.getKey() + " " + this.getValue();
+                    }
+                };
+                repairtype.add(pair);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return repairtype;
+
+    }
+
 
     public ArrayList<Pair<Integer, String>> getMotorhomeStatuses() {
 
@@ -233,6 +283,52 @@ public class DBConn {
             e.printStackTrace();
         }
         return motorhomes;
+    }
+
+
+    public String getPlate(int mhId){
+
+
+        String sql = "SELECT `plate` FROM `motorhomes` WHERE `id` = ?";
+        try{
+            Connection con = getConn();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,mhId);
+            ResultSet rs = ps.executeQuery();
+            con.close();
+            return String.valueOf(rs);
+
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+         return null;
+    }
+
+    public ObservableList<Repair> getAllRepairs() {
+
+        ObservableList<Repair> repairs = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM repairs";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Repair repair = new Repair(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getString(4),
+                        resultSet.getDouble(5),
+                        resultSet.getString(6),
+                        resultSet.getDate(7));
+                repairs.add(repair);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return repairs;
     }
 
     public ObservableList<Customer> getAllCustomers() {
@@ -321,6 +417,39 @@ public class DBConn {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void updateRepair(int id,
+                              int mhId,
+                              int repairType,
+                              double price,
+                              String descr,
+                              Date date){
+
+        Connection connection = getConn();
+        String sql = "UPDATE repairs SET mh_id = ?, type = ?, plate = ?," +
+                "price = ?, descr = ?, date = ? WHERE id = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, mhId);
+            ps.setInt(2, repairType);
+            ps.setString(3, getPlate(mhId));
+            ps.setDouble(4, price);
+            ps.setString(5, descr);
+            ps.setDate(6,date);
+            ps.setInt(7, id);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 
