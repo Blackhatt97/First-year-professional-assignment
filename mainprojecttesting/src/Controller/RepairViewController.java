@@ -97,7 +97,7 @@ public class RepairViewController {
         mhId.setValue(null);
         repairTypeField.setValue(null);
         statusBox.setValue(null);
-        datePick.setValue(null);
+        datePick.setValue(null); 
     }
 
     public void delete(ActionEvent actionEvent) {
