@@ -10,11 +10,14 @@ import java.util.Observable;
  * Created by blackhatt on 21/05/2017.
  */
 public class RepairData {
+
     private ObservableList<Repair> repairList = FXCollections.observableArrayList();
 
-    public ObservableList<Repair> getRepairList(){return repairList;}
+    public ObservableList<Repair> getRepairList() {
+        return repairList;
+    }
 
-    public void loadList(){
+    public void loadList() {
 
         DBConn dbConn = new DBConn();
         repairList = dbConn.getAllRepairs();
