@@ -9,6 +9,10 @@
 .label{
     -fx-text-fill: #FFFFFF;
 }
+.table-view .label {
+    -fx-text-fill: #000000;
+}
+
 .button{
     -fx-background-color: #5B5B5B;
     -fx-border: 5px;
