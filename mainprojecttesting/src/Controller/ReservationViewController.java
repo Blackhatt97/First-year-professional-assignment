@@ -24,6 +24,7 @@ public class ReservationViewController {
     ArrayList<LocalDate> range = new ArrayList<>();
     boolean dateButtonClicked = false;
     int dateButtonClicks = 0;
+    DateChecker dateChecker = new DateChecker();
 
     @FXML public void initialize(){
         //add css coloring for the datepicker between the ranges
@@ -33,7 +34,7 @@ public class ReservationViewController {
 //        DateChecker.setEndDateBounds(check_out, check_in.getValue());
         check_in.setOnAction( (event) ->   {
 
-            DateChecker.setEndDateBounds(check_out, check_in.getValue());
+            dateChecker.setEndDateBounds(check_out, check_in.getValue());
             LocalDate startDate = check_in.getValue();
             System.out.println("Start Date: " + startDate.toString());
 
@@ -41,7 +42,7 @@ public class ReservationViewController {
 
         check_out.setOnAction( (event) -> {
 
-            DateChecker.setBeginDateBounds(check_in, check_out.getValue());
+            dateChecker.setBeginDateBounds(check_in, check_out.getValue());
             LocalDate endDate = check_out.getValue();
             System.out.println("End Date: " + endDate.toString());
 

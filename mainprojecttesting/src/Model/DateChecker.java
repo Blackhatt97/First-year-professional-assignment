@@ -10,10 +10,10 @@ import javafx.util.Callback;
 
 public class DateChecker {
 
-    private DateChecker(){
+    public DateChecker(){
     }
 
-    public static void setBeginDateBounds(DatePicker begin_date, LocalDate end_date ){
+    public void setBeginDateBounds(DatePicker begin_date, LocalDate end_date ){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
             @Override
@@ -39,7 +39,7 @@ public class DateChecker {
         begin_date.setDayCellFactory(dayCellFactory);
     }
 
-    public static void setEndDateBounds(DatePicker end_date, LocalDate begin_date ){
+    public void setEndDateBounds(DatePicker end_date, LocalDate begin_date ){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
             @Override
