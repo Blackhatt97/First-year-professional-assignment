@@ -9,8 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Pair;
 
-import java.sql.Connection;
-
 
 /**
  * Created by blackhatt on 16/05/2017.
