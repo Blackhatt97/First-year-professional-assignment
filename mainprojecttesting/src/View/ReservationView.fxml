@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReservationViewController">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReservationViewController">
    <children>
       <TableView prefHeight="200.0" prefWidth="700.0">
          <columns>
@@ -39,7 +40,7 @@
             <DatePicker fx:id="check_out" editable="false" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="reservationPicker" editable="false" onMouseClicked="#chooseDate" prefHeight="25.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="114.0" text="Motorhome Type:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
-            <ChoiceBox prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="3" />
+            <ChoiceBox fx:id="mhTypeCheck" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="3" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Clear" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Rent" GridPane.columnIndex="3" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
             <ChoiceBox prefHeight="25.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -60,11 +61,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <TableView layoutX="309.0" layoutY="242.0" prefHeight="158.0" prefWidth="374.0">
+      <TableView fx:id="mhTableView" layoutX="309.0" layoutY="242.0" prefHeight="158.0" prefWidth="374.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="180.0" text="Plate" />
-            <TableColumn prefWidth="118.0" text="Brand" />
+           <TableColumn prefWidth="75.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
+           <TableColumn prefWidth="180.0" text="Plate"><cellValueFactory><PropertyValueFactory property="regPlate" /></cellValueFactory></TableColumn>
+           <TableColumn prefWidth="118.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
         </columns>
       </TableView>
    </children>

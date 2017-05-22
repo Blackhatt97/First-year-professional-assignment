@@ -14,8 +14,12 @@ public class MotorhomeData {
 
     public void loadList() {
         DBConn dbConn = new DBConn();
-        motorhomeList = dbConn.getAllMotorHomes();
-        dbConn = null;
+        motorhomeList = dbConn.getAllMotorHomes(-1);
+    }
+
+    public void loadList(int typeId) {
+        DBConn dbConn = new DBConn();
+        motorhomeList = dbConn.getAllMotorHomes(typeId);
     }
 
 }

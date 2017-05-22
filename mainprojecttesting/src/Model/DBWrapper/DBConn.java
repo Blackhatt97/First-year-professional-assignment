@@ -256,15 +256,22 @@ public class DBConn {
 
     }
 
-    public ObservableList<Motorhome> getAllMotorHomes() {
+    public ObservableList<Motorhome> getAllMotorHomes(int typeId) {
 
         ObservableList<Motorhome> motorhomes = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM motorhomes JOIN motorhometype ON motorhomes.id = motorhometype.motorhome_id" +
-                " ORDER BY id DESC";
+
+        String sql = "SELECT * FROM motorhomes JOIN motorhometype ON motorhomes.id = motorhometype.motorhome_id";
+        if (typeId > -1) {
+            sql += " WHERE type_id = ?";
+        }
+            sql += " ORDER BY id DESC";
 
         try {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            if (typeId > -1) {
+                preparedStatement.setInt(1, typeId);
+            }
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Motorhome motorhome = new Motorhome(
