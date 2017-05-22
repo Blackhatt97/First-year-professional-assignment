@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DateChecker;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,50 +17,43 @@ import java.util.ArrayList;
  */
 public class ReservationViewController {
 
+    @FXML private DatePicker check_out;
+    @FXML private DatePicker check_in;
     @FXML DatePicker reservationPicker;
+
     ArrayList<LocalDate> range = new ArrayList<>();
     boolean dateButtonClicked = false;
     int dateButtonClicks = 0;
 
     @FXML public void initialize(){
         //add css coloring for the datepicker between the ranges
-        reservationPicker.setOnAction(event -> {
-            if (dateButtonClicked){
-                dateButtonClicked = false;
-            }
-            LocalDate date = reservationPicker.getValue();
-            range.add(date);
-            dateButtonClicks++;
-            System.out.println("Selected date: " + date);
-            if (dateButtonClicks == 2 ){
-                System.out.println("FIRST DATE: " + range.get(0) + " | SECOND DATE: " + range.get(1));
-                calcPeriod();
-                dateButtonClicks++;
-            }
-            if (dateButtonClicks > 2){
-                range.clear();
-                dateButtonClicks = 0;
-            }
+//        check_in.setValue(LocalDate.now());
+//        check_out.setValue(check_in.getValue().plusDays(10));
+//        DateChecker.setBeginDateBounds(check_in, check_out.getValue());
+//        DateChecker.setEndDateBounds(check_out, check_in.getValue());
+        check_in.setOnAction( (event) ->   {
+
+            DateChecker.setEndDateBounds(check_out, check_in.getValue());
+            LocalDate startDate = check_in.getValue();
+            System.out.println("Start Date: " + startDate.toString());
+
         });
-        reservationPicker.setOnHidden(event -> {
-            if(!dateButtonClicked){
-                reservationPicker.show();
-                dateButtonClicked = true;
-            }
+
+        check_out.setOnAction( (event) -> {
+
+            DateChecker.setBeginDateBounds(check_in, check_out.getValue());
+            LocalDate endDate = check_out.getValue();
+            System.out.println("End Date: " + endDate.toString());
+
         });
+
     }
 
     public void chooseDate(MouseEvent mouseEvent) {
-
-//        LocalDate date = reservationPicker.getValue();
-//        System.out.println(date.toString());
 
     }
 
     public void calcPeriod(){
 
-
-        long p2 = ChronoUnit.DAYS.between(range.get(0), range.get(1));
-        System.out.println("TOTAL DAYS: " + p2);
     }
 }
