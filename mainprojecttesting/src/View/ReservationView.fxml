@@ -63,7 +63,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <TableView layoutX="310.0" layoutY="242.0" prefHeight="158.0" prefWidth="374.0">
+      <TableView layoutX="309.0" layoutY="242.0" prefHeight="158.0" prefWidth="374.0">
         <columns>
           <TableColumn prefWidth="75.0" text="ID" />
           <TableColumn prefWidth="180.0" text="Plate" />
