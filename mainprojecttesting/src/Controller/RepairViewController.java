@@ -68,7 +68,6 @@ public class RepairViewController {
         priceField.setText(String.valueOf(rs.getPrice()));
         datePick.setValue(rs.getRepDate().toLocalDate());
         descrField.setText(rs.getDescription());
-       // statusBox.getSelectionModel().select(searchType(,statusData));
     }
     private Pair<Integer, String> searchType(int key, DataInterface data) {
         for (Pair<Integer, String> pair : data.getData()) {

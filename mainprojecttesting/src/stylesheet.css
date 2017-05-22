@@ -23,5 +23,12 @@
     -fx-focus-color: #E8E8E8;
 }
 .button:hover{
-    -fx-focus-color: #FFFFFF;
+    -fx-background-color: #353535;
+    -fx-border: 5px;
+    -fx-border-color: #FFFFFF;
+}
+.button:pressed{
+    -fx-background-color: #2F2A2A;
+    -fx-background-insets: 5;
+    -fx-border-color: transparent;
 }
