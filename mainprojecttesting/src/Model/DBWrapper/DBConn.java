@@ -285,18 +285,45 @@ public class DBConn {
         return motorhomes;
     }
 
+    public int getStatus(int mhIdFk){
+
+        String sql = "SELECT * FROM `motorhomes` WHERE `id` = ? ;";
+        try{
+            int status = 0;
+            Connection con = getConn();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1,mhIdFk);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                status = rs.getInt(5);
+            }
+            con.close();
+            return status;
+
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return -1;
+    }
+
 
     public String getPlate(int mhId){
 
 
-        String sql = "SELECT `plate` FROM `motorhomes` WHERE `id` = ?";
+        String sql = "SELECT * FROM `motorhomes` WHERE `id` = ?";
+
         try{
+            String plate = null;
             Connection con = getConn();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,mhId);
             ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                plate = rs.getString(6);
+            }
             con.close();
-            return String.valueOf(rs);
+            return plate;
 
         }
         catch(SQLException ex){
@@ -482,6 +509,7 @@ public class DBConn {
 
         return usersOL;
     }
+
 
     public void updateUser(int id, String fname, String lname, String email,
                            String type, String address, java.sql.Date date_birth, String newPass) {

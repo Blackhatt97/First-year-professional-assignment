@@ -1,10 +1,7 @@
 package Controller;
 
+import Model.*;
 import Model.DBWrapper.DBConn;
-import Model.DataInterface;
-import Model.Repair;
-import Model.RepairData;
-import Model.RepairTypeData;
 import com.sun.xml.internal.rngom.digested.DValuePattern;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Pair;
+
+import java.sql.Connection;
 
 
 /**
@@ -30,15 +29,24 @@ public class RepairViewController {
     @FXML Button updateButton;
     @FXML DatePicker datePick;
     @FXML TableView<Repair> repairTable;
+    @FXML ChoiceBox statusBox;
 
     private RepairData data = new RepairData();
     private RepairTypeData repairTypeData = new RepairTypeData();
-
+    private RepairTypeData typeData = new RepairTypeData();
+    private StatusData statusData = new StatusData();
+    private MotorhomeData mhData = new MotorhomeData();
 
     @FXML
     public void initialize(){
 
         loadAllRepairs();
+
+
+        repairTypeField.getItems().addAll(typeData.getData());
+        statusBox.getItems().addAll(statusData.getData());
+
+
         repairTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Repair>() {
             @Override
             public void changed(ObservableValue<? extends Repair> observable, Repair oldValue, Repair newValue) {
@@ -52,12 +60,15 @@ public class RepairViewController {
     }
 
     private void updateFields(Repair rs) {
+
         idField.setText(Integer.toString(rs.getId()));
-        mhId.getSelectionModel().select(rs.getMhIdFk());
+        mhId.getSelectionModel().select(mhData.getMotorhomeList());
+        statusBox.getSelectionModel().select(searchType(statusBoxValue(rs.getMhIdFk()),statusData));
         repairTypeField.getSelectionModel().select(searchType(rs.getType(),repairTypeData));
         priceField.setText(String.valueOf(rs.getPrice()));
         datePick.setValue(rs.getRepDate().toLocalDate());
         descrField.setText(rs.getDescription());
+       // statusBox.getSelectionModel().select(searchType(,statusData));
     }
     private Pair<Integer, String> searchType(int key, DataInterface data) {
         for (Pair<Integer, String> pair : data.getData()) {
@@ -73,6 +84,10 @@ public class RepairViewController {
         data.loadList();
         repairTable.setItems(data.getRepairList());
     }
+    public int statusBoxValue(int mhIdFk){
+       DBConn dbConn = new DBConn();
+       return dbConn.getStatus(mhIdFk);
+    }
 
 
     public void resetFields(ActionEvent actionEvent) {
@@ -82,6 +97,7 @@ public class RepairViewController {
         priceField.setText("");
         mhId.setValue(null);
         repairTypeField.setValue(null);
+        statusBox.setValue(null);
         datePick.setValue(null);
     }
 

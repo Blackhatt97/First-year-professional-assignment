@@ -17,6 +17,7 @@ public class Repair {
     private Date repDate;
     private String plate ;
 
+
     public Repair(int id,
                   int mhIdFk,
                   int type,
@@ -33,6 +34,10 @@ public class Repair {
         this.repDate = repDate;
         this.plate = plate;
     }
+
+    public String getPlate() {return plate;}
+
+    public void setPlate(String plate) {this.plate = plate;}
 
     public Date getRepDate() {
         return repDate;

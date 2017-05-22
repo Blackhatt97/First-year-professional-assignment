@@ -53,7 +53,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <TextArea fx:id="descrField" layoutX="292.0" layoutY="238.0" prefHeight="138.0" prefWidth="306.0" />
+      <TextArea fx:id="descrField" layoutX="292.0" layoutY="238.0" prefHeight="79.0" prefWidth="306.0" />
       <Label layoutX="415.0" layoutY="217.0" text="Description" />
       <VBox alignment="TOP_CENTER" layoutX="609.0" layoutY="320.0" prefHeight="116.0" prefWidth="77.0" spacing="5.0">
          <children>
@@ -63,7 +63,9 @@
             <Button fx:id="updateButton" mnemonicParsing="false" onAction="#update" prefHeight="25.0" prefWidth="77.0" text="Update" />
          </children>
       </VBox>
-      <DatePicker fx:id="datePick" layoutX="337.0" layoutY="402.0" />
+      <DatePicker fx:id="datePick" layoutX="340.0" layoutY="402.0" />
       <Label layoutX="292.0" layoutY="407.0" text="Date:" />
+      <Label layoutX="281.0" layoutY="350.0" text="Status:" />
+      <ChoiceBox fx:id="statusBox" layoutX="340.0" layoutY="345.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
