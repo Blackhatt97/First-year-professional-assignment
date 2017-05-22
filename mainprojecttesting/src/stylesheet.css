@@ -15,6 +15,9 @@
 .choice-box .label {
     -fx-text-fill: #000000;
 }
+.date-picker .label {
+    -fx-text-fill: #000000;
+}
 .button{
     -fx-background-color: #5B5B5B;
     -fx-border: 5px;
