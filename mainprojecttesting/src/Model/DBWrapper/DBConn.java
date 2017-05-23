@@ -359,11 +359,38 @@ public class DBConn {
         }
          return null;
     }
+    public ObservableList<Repair> getAllRepairs(int mhId) {
+
+        ObservableList<Repair> repairs = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM repairs WHERE mh_id = ? ORDER BY id DESC ";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,mhId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Repair repair = new Repair(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getString(4),
+                        resultSet.getDouble(5),
+                        resultSet.getString(6),
+                        resultSet.getDate(7));
+                repairs.add(repair);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return repairs;
+    }
+
 
     public ObservableList<Repair> getAllRepairs() {
 
         ObservableList<Repair> repairs = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM repairs";
+        String sql = "SELECT * FROM repairs ORDER BY id DESC ";
 
         try {
             Connection connection = getConn();

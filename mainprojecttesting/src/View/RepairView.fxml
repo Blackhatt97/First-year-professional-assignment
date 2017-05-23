@@ -60,7 +60,7 @@
             <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetFields" prefHeight="40.0" prefWidth="120.0" text="Reset fields" />
             <Button fx:id="deleteButton" lineSpacing="5.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="120.0" text="Delete" />
             <Button fx:id="updateButton" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Update" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Load motorhome" />
+            <Button fx:id="loadMhButton" mnemonicParsing="false" onAction="#loadMotorhomeLog" prefHeight="40.0" prefWidth="120.0" text="Load motorhome" />
             <Button fx:id="createButton" mnemonicParsing="false" onAction="#create" prefHeight="40.0" prefWidth="120.0" text="Create" />
          </children>
       </HBox>

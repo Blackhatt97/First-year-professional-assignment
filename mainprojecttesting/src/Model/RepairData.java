@@ -24,5 +24,9 @@ public class RepairData {
         dbConn = null;
 
     }
+    public void loadList(int mhId) {
+        DBConn dbConn = new DBConn();
+        repairList = dbConn.getAllRepairs(mhId);
+    }
 
 }

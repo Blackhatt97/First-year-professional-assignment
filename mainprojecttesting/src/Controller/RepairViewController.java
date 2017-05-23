@@ -31,6 +31,7 @@ public class RepairViewController {
     @FXML ChoiceBox statusBox;
 
     private RepairData data = new RepairData();
+    private RepairData mhRepairData = new RepairData();
     private RepairTypeData repairTypeData = new RepairTypeData();
     private RepairTypeData typeData = new RepairTypeData();
     private StatusData statusData = new StatusData();
@@ -152,5 +153,10 @@ public class RepairViewController {
                 timestamp,
                 (Integer)((Pair)statusBox.getValue()).getKey());
         loadAllRepairs();
+    }
+
+    public void loadMotorhomeLog(ActionEvent actionEvent) {
+        mhRepairData.loadList((Integer) mhId.getValue());
+        repairTable.setItems(mhRepairData.getRepairList());
     }
 }
