@@ -16,7 +16,25 @@ public class DateChecker {
     public DateChecker(){
     }
 
-    public void setDisabledRange(DatePicker datePicker, ArrayList<Pair<LocalDate, LocalDate>> pairArrayList){
+    public LocalDate findClosestReservationDate(ArrayList<Pair<LocalDate, LocalDate>> datePairs, LocalDate startDate) {
+
+        ArrayList<LocalDate> allStartDatesAfterStartDate = new ArrayList<>();
+        for (int i = 0; i < datePairs.size() ; i++) {
+            if (datePairs.get(i).getKey().isAfter(startDate)){
+                allStartDatesAfterStartDate.add(datePairs.get(i).getKey());
+            }
+        }
+        LocalDate closestDate = LocalDate.of(5000, 12, 1);
+        for (int i = 0; i < allStartDatesAfterStartDate.size() ; i++) {
+            if (allStartDatesAfterStartDate.get(i).isBefore(closestDate)){
+                closestDate = allStartDatesAfterStartDate.get(i);
+            }
+        }
+
+        return closestDate;
+    }
+
+    public void setDisabledRange(DatePicker datePicker, ArrayList<Pair<LocalDate, LocalDate>> pairArrayList, boolean disableBeforeToday){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
             @Override
@@ -29,9 +47,19 @@ public class DateChecker {
 
                             super.updateItem(item, empty);
                             boolean cond = (item.isBefore(pairArrayList.get(i).getValue()) && item.isAfter(pairArrayList.get(i).getKey()));
-                            if (cond) {
+                            if (item.isBefore(pairArrayList.get(i).getValue()) && item.isAfter(pairArrayList.get(i).getKey())) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #d3d3d3;");
+                            }
+                            if (item.isEqual(pairArrayList.get(i).getKey())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #d3d3d3;");
+                            }
+                            if (disableBeforeToday){
+                                if (item.isBefore(LocalDate.now())){
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #d3d3d3;");
+                                }
                             }
 //                            else {
 //                                setDisable(false);
@@ -41,6 +69,38 @@ public class DateChecker {
 //                            }
 
                         }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+    }
+
+    @SuppressWarnings("Duplicates")
+    public void setDisableAfterAndBeforeRange(DatePicker datePicker, LocalDate startDate, LocalDate endDate){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        boolean cond = (item.isAfter(endDate));
+                        if (item.isAfter(endDate)){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
+                        if (item.isBefore(startDate)){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
+//                        else{
+//                            setDisable(false);
+//                            setStyle("-fx-background-color: #CCFFFF;");
+//                            setStyle("-fx-font-fill: black;");
+//                        }
                     }
                 };
             }
@@ -58,15 +118,43 @@ public class DateChecker {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        boolean cond = (!item.isAfter(date));
+                        boolean cond = (item.isAfter(date));
                         if (cond){
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
-                        }else{
-                            setDisable(false);
-                            setStyle("-fx-background-color: #CCFFFF;");
-                            setStyle("-fx-font-fill: black;");
                         }
+//                        else{
+//                            setDisable(false);
+//                            setStyle("-fx-background-color: #CCFFFF;");
+//                            setStyle("-fx-font-fill: black;");
+//                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+    }
+
+    public void setDisableBeforeDate(DatePicker datePicker, LocalDate date){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        boolean cond = (item.isBefore(date));
+                        if (cond){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
+//                      else{
+//                            setDisable(false);
+//                            setStyle("-fx-background-color: #CCFFFF;");
+//                            setStyle("-fx-font-fill: black;");
+//                      }
                     }
                 };
             }

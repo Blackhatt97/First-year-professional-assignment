@@ -18,8 +18,8 @@ import java.util.ArrayList;
  */
 public class ReservationViewController {
 
-    @FXML private DatePicker reservationRange;
-    @FXML private DatePicker check_in;
+    @FXML private DatePicker reservationDateEnd;
+    @FXML private DatePicker reservationDateBegin;
     @FXML DatePicker reservationPicker;
     @FXML ChoiceBox mhTypeCheck;
     @FXML TableView mhTableView;
@@ -50,42 +50,45 @@ public class ReservationViewController {
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         //add css coloring for the datepicker between the ranges
-//        check_in.setValue(LocalDate.now());
-//        reservationRange.setValue(check_in.getValue().plusDays(10));
-//        DateChecker.setBeginDateBounds(check_in, reservationRange.getValue());
-//        DateChecker.setEndDateBounds(reservationRange, check_in.getValue());
+//        reservationDateBegin.setValue(LocalDate.now());
+//        reservationDateEnd.setValue(reservationDateBegin.getValue().plusDays(10));
+//        DateChecker.setBeginDateBounds(reservationDateBegin, reservationDateEnd.getValue());
+//        DateChecker.setEndDateBounds(reservationDateEnd, reservationDateBegin.getValue());
 
-//        check_in.setOnAction((event) -> {
-//
-//            dateChecker.setEndDateBounds(reservationRange, check_in.getValue());
-//            LocalDate startDate = check_in.getValue();
-//            System.out.println("Start Date: " + startDate.toString());
-//
-//        });
+        reservationDateBegin.setOnAction((event) -> {
+
+            LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
+//            dateChecker.setDisableAfterDate(reservationDateEnd, disableAfterClosestReservation);
+//            dateChecker.setDisableBeforeDate(reservationDateEnd, reservationDateBegin.getValue());
+            dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
+
+            LocalDate startDate = reservationDateBegin.getValue();
+            System.out.println("Start Date: " + startDate.toString());
+
+        });
+
+        reservationDateEnd.setOnAction((event) -> {
+
+            LocalDate endDate = reservationDateEnd.getValue();
+            System.out.println("End Date: " + endDate.toString());
+
+        });
+
         LocalDate localDateStart = LocalDate.of(2017, 5, 25);
-        LocalDate localDateEnd = LocalDate.of(2017, 5, 29);
-        //dateChecker.setDisabledRange(reservationRange, localDateStart, localDateEnd);
+        LocalDate localDateEnd = LocalDate.of(2017, 5, 25);
 
         LocalDate localDateStart1 = LocalDate.of(2017, 6, 5);
         LocalDate localDateEnd1 = LocalDate.of(2017, 6, 10);
-        //dateChecker.setDisabledRange(reservationRange, localDateStart1, localDateEnd1);
 
         Pair<LocalDate, LocalDate> localDatePair = new Pair<>(localDateStart, localDateEnd);
         Pair<LocalDate, LocalDate> localDatePair1 = new Pair<>(localDateStart1, localDateEnd1);
 
-
         dateRanges.add(localDatePair);
         dateRanges.add(localDatePair1);
 
-        dateChecker.setDisabledRange(reservationRange, dateRanges);
+        dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
+        dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
 
-
-//        reservationRange.setOnAction((event) -> {
-//
-//            LocalDate endDate = reservationRange.getValue();
-//            System.out.println("End Date: " + endDate.toString());
-//
-//        });
     }
 
     public void chooseDate(MouseEvent mouseEvent) {
