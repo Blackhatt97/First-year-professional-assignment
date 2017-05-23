@@ -29,7 +29,7 @@
             <TableColumn prefWidth="138.0" text="MH Type" />
          </columns>
       </TableView>
-      <GridPane alignment="CENTER_LEFT" layoutX="3.0" layoutY="204.0" prefHeight="200.0" prefWidth="578.0">
+      <GridPane alignment="CENTER_LEFT" layoutX="3.0" layoutY="204.0" prefHeight="200.0" prefWidth="600.0">
          <children>
             <TextField editable="false" GridPane.columnIndex="1" />
             <DatePicker fx:id="check_in" editable="false" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -39,9 +39,6 @@
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="72.0" text="Start Date:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="69.0" text="End Date:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <DatePicker fx:id="check_out" editable="false" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Create" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Update" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
-            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
             <DatePicker fx:id="reservationRange" editable="false" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="reservationPicker" editable="false" onMouseClicked="#chooseDate" prefHeight="25.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="114.0" text="Motorhome Type:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
@@ -50,8 +47,8 @@
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="115.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="207.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="132.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="201.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="111.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="174.0" />
          </columnConstraints>
          <rowConstraints>
@@ -60,13 +57,14 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints />
          </rowConstraints>
       </GridPane>
-      <TableView fx:id="mhTableView" layoutX="309.0" layoutY="242.0" prefHeight="158.0" prefWidth="374.0">
+      <TableView fx:id="mhTableView" layoutX="324.0" layoutY="242.0" prefHeight="156.0" prefWidth="359.0">
         <columns>
            <TableColumn prefWidth="75.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
            <TableColumn prefWidth="180.0" text="Plate"><cellValueFactory><PropertyValueFactory property="regPlate" /></cellValueFactory></TableColumn>
-           <TableColumn prefWidth="118.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
+           <TableColumn prefWidth="103.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
         </columns>
       </TableView>
       <HBox layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="600.0">
