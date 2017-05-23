@@ -4,16 +4,19 @@ package Model;
  * Created by CIA on 22/05/2017.
  */
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
+import javafx.util.Pair;
 
 public class DateChecker {
 
     public DateChecker(){
     }
 
-    public void setBeginDateBounds(DatePicker begin_date, LocalDate end_date ){
+    public void setDisabledRange(DatePicker datePicker, ArrayList<Pair<LocalDate, LocalDate>> pairArrayList){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
             @Override
@@ -22,24 +25,30 @@ public class DateChecker {
 
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-                        boolean cond = (item.isBefore(LocalDate.now()) || !item.isBefore(end_date));
-                        if (cond){
-                            setDisable(true);
-                            setStyle("-fx-background-color: #d3d3d3;");
-                        }else{
-                            setDisable(false);
-                            setStyle("-fx-background-color: #CCFFFF;");
-                            setStyle("-fx-font-fill: black;");
+                        for (int i = 0; i < pairArrayList.size() ; i++) {
+
+                            super.updateItem(item, empty);
+                            boolean cond = (item.isBefore(pairArrayList.get(i).getValue()) && item.isAfter(pairArrayList.get(i).getKey()));
+                            if (cond) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #d3d3d3;");
+                            }
+//                            else {
+//                                setDisable(false);
+//                                setStyle("-fx-background-color: #CCFFFF;");
+//                                setStyle("-fx-font-fill: black;");
+//
+//                            }
+
                         }
                     }
                 };
             }
         };
-        begin_date.setDayCellFactory(dayCellFactory);
+        datePicker.setDayCellFactory(dayCellFactory);
     }
 
-    public void setEndDateBounds(DatePicker end_date, LocalDate begin_date ){
+    public void setDisableAfterDate(DatePicker datePicker, LocalDate date){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
             @Override
@@ -49,7 +58,7 @@ public class DateChecker {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        boolean cond = (item.isBefore(LocalDate.now()) || !item.isAfter(begin_date));
+                        boolean cond = (!item.isAfter(date));
                         if (cond){
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
@@ -62,6 +71,6 @@ public class DateChecker {
                 };
             }
         };
-        end_date.setDayCellFactory(dayCellFactory);
+        datePicker.setDayCellFactory(dayCellFactory);
     }
 }

@@ -37,7 +37,7 @@
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Create" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Update" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
             <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Delete" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-            <DatePicker fx:id="check_out" editable="false" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="reservationRange" editable="false" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="reservationPicker" editable="false" onMouseClicked="#chooseDate" prefHeight="25.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="114.0" text="Motorhome Type:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
             <ChoiceBox fx:id="mhTypeCheck" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="3" />
