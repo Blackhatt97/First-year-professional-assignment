@@ -3,8 +3,6 @@ package Controller;
 import Model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -13,8 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ReservationViewController {
 
-    @FXML private DatePicker check_out;
+    @FXML private DatePicker reservationRange;
     @FXML private DatePicker check_in;
     @FXML DatePicker reservationPicker;
     @FXML ChoiceBox mhTypeCheck;
@@ -32,10 +28,8 @@ public class ReservationViewController {
     private MotorhomeData motorhomeData = new MotorhomeData();
 
     ArrayList<LocalDate> range = new ArrayList<>();
-    boolean dateButtonClicked = false;
-    int dateButtonClicks = 0;
     DateChecker dateChecker = new DateChecker();
-
+    ArrayList<Pair<LocalDate, LocalDate>> dateRanges = new ArrayList<>();
     @FXML
     public void initialize() {
 
@@ -57,25 +51,41 @@ public class ReservationViewController {
         ///////////////////////////////////////////////////////////////////////////////////////////////
         //add css coloring for the datepicker between the ranges
 //        check_in.setValue(LocalDate.now());
-//        check_out.setValue(check_in.getValue().plusDays(10));
-//        DateChecker.setBeginDateBounds(check_in, check_out.getValue());
-//        DateChecker.setEndDateBounds(check_out, check_in.getValue());
-        check_in.setOnAction((event) -> {
+//        reservationRange.setValue(check_in.getValue().plusDays(10));
+//        DateChecker.setBeginDateBounds(check_in, reservationRange.getValue());
+//        DateChecker.setEndDateBounds(reservationRange, check_in.getValue());
 
-            dateChecker.setEndDateBounds(check_out, check_in.getValue());
-            LocalDate startDate = check_in.getValue();
-            System.out.println("Start Date: " + startDate.toString());
+//        check_in.setOnAction((event) -> {
+//
+//            dateChecker.setEndDateBounds(reservationRange, check_in.getValue());
+//            LocalDate startDate = check_in.getValue();
+//            System.out.println("Start Date: " + startDate.toString());
+//
+//        });
+        LocalDate localDateStart = LocalDate.of(2017, 5, 25);
+        LocalDate localDateEnd = LocalDate.of(2017, 5, 29);
+        //dateChecker.setDisabledRange(reservationRange, localDateStart, localDateEnd);
 
-        });
+        LocalDate localDateStart1 = LocalDate.of(2017, 6, 5);
+        LocalDate localDateEnd1 = LocalDate.of(2017, 6, 10);
+        //dateChecker.setDisabledRange(reservationRange, localDateStart1, localDateEnd1);
 
-        check_out.setOnAction((event) -> {
+        Pair<LocalDate, LocalDate> localDatePair = new Pair<>(localDateStart, localDateEnd);
+        Pair<LocalDate, LocalDate> localDatePair1 = new Pair<>(localDateStart1, localDateEnd1);
 
-            dateChecker.setBeginDateBounds(check_in, check_out.getValue());
-            LocalDate endDate = check_out.getValue();
-            System.out.println("End Date: " + endDate.toString());
 
-        });
+        dateRanges.add(localDatePair);
+        dateRanges.add(localDatePair1);
 
+        dateChecker.setDisabledRange(reservationRange, dateRanges);
+
+
+//        reservationRange.setOnAction((event) -> {
+//
+//            LocalDate endDate = reservationRange.getValue();
+//            System.out.println("End Date: " + endDate.toString());
+//
+//        });
     }
 
     public void chooseDate(MouseEvent mouseEvent) {
