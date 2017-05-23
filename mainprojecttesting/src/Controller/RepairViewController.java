@@ -9,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by blackhatt on 16/05/2017.
@@ -33,6 +35,9 @@ public class RepairViewController {
     private RepairTypeData typeData = new RepairTypeData();
     private StatusData statusData = new StatusData();
     private MotorhomeData mhData = new MotorhomeData();
+    private ArrayList<Integer> mhids = new ArrayList<>();
+
+
 
     @FXML
     public void initialize(){
@@ -40,8 +45,10 @@ public class RepairViewController {
         loadAllRepairs();
 
 
+        mhData.loadList();
         repairTypeField.getItems().addAll(typeData.getData());
         statusBox.getItems().addAll(statusData.getData());
+        mhId.getItems().addAll(mhids);
 
 
         repairTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Repair>() {
@@ -55,11 +62,16 @@ public class RepairViewController {
             }
         });
     }
+    private void mhIdFk(){
+
+        DBConn dbConn = new DBConn();
+        mhids = dbConn.getMotorhomeId();
+    }
 
     private void updateFields(Repair rs) {
 
         idField.setText(Integer.toString(rs.getId()));
-        mhId.getSelectionModel().select(mhData.getMotorhomeList());
+        mhId.getSelectionModel().select(searchId(rs.getMhIdFk()));
         statusBox.getSelectionModel().select(searchType(statusBoxValue(rs.getMhIdFk()),statusData));
         repairTypeField.getSelectionModel().select(searchType(rs.getType(),repairTypeData));
         priceField.setText(String.valueOf(rs.getPrice()));
@@ -75,10 +87,21 @@ public class RepairViewController {
         return null;
     }
 
+    private Integer searchId(int id){
+
+        for(Integer mh:mhids){
+            if(id == mh){
+                return id;
+            }
+        }
+        return -1;
+    }
+
 
     private void loadAllRepairs() {
         data.loadList();
         repairTable.setItems(data.getRepairList());
+        mhIdFk();
     }
     public int statusBoxValue(int mhIdFk){
        DBConn dbConn = new DBConn();
@@ -111,7 +134,7 @@ public class RepairViewController {
         DBConn dbConn = new DBConn();
         java.sql.Date timestamp = java.sql.Date.valueOf(datePick.getValue());
         dbConn.addRepairToDB((Integer) mhId.getValue(),
-                (Integer) repairTypeField.getValue(),
+                (Integer)((Pair)repairTypeField.getValue()).getKey(),
                 Double.parseDouble(priceField.getText()),
                 descrField.getText(),
                 timestamp);
@@ -123,10 +146,11 @@ public class RepairViewController {
         DBConn dbConn = new DBConn();
         dbConn.updateRepair(Integer.parseInt(idField.getText()),
                 (Integer) mhId.getValue(),
-                (Integer) repairTypeField.getValue(),
+                (Integer)((Pair)repairTypeField.getValue()).getKey(),
                 Double.parseDouble(priceField.getText()),
                 descrField.getText(),
-                timestamp);
+                timestamp,
+                (Integer)((Pair)statusBox.getValue()).getKey());
         loadAllRepairs();
     }
 }

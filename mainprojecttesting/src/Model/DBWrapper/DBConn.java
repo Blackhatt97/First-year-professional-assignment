@@ -226,6 +226,27 @@ public class DBConn {
 
     }
 
+    public ArrayList<Integer> getMotorhomeId(){
+
+        ArrayList<Integer> ids = new ArrayList<>();
+        String sql = "SELECT * FROM `motorhomes` ";
+        try{
+            Connection con = getConn();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+
+                ids.add(rs.getInt(1));
+            }
+            con.close();
+
+        }
+        catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return ids;
+    }
+
 
     public ArrayList<Pair<Integer, String>> getMotorhomeStatuses() {
 
@@ -459,15 +480,21 @@ public class DBConn {
                               int repairType,
                               double price,
                               String descr,
-                              Date date){
+                              Date date,
+                              int status){
 
         Connection connection = getConn();
         String sql = "UPDATE repairs SET mh_id = ?, type = ?, plate = ?," +
                 "price = ?, descr = ?, date = ? WHERE id = ?";
+        String sql2 = "UPDATE motorhomes SET mh_status = ?;";
         PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
 
         try {
 
+            ps2 = connection.prepareStatement(sql2);
+            ps2.setInt(1,status);
+            ps2.execute();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, mhId);
             ps.setInt(2, repairType);
