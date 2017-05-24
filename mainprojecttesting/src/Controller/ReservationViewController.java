@@ -4,6 +4,7 @@ import Model.*;
 import Model.DBWrapper.DBConn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -37,7 +38,8 @@ public class ReservationViewController {
     public void initialize() {
 
         customerData.loadList();
-        customerBox.visibleRowCountProperty().set(10);
+        customerBox.visibleRowCountProperty()
+                .set(customerData.getCustomerList().size() >= 10 ? 10 : customerData.getCustomerList().size());
         customerBox.setItems(customerData.getCustomerList());
 
         mhTypeCheck.getItems().setAll(typeData.getData());
@@ -63,9 +65,17 @@ public class ReservationViewController {
                     customerBox.show();
                 }
                 if (!newValue.isEmpty()) {
-                    customerBox.setItems(customerData.getSearchedList(newValue));
+                    ObservableList<Customer> data = customerData.getSearchedList(newValue);
+                    customerBox.setItems(data);
+                    customerBox.hide();
+                    customerBox.visibleRowCountProperty().set(data.size() >= 10 ? 10 : data.size());
+                    customerBox.show();
                 } else {
-                    customerBox.setItems(customerData.getCustomerList());
+                    ObservableList<Customer> data = customerData.getCustomerList();
+                    customerBox.setItems(data);
+                    customerBox.hide();
+                    customerBox.visibleRowCountProperty().set(data.size() >= 10 ? 10 : data.size());
+                    customerBox.show();
                 }
             }
         });

@@ -8,17 +8,17 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainViewAnchor" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="823.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane fx:id="mainViewAnchor" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="823.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
       <TilePane fx:id="menuPane" prefHeight="280.0" prefWidth="120.0">
          <children>
-            <Button fx:id="mhButton" mnemonicParsing="false" onAction="#mhScreen" prefHeight="40.0" prefWidth="115.0" stylesheets="@../stylesheet.css" text="Motorhome" />
-            <Button fx:id="userButton" mnemonicParsing="false" onAction="#userScreen" prefHeight="40.0" prefWidth="115.0" text="User" />
-            <Button fx:id="customerButton" mnemonicParsing="false" onAction="#customerScreen" prefHeight="40.0" prefWidth="115.0" text="Customer" />
-            <Button fx:id="rentalButton" mnemonicParsing="false" onAction="#rentalScreen" prefHeight="40.0" prefWidth="115.0" text="Rental" />
-            <Button fx:id="extrasButton" mnemonicParsing="false" onAction="#extrasScreen" prefHeight="40.0" prefWidth="115.0" text="Extras" />
-            <Button fx:id="reservButton" mnemonicParsing="false" onAction="#reservScreen" prefHeight="40.0" prefWidth="115.0" text="Reservation" />
-            <Button fx:id="repairButton" mnemonicParsing="false" onAction="#repairScreen" prefHeight="40.0" prefWidth="115.0" text="Repair" />
+            <Button id="mainButton" fx:id="mhButton" mnemonicParsing="false" onAction="#mhScreen" prefHeight="40.0" prefWidth="115.0" stylesheets="@../stylesheet.css" text="Motorhome" />
+            <Button id="mainButton" fx:id="userButton" mnemonicParsing="false" onAction="#userScreen" prefHeight="40.0" prefWidth="115.0" text="User" />
+            <Button id="mainButton" fx:id="customerButton" mnemonicParsing="false" onAction="#customerScreen" prefHeight="40.0" prefWidth="115.0" text="Customer" />
+            <Button id="mainButton" fx:id="rentalButton" mnemonicParsing="false" onAction="#rentalScreen" prefHeight="40.0" prefWidth="115.0" text="Rental" />
+            <Button id="mainButton" fx:id="extrasButton" mnemonicParsing="false" onAction="#extrasScreen" prefHeight="40.0" prefWidth="115.0" text="Extras" />
+            <Button id="mainButton" fx:id="reservButton" mnemonicParsing="false" onAction="#reservScreen" prefHeight="40.0" prefWidth="115.0" text="Reservation" />
+            <Button id="mainButton" fx:id="repairButton" mnemonicParsing="false" onAction="#repairScreen" prefHeight="40.0" prefWidth="115.0" text="Repair" />
          </children>
       </TilePane>
       <SplitPane id="rightSplit" dividerPositions="0.13392857142857142" layoutX="120.0" maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="548.0" prefWidth="702.0" styleClass="split-pane-divider" stylesheets="@../stylesheet.css">
