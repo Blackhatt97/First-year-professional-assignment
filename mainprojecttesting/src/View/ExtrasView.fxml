@@ -22,7 +22,7 @@
          <columns>
             <TableColumn prefWidth="60.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="261.0" text="Name"><cellValueFactory><PropertyValueFactory property="name" /></cellValueFactory></TableColumn>
-            <TableColumn minWidth="0.0" prefWidth="201.0" text="Type"><cellValueFactory><PropertyValueFactory property="type" /></cellValueFactory></TableColumn>
+            <TableColumn minWidth="0.0" prefWidth="201.0" text="Type"><cellValueFactory><PropertyValueFactory property="motorhomeId" /></cellValueFactory></TableColumn>
             <TableColumn minWidth="0.0" prefWidth="177.0" text="Price"><cellValueFactory><PropertyValueFactory property="price" /></cellValueFactory></TableColumn>
          </columns>
       </TableView>

@@ -17,14 +17,14 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReservationViewController">
    <children>
-      <TableView prefHeight="200.0" prefWidth="700.0">
+      <TableView fx:id="reservationTable" prefHeight="200.0" prefWidth="700.0">
          <columns>
-            <TableColumn prefWidth="36.0" text="ID" />
-            <TableColumn prefWidth="65.0" text="Cust. ID" />
-            <TableColumn prefWidth="120.0" text="Reserv. Date" />
-            <TableColumn prefWidth="168.0" text="Start Date" />
-            <TableColumn prefWidth="172.0" text="End Date" />
-            <TableColumn prefWidth="138.0" text="MH Type" />
+            <TableColumn prefWidth="36.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="65.0" text="Cust. ID"><cellValueFactory><PropertyValueFactory property="custId" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="120.0" text="Reserv. Date"><cellValueFactory><PropertyValueFactory property="reservationDate" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="168.0" text="Start Date"><cellValueFactory><PropertyValueFactory property="startDate" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="172.0" text="End Date"><cellValueFactory><PropertyValueFactory property="endDate" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="138.0" text="MH Type"><cellValueFactory><PropertyValueFactory property="motorhomeId" /></cellValueFactory></TableColumn>
          </columns>
       </TableView>
       <GridPane alignment="CENTER_LEFT" layoutX="3.0" layoutY="204.0" prefHeight="231.0" prefWidth="600.0">

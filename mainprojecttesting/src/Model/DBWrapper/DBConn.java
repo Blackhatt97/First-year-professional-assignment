@@ -64,9 +64,33 @@ public class DBConn {
             e.printStackTrace();
         }
 
+    }
 
+    public ObservableList<Reservation> getAllReservations(){
 
+        ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM reservations";
 
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Reservation reservation = new Reservation(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getDate(3),
+                        resultSet.getDate(4),
+                        resultSet.getDate(5),
+                        resultSet.getInt(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8));
+                reservations.add(reservation);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reservations;
     }
 
     public String getDbName() {

@@ -26,7 +26,7 @@
           <TableColumn prefWidth="122.0" text="First Name"><cellValueFactory><PropertyValueFactory property="fname" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="129.0" text="Last Name"><cellValueFactory><PropertyValueFactory property="lname" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="276.0" text="Email"><cellValueFactory><PropertyValueFactory property="email" /></cellValueFactory></TableColumn>
-            <TableColumn prefWidth="126.0" text="Type"><cellValueFactory><PropertyValueFactory property="type" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="126.0" text="Type"><cellValueFactory><PropertyValueFactory property="motorhomeId" /></cellValueFactory></TableColumn>
         </columns>
       </TableView>
       <GridPane alignment="CENTER_LEFT" layoutX="2.0" layoutY="210.0" prefHeight="227.0" prefWidth="693.0">

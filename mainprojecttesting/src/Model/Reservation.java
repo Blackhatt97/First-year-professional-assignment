@@ -9,31 +9,31 @@ public class Reservation {
 
     private int id;
     private int custId;
-    private Date currentDate;
+    private Date reservationDate;
     private Date startDate;
     private Date endDate;
     private double pickup;
     private double dropoff;
-    private int type;
+    private int motorhomeId;
 
 
     public Reservation(int id,
                   int custId,
-                  Date currentDate,
+                  Date reservationDate,
                   Date startDate,
                   Date endDate,
                   double pickup,
                   double dropoff,
-                  int type){
+                  int motorhomeId){
 
         this.id = id;
         this.custId = custId;
-        this.currentDate = currentDate;
+        this.reservationDate = reservationDate;
         this.startDate = startDate;
         this.endDate = endDate;
         this.pickup = pickup;
         this.dropoff = dropoff;
-        this.type = type;
+        this.motorhomeId = motorhomeId;
 
     }
 
@@ -53,12 +53,12 @@ public class Reservation {
         this.custId = custId;
     }
 
-    public Date getCurrentDate() {
-        return currentDate;
+    public Date getReservationDate() {
+        return reservationDate;
     }
 
-    public void setCurrentDate(Date currentDate) {
-        this.currentDate = currentDate;
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
     }
 
     public Date getStartDate() {
@@ -93,12 +93,12 @@ public class Reservation {
         this.dropoff = dropoff;
     }
 
-    public int getType() {
-        return type;
+    public int getMotorhomeId() {
+        return motorhomeId;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setMotorhomeId(int motorhomeId) {
+        this.motorhomeId = motorhomeId;
     }
 
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 public class ReservationViewController {
 
+    @FXML private TableView reservationTable;
     @FXML private DatePicker reservationDateEnd;
     @FXML private DatePicker reservationDateBegin;
     @FXML DatePicker reservationPicker;
@@ -30,6 +31,7 @@ public class ReservationViewController {
     private TypeData typeData = new TypeData();
     private MotorhomeData motorhomeData = new MotorhomeData();
     private CustomerData customerData = new CustomerData();
+    private ReservationData reservationData = new ReservationData();
 
     ArrayList<LocalDate> range = new ArrayList<>();
     DateChecker dateChecker = new DateChecker();
@@ -37,11 +39,16 @@ public class ReservationViewController {
     @FXML
     public void initialize() {
 
+        //loading all reservations
+        loadAllReservations();
+
+        //defining customers inside customer choice box
         customerData.loadList();
         customerBox.visibleRowCountProperty()
                 .set(customerData.getCustomerList().size() >= 10 ? 10 : customerData.getCustomerList().size());
         customerBox.setItems(customerData.getCustomerList());
 
+        //searching by type in motorhome table
         mhTypeCheck.getItems().setAll(typeData.getData());
 
         mhTypeCheck.getSelectionModel()
@@ -57,6 +64,7 @@ public class ReservationViewController {
             }
         });
 
+        //searching for customers inside choice box by string values in text field
         searchField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -80,20 +88,12 @@ public class ReservationViewController {
             }
         });
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        //add css coloring for the datepicker between the ranges
-//        reservationDateBegin.setValue(LocalDate.now());
-//        reservationDateEnd.setValue(reservationDateBegin.getValue().plusDays(10));
-//        DateChecker.setBeginDateBounds(reservationDateBegin, reservationDateEnd.getValue());
-//        DateChecker.setEndDateBounds(reservationDateEnd, reservationDateBegin.getValue());
+        //Unfinished date business, still early experimental
         reservationPicker.setValue(LocalDate.now());
         reservationDateBegin.setOnAction((event) -> {
 
             LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
-//            dateChecker.setDisableAfterDate(reservationDateEnd, disableAfterClosestReservation);
-//            dateChecker.setDisableBeforeDate(reservationDateEnd, reservationDateBegin.getValue());
             dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
-
             LocalDate startDate = reservationDateBegin.getValue();
             System.out.println("Start Date: " + startDate.toString());
 
@@ -123,11 +123,16 @@ public class ReservationViewController {
 
     }
 
-    public void chooseDate(MouseEvent mouseEvent) {
+    private void updateFields(Reservation reservation){
+
+
 
     }
 
-    public void calcPeriod(){
+    public void loadAllReservations(){
+
+        reservationData.loadList();
+        reservationTable.setItems(reservationData.getReservationList());
 
     }
 
@@ -143,6 +148,7 @@ public class ReservationViewController {
                 0,
                 mhTableView.getSelectionModel().getSelectedItem().getId());
         dbConn = null;
+        loadAllReservations();
 
 
 

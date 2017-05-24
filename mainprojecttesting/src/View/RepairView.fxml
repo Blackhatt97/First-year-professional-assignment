@@ -24,7 +24,7 @@
          <columns>
             <TableColumn prefWidth="64.0" text="Repair ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="50.0" text="MH ID"><cellValueFactory><PropertyValueFactory property="mhIdFk" /></cellValueFactory></TableColumn>
-            <TableColumn prefWidth="78.0" text="Type"><cellValueFactory><PropertyValueFactory property="type" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="78.0" text="Type"><cellValueFactory><PropertyValueFactory property="motorhomeId" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="75.0" text="Plate"><cellValueFactory><PropertyValueFactory property="plate" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="72.0" text="Price"><cellValueFactory><PropertyValueFactory property="price" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="254.0" text="Description"><cellValueFactory><PropertyValueFactory property="description" /></cellValueFactory></TableColumn>
