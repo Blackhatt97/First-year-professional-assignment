@@ -23,5 +23,6 @@
             <Font size="25.0" />
          </font>
       </Label>
+      <Label fx:id="labelId" alignment="CENTER" layoutX="220.0" layoutY="307.0" prefHeight="17.0" prefWidth="414.0" text="Label" visible="false" />
    </children>
 </AnchorPane>
