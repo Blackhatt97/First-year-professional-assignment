@@ -1,8 +1,10 @@
 package Controller;
 
 import Model.*;
+import Model.DBWrapper.DBConn;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -20,8 +22,8 @@ public class ReservationViewController {
     @FXML private DatePicker reservationDateBegin;
     @FXML DatePicker reservationPicker;
     @FXML ChoiceBox mhTypeCheck;
-    @FXML TableView mhTableView;
-    @FXML ComboBox customerBox;
+    @FXML TableView<Motorhome> mhTableView;
+    @FXML ComboBox<Customer> customerBox;
     @FXML TextField searchField;
 
     private TypeData typeData = new TypeData();
@@ -74,7 +76,7 @@ public class ReservationViewController {
 //        reservationDateEnd.setValue(reservationDateBegin.getValue().plusDays(10));
 //        DateChecker.setBeginDateBounds(reservationDateBegin, reservationDateEnd.getValue());
 //        DateChecker.setEndDateBounds(reservationDateEnd, reservationDateBegin.getValue());
-
+        reservationPicker.setValue(LocalDate.now());
         reservationDateBegin.setOnAction((event) -> {
 
             LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
@@ -116,6 +118,23 @@ public class ReservationViewController {
     }
 
     public void calcPeriod(){
+
+    }
+
+    public void createReservation(ActionEvent actionEvent) {
+
+        DBConn dbConn = new DBConn();
+        Customer customer = customerBox.getSelectionModel().getSelectedItem();
+        dbConn.addReservationToDB(customer.getId(),
+                java.sql.Date.valueOf(reservationPicker.getValue()),
+                java.sql.Date.valueOf(reservationDateBegin.getValue()),
+                java.sql.Date.valueOf(reservationDateEnd.getValue()),
+                0,
+                0,
+                mhTableView.getSelectionModel().getSelectedItem().getId());
+        dbConn = null;
+
+
 
     }
 }

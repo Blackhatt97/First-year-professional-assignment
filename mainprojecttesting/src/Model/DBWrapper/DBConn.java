@@ -33,6 +33,42 @@ public class DBConn {
 
     }
 
+    public void addReservationToDB(int customerID,
+                                   java.sql.Date reservationDate,
+                                   java.sql.Date startDate,
+                                   java.sql.Date endDate,
+                                   int pickup,
+                                   int dropoff,
+                                   int motorhomeID){
+
+        Connection connection = getConn();
+        String sql = "INSERT INTO `reservations` (`cust_id`, `date_res`, `st_date`, `end_date`, `pickup`, `dropoff`, `motorhome_id`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, customerID);
+            preparedStatement.setDate(2, reservationDate);
+            preparedStatement.setDate(3, startDate );
+            preparedStatement.setDate(4, endDate);
+            preparedStatement.setInt(5, pickup);
+            preparedStatement.setInt(6, dropoff);
+            preparedStatement.setInt(7, motorhomeID);
+            preparedStatement.execute();
+            connection.close();
+
+        } catch (java.sql.SQLException e){
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
     public String getDbName() {
         return DB_NAME;
     }
