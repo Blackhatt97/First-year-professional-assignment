@@ -4,10 +4,7 @@ import Model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
 
@@ -25,9 +22,11 @@ public class ReservationViewController {
     @FXML ChoiceBox mhTypeCheck;
     @FXML TableView mhTableView;
     @FXML ComboBox customerBox;
+    @FXML TextField searchField;
 
     private TypeData typeData = new TypeData();
     private MotorhomeData motorhomeData = new MotorhomeData();
+    private CustomerData customerData = new CustomerData();
 
     ArrayList<LocalDate> range = new ArrayList<>();
     DateChecker dateChecker = new DateChecker();
@@ -35,7 +34,9 @@ public class ReservationViewController {
     @FXML
     public void initialize() {
 
-        customerBox.getItems().addAll(1,2,3,4,5,6,7,8,9);
+        customerData.loadList();
+        customerBox.visibleRowCountProperty().set(10);
+        customerBox.setItems(customerData.getCustomerList());
 
         mhTypeCheck.getItems().setAll(typeData.getData());
 
@@ -48,6 +49,21 @@ public class ReservationViewController {
                 if (mhTypeCheck.getSelectionModel().getSelectedItem() != null) {
                     motorhomeData.loadList(newValue.getKey());
                     mhTableView.setItems(motorhomeData.getMotorhomeList());
+                }
+            }
+        });
+
+        searchField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                customerBox.getSelectionModel().select(null);
+                if (!customerBox.isShowing()) {
+                    customerBox.show();
+                }
+                if (!newValue.isEmpty()) {
+                    customerBox.setItems(customerData.getSearchedList(newValue));
+                } else {
+                    customerBox.setItems(customerData.getCustomerList());
                 }
             }
         });

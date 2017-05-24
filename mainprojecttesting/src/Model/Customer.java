@@ -76,4 +76,31 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public boolean match(String search) {
+        if (Integer.toString(id).contains(search)) {
+            return true;
+        }
+        if (fname.contains(search)) {
+            return true;
+        }
+        if (lname.contains(search)) {
+            return true;
+        }
+        if (address.contains(search)) {
+            return true;
+        }
+        if (email.contains(search)) {
+            return true;
+        }
+        if (dateBirth.toString().contains(search)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString(id) + ": " + email + " - " + lname + " " + fname;
+    }
 }

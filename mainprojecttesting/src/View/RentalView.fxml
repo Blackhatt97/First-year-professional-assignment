@@ -66,19 +66,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <HBox layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="602.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="602.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Reset fields" />
-            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Delete" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Update" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Load all" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Create" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Reset fields" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Delete" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Update" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Load all" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Create" />
          </children>
       </HBox>
-      <HBox layoutX="459.0" layoutY="420.0" prefHeight="40.0" prefWidth="242.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="459.0" layoutY="420.0" prefHeight="40.0" prefWidth="242.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Calculate price" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Add extras" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Calculate price" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Add extras" />
          </children>
       </HBox>
    </children>

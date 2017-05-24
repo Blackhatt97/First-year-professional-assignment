@@ -64,13 +64,13 @@
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="111.0" text="Retype password:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <HBox layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="600.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#resetAll" prefHeight="40.0" prefWidth="120.0" text="Reset Fields" />
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="120.0" text="Delete" />
-            <Button mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="120.0" text="Update" />
-            <Button mnemonicParsing="false" onAction="#loadAll" prefHeight="40.0" prefWidth="120.0" text="Load all" />
-            <Button mnemonicParsing="false" onAction="#create" prefHeight="40.0" prefWidth="120.0" text="Create" />
+            <Button mnemonicParsing="false" onAction="#resetAll" prefHeight="40.0" prefWidth="115.0" text="Reset Fields" />
+            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="115.0" text="Delete" />
+            <Button mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="115.0" text="Update" />
+            <Button mnemonicParsing="false" onAction="#loadAll" prefHeight="40.0" prefWidth="115.0" text="Load all" />
+            <Button mnemonicParsing="false" onAction="#create" prefHeight="40.0" prefWidth="115.0" text="Create" />
          </children>
       </HBox>
    </children>

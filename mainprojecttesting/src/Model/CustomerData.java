@@ -19,4 +19,14 @@ public class CustomerData {
         DBConn dbConn = new DBConn();
         customerList = dbConn.getAllCustomers();
     }
+
+    public ObservableList<Customer> getSearchedList(String search) {
+        ObservableList<Customer> tempList = FXCollections.observableArrayList();
+        for (Customer customer : customerList) {
+            if (customer.match(search)) {
+                tempList.add(customer);
+            }
+        }
+        return tempList;
+    }
 }

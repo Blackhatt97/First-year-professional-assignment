@@ -49,13 +49,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <HBox layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="601.0">
+      <HBox alignment="CENTER_RIGHT" layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="601.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#resetFields" prefHeight="40.0" prefWidth="120.0" text="Reset fields" />
-            <Button mnemonicParsing="false" onAction="#deleteExtra" prefHeight="40.0" prefWidth="120.0" text="Delete" />
-            <Button mnemonicParsing="false" onAction="#updateExtra" prefHeight="40.0" prefWidth="120.0" text="Update" />
-            <Button mnemonicParsing="false" onAction="#loadAllExtras" prefHeight="40.0" prefWidth="120.0" text="Load all" />
-            <Button mnemonicParsing="false" onAction="#createExtra" prefHeight="40.0" prefWidth="120.0" text="Create" />
+            <Button mnemonicParsing="false" onAction="#resetFields" prefHeight="40.0" prefWidth="115.0" text="Reset fields" />
+            <Button mnemonicParsing="false" onAction="#deleteExtra" prefHeight="40.0" prefWidth="115.0" text="Delete" />
+            <Button mnemonicParsing="false" onAction="#updateExtra" prefHeight="40.0" prefWidth="115.0" text="Update" />
+            <Button mnemonicParsing="false" onAction="#loadAllExtras" prefHeight="40.0" prefWidth="115.0" text="Load all" />
+            <Button mnemonicParsing="false" onAction="#createExtra" prefHeight="40.0" prefWidth="115.0" text="Create" />
          </children>
       </HBox>
    </children>

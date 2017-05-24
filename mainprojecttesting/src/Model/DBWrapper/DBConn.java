@@ -416,7 +416,7 @@ public class DBConn {
     public ObservableList<Customer> getAllCustomers() {
 
         ObservableList<Customer> customers = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM customers";
+        String sql = "SELECT * FROM customers ORDER BY id DESC";
 
         try {
             Connection connection = getConn();
@@ -429,7 +429,7 @@ public class DBConn {
                         resultSet.getString(3),
                         resultSet.getDate(4),
                         resultSet.getString(5),
-                        resultSet.getString(5));
+                        resultSet.getString(6));
                 customers.add(customer);
             }
             connection.close();

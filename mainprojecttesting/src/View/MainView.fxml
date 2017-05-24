@@ -16,13 +16,13 @@
    <children>
       <TilePane fx:id="menuPane" prefHeight="280.0" prefWidth="120.0">
          <children>
-            <Button fx:id="mhButton" mnemonicParsing="false" onAction="#mhScreen" prefHeight="40.0" prefWidth="120.0" text="Motorhome" />
-            <Button fx:id="userButton" mnemonicParsing="false" onAction="#userScreen" prefHeight="40.0" prefWidth="120.0" text="User" />
-            <Button fx:id="customerButton" mnemonicParsing="false" onAction="#customerScreen" prefHeight="40.0" prefWidth="120.0" text="Customer" />
-            <Button fx:id="rentalButton" mnemonicParsing="false" onAction="#rentalScreen" prefHeight="40.0" prefWidth="120.0" text="Rental" />
-            <Button fx:id="extrasButton" mnemonicParsing="false" onAction="#extrasScreen" prefHeight="40.0" prefWidth="120.0" text="Extras" />
-            <Button fx:id="reservButton" mnemonicParsing="false" onAction="#reservScreen" prefHeight="40.0" prefWidth="120.0" text="Reservation" />
-            <Button fx:id="repairButton" mnemonicParsing="false" onAction="#repairScreen" prefHeight="40.0" prefWidth="120.0" text="Repair" />
+            <Button fx:id="mhButton" mnemonicParsing="false" onAction="#mhScreen" prefHeight="40.0" prefWidth="115.0" text="Motorhome" />
+            <Button fx:id="userButton" mnemonicParsing="false" onAction="#userScreen" prefHeight="40.0" prefWidth="115.0" text="User" />
+            <Button fx:id="customerButton" mnemonicParsing="false" onAction="#customerScreen" prefHeight="40.0" prefWidth="115.0" text="Customer" />
+            <Button fx:id="rentalButton" mnemonicParsing="false" onAction="#rentalScreen" prefHeight="40.0" prefWidth="115.0" text="Rental" />
+            <Button fx:id="extrasButton" mnemonicParsing="false" onAction="#extrasScreen" prefHeight="40.0" prefWidth="115.0" text="Extras" />
+            <Button fx:id="reservButton" mnemonicParsing="false" onAction="#reservScreen" prefHeight="40.0" prefWidth="115.0" text="Reservation" />
+            <Button fx:id="repairButton" mnemonicParsing="false" onAction="#repairScreen" prefHeight="40.0" prefWidth="115.0" text="Repair" />
          </children>
       </TilePane>
       <SplitPane id="rightSplit" dividerPositions="0.13392857142857142" layoutX="120.0" maxHeight="-Infinity" maxWidth="-Infinity" orientation="VERTICAL" prefHeight="548.0" prefWidth="702.0" styleClass="split-pane-divider" stylesheets="@../stylesheet.css">
@@ -41,6 +41,6 @@
           <AnchorPane fx:id="workPlaceAnchor" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" />
         </items>
       </SplitPane>
-      <Button fx:id="logoutButton" layoutY="508.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="40.0" prefWidth="120.0" text="Log out" />
+      <Button fx:id="logoutButton" layoutY="508.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="40.0" prefWidth="115.0" text="Log out" />
    </children>
 </AnchorPane>
