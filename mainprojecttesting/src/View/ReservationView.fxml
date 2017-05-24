@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReservationViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReservationViewController">
    <children>
       <TableView prefHeight="200.0" prefWidth="700.0">
          <columns>
@@ -74,7 +74,7 @@
             <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Delete" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Update" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Load all" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Create" />
+            <Button mnemonicParsing="false" onAction="#createReservation" prefHeight="40.0" prefWidth="115.0" text="Create" />
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" />
