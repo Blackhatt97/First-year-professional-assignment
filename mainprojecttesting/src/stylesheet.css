@@ -38,3 +38,6 @@
     -fx-background-insets: 5;
     -fx-border-color: transparent;
 }
+.button:focused{
+    -fx-background-color: #2F2A2A;
+}
