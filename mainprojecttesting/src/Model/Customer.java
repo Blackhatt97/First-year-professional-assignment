@@ -19,7 +19,7 @@ public class Customer {
                     String lname,
                     Date dateBirth,
                     String address,
-                    String email){
+                    String email) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;

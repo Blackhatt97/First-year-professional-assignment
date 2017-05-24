@@ -5,6 +5,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -23,6 +24,7 @@ public class ReservationViewController {
     @FXML DatePicker reservationPicker;
     @FXML ChoiceBox mhTypeCheck;
     @FXML TableView mhTableView;
+    @FXML ComboBox customerBox;
 
     private TypeData typeData = new TypeData();
     private MotorhomeData motorhomeData = new MotorhomeData();
@@ -32,6 +34,8 @@ public class ReservationViewController {
     ArrayList<Pair<LocalDate, LocalDate>> dateRanges = new ArrayList<>();
     @FXML
     public void initialize() {
+
+        customerBox.getItems().addAll(1,2,3,4,5,6,7,8,9);
 
         mhTypeCheck.getItems().setAll(typeData.getData());
 

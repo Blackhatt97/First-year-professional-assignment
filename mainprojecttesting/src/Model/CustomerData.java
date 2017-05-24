@@ -18,6 +18,5 @@ public class CustomerData {
     public void loadList() {
         DBConn dbConn = new DBConn();
         customerList = dbConn.getAllCustomers();
-        dbConn = null;
     }
 }
