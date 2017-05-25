@@ -226,6 +226,25 @@ public class DBConn {
         }
     }
 
+    public int getMotorhomeType(int motorhomeID){
+
+        String sql = "SELECT type_id FROM motorhometype WHERE motorhome_id =" + String.valueOf(motorhomeID);
+        int typeNo = 0;
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                typeNo = resultSet.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return typeNo;
+
+    }
+
     public ArrayList<Pair<Integer, String>> getMotorhomeTypes() {
 
         ArrayList<Pair<Integer, String>> types = new ArrayList<>();

@@ -19,11 +19,12 @@ import java.util.ArrayList;
  */
 public class ReservationViewController {
 
+    @FXML private TextField reservationIDField;
     @FXML private TableView reservationTable;
     @FXML private DatePicker reservationDateEnd;
     @FXML private DatePicker reservationDateBegin;
     @FXML DatePicker reservationPicker;
-    @FXML ChoiceBox mhTypeCheck;
+    @FXML ChoiceBox<Pair<Integer, String>> mhTypeCheck;
     @FXML TableView<Motorhome> mhTableView;
     @FXML ComboBox<Customer> customerBox;
     @FXML TextField searchField;
@@ -39,8 +40,18 @@ public class ReservationViewController {
     @FXML
     public void initialize() {
 
-        //loading all reservations
+        //loading all reservations and adding listener to reservation table
         loadAllReservations();
+        reservationTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Reservation>() {
+            @Override
+            public void changed(ObservableValue<? extends Reservation> observable, Reservation oldValue, Reservation newValue) {
+                if (reservationTable.getSelectionModel().getSelectedItem() != null) {
+                    TableView.TableViewSelectionModel selectionModel = reservationTable.getSelectionModel();
+                    Object selectedItem = selectionModel.getSelectedItem();
+                    updateFields((Reservation) selectedItem);
+                }
+            }
+        });
 
         //defining customers inside customer choice box
         customerData.loadList();
@@ -125,6 +136,31 @@ public class ReservationViewController {
 
     private void updateFields(Reservation reservation){
 
+        reservationIDField.setText(String.valueOf(reservation.getId()));
+        ObservableList<Customer> reservationCustomer = customerData.getSearchedList(String.valueOf(reservation.getCustId()));
+        customerBox.setItems(reservationCustomer);
+        customerBox.getSelectionModel().selectNext();
+        reservationPicker.setValue(reservation.getReservationDate().toLocalDate());
+        //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
+        reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
+        reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
+        DBConn dbConn = new DBConn();
+        int motorhomeType = dbConn.getMotorhomeType(reservation.getMotorhomeId());
+
+        for (int i = 0; i < mhTypeCheck.getItems().size() ; i++) {
+            mhTypeCheck.getSelectionModel().select(i);
+            if (mhTypeCheck.getSelectionModel().getSelectedItem().getKey() == motorhomeType){
+                i = mhTypeCheck.getItems().size();
+            }
+        }
+
+        for (int i = 0; i < mhTableView.getItems().size() ; i++) {
+            mhTableView.getSelectionModel().select(i);
+            if (mhTableView.getSelectionModel().getSelectedItem().getId() == reservation.getMotorhomeId()){
+                i = mhTableView.getItems().size();
+            }
+        }
+
 
 
     }
@@ -133,6 +169,7 @@ public class ReservationViewController {
 
         reservationData.loadList();
         reservationTable.setItems(reservationData.getReservationList());
+
 
     }
 
