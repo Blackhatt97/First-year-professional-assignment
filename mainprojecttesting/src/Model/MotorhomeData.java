@@ -22,4 +22,13 @@ public class MotorhomeData {
         motorhomeList = dbConn.getAllMotorHomes(typeId);
     }
 
+    public Motorhome searchById(int id) {
+        for (Motorhome motorhome : motorhomeList) {
+            if (motorhome.getId() == id) {
+                return motorhome;
+            }
+        }
+        return null;
+    }
+
 }

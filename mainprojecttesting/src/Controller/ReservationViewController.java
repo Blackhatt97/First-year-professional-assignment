@@ -85,16 +85,10 @@ public class ReservationViewController {
                 }
                 if (!newValue.isEmpty()) {
                     ObservableList<Customer> data = customerData.getSearchedList(newValue);
-                    customerBox.setItems(data);
-                    customerBox.hide();
-                    customerBox.visibleRowCountProperty().set(data.size() >= 10 ? 10 : data.size());
-                    customerBox.show();
+                    updateCustomerBox(data);
                 } else {
                     ObservableList<Customer> data = customerData.getCustomerList();
-                    customerBox.setItems(data);
-                    customerBox.hide();
-                    customerBox.visibleRowCountProperty().set(data.size() >= 10 ? 10 : data.size());
-                    customerBox.show();
+                    updateCustomerBox(data);
                 }
             }
         });
@@ -134,37 +128,36 @@ public class ReservationViewController {
 
     }
 
-    private void updateFields(Reservation reservation){
+    private void updateCustomerBox(ObservableList<Customer> data) {
+        customerBox.setItems(data);
+        customerBox.hide();
+        customerBox.visibleRowCountProperty().set(data.size() >= 10 ? 10 : data.size());
+        customerBox.show();
+    }
+
+    private void updateFields(Reservation reservation) {
 
         reservationIDField.setText(String.valueOf(reservation.getId()));
-        ObservableList<Customer> reservationCustomer = customerData.getSearchedList(String.valueOf(reservation.getCustId()));
-        customerBox.setItems(reservationCustomer);
-        customerBox.getSelectionModel().selectNext();
+
+        customerBox.setItems(customerData.getCustomerList());
+        customerBox.getSelectionModel().select(customerData.searchById(reservation.getCustId()));
+
         reservationPicker.setValue(reservation.getReservationDate().toLocalDate());
         //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
         reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
         reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
+
         DBConn dbConn = new DBConn();
-        int motorhomeType = dbConn.getMotorhomeType(reservation.getMotorhomeId());
+        mhTypeCheck.getSelectionModel()
+                .select(typeData.searchById(dbConn.getMotorhomeType(reservation.getMotorhomeId())));
 
-        for (int i = 0; i < mhTypeCheck.getItems().size() ; i++) {
-            mhTypeCheck.getSelectionModel().select(i);
-            if (mhTypeCheck.getSelectionModel().getSelectedItem().getKey() == motorhomeType){
-                i = mhTypeCheck.getItems().size();
-            }
-        }
-
-        for (int i = 0; i < mhTableView.getItems().size() ; i++) {
-            mhTableView.getSelectionModel().select(i);
-            if (mhTableView.getSelectionModel().getSelectedItem().getId() == reservation.getMotorhomeId()){
-                i = mhTableView.getItems().size();
-            }
-        }
+        Motorhome motorhome = motorhomeData.searchById(reservation.getMotorhomeId());
+        mhTableView.getSelectionModel().select(motorhome);
+        mhTableView.scrollTo(motorhome);
 
         //get all reservations begin and end dates as periods for the selected motorhome
         //add them to date ranges
         //then disable those ranges in the datepickers
-
 
 
     }
@@ -188,10 +181,7 @@ public class ReservationViewController {
                 0,
                 0,
                 mhTableView.getSelectionModel().getSelectedItem().getId());
-        dbConn = null;
         loadAllReservations();
-
-
 
     }
 }

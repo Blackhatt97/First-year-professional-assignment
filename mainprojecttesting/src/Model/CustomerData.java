@@ -29,4 +29,13 @@ public class CustomerData {
         }
         return tempList;
     }
+
+    public Customer searchById(int id) {
+        for (Customer customer : customerList) {
+            if (customer.getId() == id) {
+                return customer;
+            }
+        }
+        return null;
+    }
 }

@@ -226,7 +226,7 @@ public class DBConn {
         }
     }
 
-    public int getMotorhomeType(int motorhomeID){
+    public int getMotorhomeType(int motorhomeID) {
 
         String sql = "SELECT type_id FROM motorhometype WHERE motorhome_id =" + String.valueOf(motorhomeID);
         int typeNo = 0;

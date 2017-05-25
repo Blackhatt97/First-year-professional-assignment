@@ -21,4 +21,13 @@ public class TypeData implements DataInterface {
         return this.data;
     }
 
+    public Pair<Integer, String> searchById(int id) {
+        for (Pair<Integer, String> pair : data) {
+            if (pair.getKey() == id) {
+                return pair;
+            }
+        }
+        return null;
+    }
+
 }
