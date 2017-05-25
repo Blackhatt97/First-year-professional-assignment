@@ -152,6 +152,7 @@ public class ReservationViewController {
         mhTableView.scrollTo(motorhome);
 
         //get all reservations begin and end dates as periods for the selected motorhome
+        dateRanges.clear();
         dateRanges = dbConn.getAllReservationDatesForMotorhome(reservation.getMotorhomeId());
 
         //add them to date ranges
