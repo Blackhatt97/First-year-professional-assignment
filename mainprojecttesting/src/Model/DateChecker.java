@@ -59,19 +59,20 @@ public class DateChecker {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #d3d3d3;");
                             }
-                            if (disableBeforeToday){
-                                if (item.isBefore(LocalDate.now())){
-                                    setDisable(true);
-                                    setStyle("-fx-background-color: #d3d3d3;");
-                                }
-                            }
+
 //                            else {
 //                                setDisable(false);
 //                                setStyle("-fx-background-color: #CCFFFF;");
 //                                setStyle("-fx-font-fill: black;");
 //
 //                            }
+                        }
 
+                        if (disableBeforeToday){
+                            if (item.isBefore(LocalDate.now())){
+                                setDisable(true);
+                                setStyle("-fx-background-color: #d3d3d3;");
+                            }
                         }
                     }
                 };
