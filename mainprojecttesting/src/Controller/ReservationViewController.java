@@ -241,7 +241,25 @@ public class ReservationViewController {
 
     public void updateReservation(ActionEvent actionEvent) {
 
+        DBConn dbConn = new DBConn();
+        Customer customer = customerBox.getSelectionModel().getSelectedItem();
+        int currentReservationID = Integer.parseInt(reservationIDField.getText());
+        dbConn.updateReservation(Integer.parseInt(reservationIDField.getText()),
+                customer.getId(),
+                java.sql.Date.valueOf(reservationPicker.getValue()),
+                java.sql.Date.valueOf(reservationDateBegin.getValue()),
+                java.sql.Date.valueOf(reservationDateEnd.getValue()),
+                0,
+                0,
+                mhTableView.getSelectionModel().getSelectedItem().getId());
+        //below is slow.. after reloading the reservations the selection is gone and we either have to refetch the reservation from db and update field
+        //or the user has to re click on the reservation she was on... how to fix? if we "remember" the row index, what if the user was sorting? then
+        //we will get the wrong reservation.. maybe store any sorting values too? otherwise this is good
+        loadAllReservations();
+        Reservation reservation = dbConn.getReservationFromDB(currentReservationID);
+        updateFields(reservation);
 
+        dbConn = null;
 
     }
 }

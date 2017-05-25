@@ -34,6 +34,34 @@ public class DBConn {
 
     }
 
+    public Reservation getReservationFromDB(int reservationID){
+
+        Reservation reservation = null;
+        String sql = "SELECT * FROM reservations WHERE id =" + String.valueOf(reservationID);
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                reservation = new Reservation(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getDate(3),
+                        resultSet.getDate(4),
+                        resultSet.getDate(5),
+                        resultSet.getInt(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reservation;
+
+    }
+
+    @SuppressWarnings("DUPLICATES")
     public void updateReservation(int reservationID,
                                   int customerID,
                                   java.sql.Date reservationDate,
@@ -43,6 +71,29 @@ public class DBConn {
                                   int dropoff,
                                   int motorhomeID
                                   ){
+
+        Connection connection = getConn();
+        String sql = "UPDATE reservations SET cust_id = ?, date_res = ?, st_date = ?," +
+                "end_date = ?, pickup = ?, dropoff = ?, motorhome_id = ? WHERE id = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, customerID);
+            ps.setDate(2, reservationDate);
+            ps.setDate(3, startDate);
+            ps.setDate(4, endDate);
+            ps.setInt(5, pickup);
+            ps.setInt(6, dropoff);
+            ps.setInt(7, motorhomeID);
+            ps.setInt(8, reservationID);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
     }
