@@ -96,18 +96,20 @@ public class ReservationViewController {
         //Unfinished date business, still early experimental
         reservationPicker.setValue(LocalDate.now());
         reservationDateBegin.setOnAction((event) -> {
-
-            LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
-            dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
-            LocalDate startDate = reservationDateBegin.getValue();
-            System.out.println("Start Date: " + startDate.toString());
+            if (reservationDateBegin.getValue() != null) {
+                LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
+//            dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
+                LocalDate startDate = reservationDateBegin.getValue();
+                System.out.println("Start Date: " + startDate.toString());
+            }
 
         });
 
         reservationDateEnd.setOnAction((event) -> {
-
-            LocalDate endDate = reservationDateEnd.getValue();
-            System.out.println("End Date: " + endDate.toString());
+            if (reservationDateEnd.getValue() != null) {
+                LocalDate endDate = reservationDateEnd.getValue();
+                System.out.println("End Date: " + endDate.toString());
+            }
 
         });
 
@@ -198,6 +200,19 @@ public class ReservationViewController {
 
         }
         dbConn = null;
+
+    }
+
+    public void resetAll(ActionEvent actionEvent) {
+
+        reservationIDField.setText(null);
+        customerBox.setValue(null);
+        reservationPicker.setValue(LocalDate.now());
+        reservationDateBegin.setValue(null);
+        reservationDateEnd.setValue(null);
+        mhTypeCheck.setValue(null);
+        mhTableView.getItems().clear();
+        reservationTable.getSelectionModel().clearSelection();
 
     }
 }
