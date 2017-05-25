@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
@@ -105,11 +104,10 @@ public class ReservationViewController {
             }
         });
 
-        //Unfinished date business, still early experimental
         reservationPicker.setValue(LocalDate.now());
         reservationDateBegin.setOnAction((event) -> {
             if (reservationDateBegin.getValue() != null) {
-                LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
+                LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDateAfter(dateRanges, reservationDateBegin.getValue());
                 dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
                 LocalDate startDate = reservationDateBegin.getValue();
                 System.out.println("Start Date: " + startDate.toString());
@@ -119,6 +117,8 @@ public class ReservationViewController {
 
         reservationDateEnd.setOnAction((event) -> {
             if (reservationDateEnd.getValue() != null) {
+                LocalDate disableBeforeClosestReservation = dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
+                dateChecker.setDisableAfterAndBeforeRange(reservationDateBegin, disableBeforeClosestReservation, reservationDateEnd.getValue());
                 LocalDate endDate = reservationDateEnd.getValue();
                 System.out.println("End Date: " + endDate.toString());
             }
@@ -162,8 +162,12 @@ public class ReservationViewController {
         //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
         reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
         reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
-        LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
+
+        LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDateAfter(dateRanges, reservationDateBegin.getValue());
         dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation, currentRange);
+
+        LocalDate disableBeforeClosestReservation = dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
+        dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateBegin, disableBeforeClosestReservation, reservationDateEnd.getValue(), currentRange);
         dbConn = null;
 
     }
@@ -206,6 +210,7 @@ public class ReservationViewController {
                     0,
                     mhTableView.getSelectionModel().getSelectedItem().getId());
             loadAllReservations();
+            resetFields();
         }
 
         else {
@@ -214,7 +219,7 @@ public class ReservationViewController {
 
         }
         dbConn = null;
-        resetFields();
+
 
     }
 

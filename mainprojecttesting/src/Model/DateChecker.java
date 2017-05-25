@@ -3,6 +3,7 @@ package Model;
 /**
  * Created by CIA on 22/05/2017.
  */
+import java.awt.image.AreaAveragingScaleFilter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -16,7 +17,28 @@ public class DateChecker {
     public DateChecker(){
     }
 
-    public LocalDate findClosestReservationDate(ArrayList<Pair<LocalDate, LocalDate>> datePairs, LocalDate startDate) {
+    public LocalDate findClosestReservationDateBefore(ArrayList<Pair<LocalDate, LocalDate>> datepairs, LocalDate endDate){
+
+        ArrayList<LocalDate> allEndDatesBeforeEndDate = new ArrayList<>();
+        for (int i = 0; i < datepairs.size() ; i++) {
+            if (datepairs.get(i).getValue().isBefore(endDate)) {
+                allEndDatesBeforeEndDate.add(datepairs.get(i).getValue());
+            }
+        }
+
+        LocalDate closestDate = LocalDate.of(0, 1, 1);
+        for (int i = 0; i < allEndDatesBeforeEndDate.size() ; i++) {
+            if (allEndDatesBeforeEndDate.get(i).isAfter(closestDate)){
+                closestDate = allEndDatesBeforeEndDate.get(i);
+            }
+        }
+        if (closestDate.isEqual(LocalDate.of(0, 1, 1))){
+            closestDate = LocalDate.now();
+        }
+        return closestDate;
+    }
+
+    public LocalDate findClosestReservationDateAfter(ArrayList<Pair<LocalDate, LocalDate>> datePairs, LocalDate startDate) {
 
         ArrayList<LocalDate> allStartDatesAfterStartDate = new ArrayList<>();
         for (int i = 0; i < datePairs.size() ; i++) {
@@ -108,7 +130,7 @@ public class DateChecker {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #d3d3d3;");
                                 if (pairArrayList.get(i).getKey().isEqual(currentRange.getKey())){
-                                    setStyle("-fx-background-color: darkred;");
+                                    setStyle("-fx-background-color: green;");
                                 }
                             }
                             if (item.isEqual(pairArrayList.get(i).getValue())) {
@@ -149,7 +171,6 @@ public class DateChecker {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        boolean cond = (item.isAfter(endDate));
                         if (item.isAfter(endDate)){
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
@@ -162,10 +183,17 @@ public class DateChecker {
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
                         }
+                        if (item.isEqual(startDate)){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
                         if (item.isAfter(currentRange.getKey()) && item.isBefore(currentRange.getValue())){
                             setStyle("-fx-background-color: red;");
                         }
-                        if (item.isEqual(currentRange.getKey()) || item.isEqual(currentRange.getValue())){
+                        if (item.isEqual(currentRange.getKey())){
+                            setStyle("-fx-background-color: green;");
+                        }
+                        if (item.isEqual(currentRange.getValue())){
                             setStyle("-fx-background-color: darkred;");
                         }
 //                        else{
