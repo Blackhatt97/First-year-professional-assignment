@@ -81,6 +81,5 @@
             <Button mnemonicParsing="false" onAction="#createReservation" prefHeight="40.0" prefWidth="115.0" text="Create" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
