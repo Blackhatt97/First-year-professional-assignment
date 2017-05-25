@@ -107,15 +107,15 @@ public class DateChecker {
                             if (item.isEqual(pairArrayList.get(i).getKey())) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #d3d3d3;");
-                                if (pairArrayList.get(i).getValue().isEqual(currentRange.getValue()) && pairArrayList.get(i).getKey().isEqual(currentRange.getKey())){
-                                    setStyle("-fx-background-color: red;");
+                                if (pairArrayList.get(i).getKey().isEqual(currentRange.getKey())){
+                                    setStyle("-fx-background-color: darkred;");
                                 }
                             }
                             if (item.isEqual(pairArrayList.get(i).getValue())) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #d3d3d3;");
-                                if (pairArrayList.get(i).getValue().isEqual(currentRange.getValue()) && pairArrayList.get(i).getKey().isEqual(currentRange.getKey())){
-                                    setStyle("-fx-background-color: red;");
+                                if (pairArrayList.get(i).getValue().isEqual(currentRange.getValue())){
+                                    setStyle("-fx-background-color: darkred;");
                                 }
                             }
                             if (disableBeforeToday){
@@ -166,7 +166,7 @@ public class DateChecker {
                             setStyle("-fx-background-color: red;");
                         }
                         if (item.isEqual(currentRange.getKey()) || item.isEqual(currentRange.getValue())){
-                            setStyle("-fx-background-color: red;");
+                            setStyle("-fx-background-color: darkred;");
                         }
 //                        else{
 //                            setDisable(false);

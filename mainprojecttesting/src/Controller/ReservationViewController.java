@@ -240,6 +240,7 @@ public class ReservationViewController {
     }
 
     private void resetFields(){
+
         reservationIDField.setText("");
         customerBox.setValue(null);
         reservationPicker.setValue(LocalDate.now());
@@ -248,5 +249,6 @@ public class ReservationViewController {
         mhTypeCheck.setValue(null);
         mhTableView.getItems().clear();
         reservationTable.getSelectionModel().clearSelection();
+
     }
 }
