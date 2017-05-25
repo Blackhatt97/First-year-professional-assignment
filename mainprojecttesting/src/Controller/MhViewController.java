@@ -7,10 +7,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MhViewController {
 
+    @FXML GridPane gridPaneMh;
     @FXML TextField idField;
     @FXML ChoiceBox statusChoiceBox;
     @FXML TextField plateNumberField;
@@ -72,17 +77,57 @@ public class MhViewController {
     @FXML
     public void create(ActionEvent actionEvent) {
 
+        List<String> emptyFields = new ArrayList<String>();
+        int filled = 0;
         //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled, say which fields are missing
         //if the user fails to enter stuff into them, if a field is incorrect tell the user which field is incorrect
-        DBConn dbConn = new DBConn();
-        dbConn.addMotorHomeToDB(brandField.getText(),
-                Integer.valueOf(fabYearField.getText()),
-                plateNumberField.getText(),
-                Integer.valueOf(kilometrageField.getText()),
-                (Integer) ((Pair) statusChoiceBox.getValue()).getKey(),
-                (Integer) ((Pair) typeChoiceBox.getValue()).getKey());
-        loadAllMotorHomes();
+        if(brandField.getText().isEmpty()){
+            emptyFields.add("true");
+            brandField.setStyle("-fx-background-color: red;");
+        } else {emptyFields.add("false");
+            brandField.setStyle("-fx-background-color: green");}
+        if(fabYearField.getText().isEmpty() && fabYearField.getText().getClass().equals(int.class)){
+            emptyFields.add("true");
+            fabYearField.setStyle("-fx-background-color: red;");
+        } else {emptyFields.add("false");
+            fabYearField.setStyle("-fx-background-color: green");}
+        if(plateNumberField.getText().isEmpty()){
+            emptyFields.add("true");
+           plateNumberField.setStyle("-fx-background-color: red;");
+        } else {emptyFields.add("false");
+            plateNumberField.setStyle("-fx-background-color: green");}
+        if(kilometrageField.getText().isEmpty() && kilometrageField.getText().getClass().equals(int.class)){
+            emptyFields.add("true");
+            kilometrageField.setStyle("-fx-background-color: red;");
+        } else {emptyFields.add("false");
+            kilometrageField.setStyle("-fx-background-color: green");}
+        if(statusChoiceBox.getSelectionModel().isEmpty()){
+            emptyFields.add("true");
+            statusChoiceBox.setStyle("-fx-background-color: red;");
+        } else {emptyFields.add("false");
+            statusChoiceBox.setStyle("-fx-background-color: green");}
+        if(typeChoiceBox.getSelectionModel().isEmpty()){
+            emptyFields.add("true");
+            typeChoiceBox.setStyle("-fx-background-color: red;");
+        } else {emptyFields.add("false");
+            typeChoiceBox.setStyle("-fx-background-color: green");}
 
+        for(String check : emptyFields){
+
+            if(check.equals("false")){
+                filled++;
+            }
+        }
+        if(filled==6) {
+            DBConn dbConn = new DBConn();
+            dbConn.addMotorHomeToDB(brandField.getText(),
+                    Integer.valueOf(fabYearField.getText()),
+                    plateNumberField.getText(),
+                    Integer.valueOf(kilometrageField.getText()),
+                    (Integer) ((Pair) statusChoiceBox.getValue()).getKey(),
+                    (Integer) ((Pair) typeChoiceBox.getValue()).getKey());
+            loadAllMotorHomes();
+        }
     }
 
     //TBD by Raz
@@ -121,13 +166,21 @@ public class MhViewController {
     public void resetAll(ActionEvent actionEvent) {
         motorhomeTable.getSelectionModel().select(null);
         idField.setText("");
+        idField.setStyle("-fx-background-color: white");
         statusChoiceBox.setValue(null);
+        statusChoiceBox.setStyle("-fx-background-color: white");
         plateNumberField.setText("");
+        plateNumberField.setStyle("-fx-background-color: white");
         typeChoiceBox.setValue(null);
+        typeChoiceBox.setStyle("-fx-background-color: white");
         brandField.setText("");
+        brandField.setStyle("-fx-background-color: white");
         fabYearField.setText("");
+        fabYearField.setStyle("-fx-background-color: white");
         kilometrageField.setText("");
+        kilometrageField.setStyle("-fx-background-color: white");
     }
+
 
 }
 

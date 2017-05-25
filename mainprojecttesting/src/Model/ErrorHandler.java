@@ -68,7 +68,9 @@ public class ErrorHandler {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+    }
 
+    public static void emptyFieldsHandler(){
 
     }
 }
