@@ -80,6 +80,63 @@ public class DateChecker {
         datePicker.setDayCellFactory(dayCellFactory);
     }
 
+    public void setDisabledRangeWithHighlightedCurrentRange(DatePicker datePicker,
+                                                            ArrayList<Pair<LocalDate, LocalDate>> pairArrayList,
+                                                            boolean disableBeforeToday,
+                                                            Pair<LocalDate, LocalDate> currentRange){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        for (int i = 0; i < pairArrayList.size() ; i++) {
+
+                            super.updateItem(item, empty);
+                            boolean cond = (item.isBefore(pairArrayList.get(i).getValue()) && item.isAfter(pairArrayList.get(i).getKey()));
+                            if (item.isBefore(pairArrayList.get(i).getValue()) && item.isAfter(pairArrayList.get(i).getKey())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #d3d3d3;");
+                                if (pairArrayList.get(i).getValue().isEqual(currentRange.getValue()) && pairArrayList.get(i).getKey().isEqual(currentRange.getKey())){
+                                    setStyle("-fx-background-color: red;");
+                                }
+                            }
+                            if (item.isEqual(pairArrayList.get(i).getKey())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #d3d3d3;");
+                                if (pairArrayList.get(i).getValue().isEqual(currentRange.getValue()) && pairArrayList.get(i).getKey().isEqual(currentRange.getKey())){
+                                    setStyle("-fx-background-color: red;");
+                                }
+                            }
+                            if (item.isEqual(pairArrayList.get(i).getValue())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #d3d3d3;");
+                                if (pairArrayList.get(i).getValue().isEqual(currentRange.getValue()) && pairArrayList.get(i).getKey().isEqual(currentRange.getKey())){
+                                    setStyle("-fx-background-color: red;");
+                                }
+                            }
+                            if (disableBeforeToday){
+                                if (item.isBefore(LocalDate.now())){
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #d3d3d3;");
+                                }
+                            }
+//                            else {
+//                                setDisable(false);
+//                                setStyle("-fx-background-color: #CCFFFF;");
+//                                setStyle("-fx-font-fill: black;");
+//
+//                            }
+
+                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+    }
     @SuppressWarnings("Duplicates")
     public void setDisableAfterAndBeforeRange(DatePicker datePicker, LocalDate startDate, LocalDate endDate){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {

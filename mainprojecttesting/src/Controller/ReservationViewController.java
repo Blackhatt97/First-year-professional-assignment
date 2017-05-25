@@ -159,8 +159,9 @@ public class ReservationViewController {
 
         //add them to date ranges
         //then disable those ranges in the datepickers
-        dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
-        dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
+        Pair<LocalDate, LocalDate> currentRange = new Pair<LocalDate, LocalDate>(reservation.getStartDate().toLocalDate(), reservation.getEndDate().toLocalDate());
+        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateEnd, dateRanges, true, currentRange);
+        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateBegin, dateRanges, true, currentRange);
         //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
         reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
         reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
@@ -179,7 +180,7 @@ public class ReservationViewController {
 
         DBConn dbConn = new DBConn();
         boolean reservationExists = false;
-        if (!reservationIDField.getText().equals(null)){
+        if (!reservationIDField.getText().equals("")){
             reservationExists = dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()));
         }
         if (!reservationExists) {
@@ -205,7 +206,7 @@ public class ReservationViewController {
 
     public void resetAll(ActionEvent actionEvent) {
 
-        reservationIDField.setText(null);
+        reservationIDField.setText("");
         customerBox.setValue(null);
         reservationPicker.setValue(LocalDate.now());
         reservationDateBegin.setValue(null);
