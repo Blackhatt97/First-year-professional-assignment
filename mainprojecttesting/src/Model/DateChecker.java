@@ -138,6 +138,47 @@ public class DateChecker {
         datePicker.setDayCellFactory(dayCellFactory);
     }
     @SuppressWarnings("Duplicates")
+    public void setDisableAfterAndBeforeRangeWithHighlight(DatePicker datePicker, LocalDate startDate, LocalDate endDate, Pair<LocalDate, LocalDate> currentRange){
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        boolean cond = (item.isAfter(endDate));
+                        if (item.isAfter(endDate)){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
+                        if (item.isEqual(endDate)){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
+                        if (item.isBefore(startDate)){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
+                        if (item.isAfter(currentRange.getKey()) && item.isBefore(currentRange.getValue())){
+                            setStyle("-fx-background-color: red;");
+                        }
+                        if (item.isEqual(currentRange.getKey()) || item.isEqual(currentRange.getValue())){
+                            setStyle("-fx-background-color: red;");
+                        }
+//                        else{
+//                            setDisable(false);
+//                            setStyle("-fx-background-color: #CCFFFF;");
+//                            setStyle("-fx-font-fill: black;");
+//                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+    }
+
     public void setDisableAfterAndBeforeRange(DatePicker datePicker, LocalDate startDate, LocalDate endDate){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
@@ -150,6 +191,10 @@ public class DateChecker {
                         super.updateItem(item, empty);
                         boolean cond = (item.isAfter(endDate));
                         if (item.isAfter(endDate)){
+                            setDisable(true);
+                            setStyle("-fx-background-color: #d3d3d3;");
+                        }
+                        if (item.isEqual(endDate)){
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
                         }

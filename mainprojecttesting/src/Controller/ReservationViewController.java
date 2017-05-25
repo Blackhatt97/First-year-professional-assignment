@@ -53,6 +53,18 @@ public class ReservationViewController {
             }
         });
 
+        //listener for motorhome table
+        mhTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {
+            @Override
+            public void changed(ObservableValue<? extends Motorhome> observable, Motorhome oldValue, Motorhome newValue) {
+                if (mhTableView.getSelectionModel().getSelectedItem() != null) {
+                    TableView.TableViewSelectionModel selectionModel = mhTableView.getSelectionModel();
+                    Object selectedItem = selectionModel.getSelectedItem();
+                    updateDatePickersWithMotorhome((Motorhome) selectedItem);
+                }
+            }
+        });
+
         //defining customers inside customer choice box
         customerData.loadList();
         customerBox.visibleRowCountProperty()
@@ -98,7 +110,7 @@ public class ReservationViewController {
         reservationDateBegin.setOnAction((event) -> {
             if (reservationDateBegin.getValue() != null) {
                 LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
-//            dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
+                dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
                 LocalDate startDate = reservationDateBegin.getValue();
                 System.out.println("Start Date: " + startDate.toString());
             }
@@ -165,6 +177,22 @@ public class ReservationViewController {
         //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
         reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
         reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
+        LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDate(dateRanges, reservationDateBegin.getValue());
+        dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation, currentRange);
+        dbConn = null;
+
+    }
+
+    private void updateDatePickersWithMotorhome(Motorhome motorhome){
+
+            DBConn dbConn = new DBConn();
+            dateRanges.clear();
+            dateRanges = dbConn.getAllReservationDatesForMotorhome(motorhome.getId());
+            dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
+            dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
+
+
+            dbConn = null;
 
     }
 
