@@ -117,20 +117,20 @@ public class ReservationViewController {
 
         });
 
-        LocalDate localDateStart = LocalDate.of(2017, 5, 25);
-        LocalDate localDateEnd = LocalDate.of(2017, 5, 25);
-
-        LocalDate localDateStart1 = LocalDate.of(2017, 6, 5);
-        LocalDate localDateEnd1 = LocalDate.of(2017, 6, 10);
-
-        Pair<LocalDate, LocalDate> localDatePair = new Pair<>(localDateStart, localDateEnd);
-        Pair<LocalDate, LocalDate> localDatePair1 = new Pair<>(localDateStart1, localDateEnd1);
-
-        dateRanges.add(localDatePair);
-        dateRanges.add(localDatePair1);
-
-        dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
-        dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
+//        LocalDate localDateStart = LocalDate.of(2017, 5, 25);
+//        LocalDate localDateEnd = LocalDate.of(2017, 5, 25);
+//
+//        LocalDate localDateStart1 = LocalDate.of(2017, 6, 5);
+//        LocalDate localDateEnd1 = LocalDate.of(2017, 6, 10);
+//
+//        Pair<LocalDate, LocalDate> localDatePair = new Pair<>(localDateStart, localDateEnd);
+//        Pair<LocalDate, LocalDate> localDatePair1 = new Pair<>(localDateStart1, localDateEnd1);
+//
+//        dateRanges.add(localDatePair);
+//        dateRanges.add(localDatePair1);
+//
+//        dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
+//        dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
 
     }
 
@@ -160,6 +160,10 @@ public class ReservationViewController {
                 i = mhTableView.getItems().size();
             }
         }
+
+        //get all reservations begin and end dates as periods for the selected motorhome
+        //add them to date ranges
+        //then disable those ranges in the datepickers
 
 
 
