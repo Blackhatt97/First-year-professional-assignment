@@ -7,6 +7,7 @@ import javafx.util.Pair;
 
 import java.sql.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DBConn {
@@ -91,6 +92,48 @@ public class DBConn {
             e.printStackTrace();
         }
         return reservations;
+    }
+
+    public ArrayList<Pair<LocalDate, LocalDate>> getAllReservationDatesForMotorhome(int motorhomeId){
+
+        ArrayList<Pair<LocalDate, LocalDate>> dates = new ArrayList<>();
+        String sql = "SELECT st_date, end_date FROM reservations WHERE motorhome_id =" + String.valueOf(motorhomeId);
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                LocalDate localDateStart = resultSet.getDate(1).toLocalDate();
+                LocalDate localDateEnd = resultSet.getDate(2).toLocalDate();
+                Pair<LocalDate, LocalDate> localDatePair = new Pair<>(localDateStart, localDateEnd);
+                dates.add(localDatePair);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return dates;
+    }
+
+    public boolean checkIfReservationExists(int reservationId){
+
+        String sql = "SELECT * FROM reservations WHERE id =" + String.valueOf(reservationId);
+        boolean reservationExists = false;
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+              reservationExists = true;
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reservationExists;
+
     }
 
     public String getDbName() {

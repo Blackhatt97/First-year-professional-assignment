@@ -55,6 +55,10 @@ public class DateChecker {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #d3d3d3;");
                             }
+                            if (item.isEqual(pairArrayList.get(i).getValue())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #d3d3d3;");
+                            }
                             if (disableBeforeToday){
                                 if (item.isBefore(LocalDate.now())){
                                     setDisable(true);

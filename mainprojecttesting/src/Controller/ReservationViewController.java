@@ -143,10 +143,6 @@ public class ReservationViewController {
         customerBox.getSelectionModel().select(customerData.searchById(reservation.getCustId()));
 
         reservationPicker.setValue(reservation.getReservationDate().toLocalDate());
-        //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
-        reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
-        reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
-
         DBConn dbConn = new DBConn();
         mhTypeCheck.getSelectionModel()
                 .select(typeData.searchById(dbConn.getMotorhomeType(reservation.getMotorhomeId())));
@@ -156,9 +152,15 @@ public class ReservationViewController {
         mhTableView.scrollTo(motorhome);
 
         //get all reservations begin and end dates as periods for the selected motorhome
+        dateRanges = dbConn.getAllReservationDatesForMotorhome(reservation.getMotorhomeId());
+
         //add them to date ranges
         //then disable those ranges in the datepickers
-
+        dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
+        dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
+        //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
+        reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
+        reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
 
     }
 
@@ -173,15 +175,28 @@ public class ReservationViewController {
     public void createReservation(ActionEvent actionEvent) {
 
         DBConn dbConn = new DBConn();
-        Customer customer = customerBox.getSelectionModel().getSelectedItem();
-        dbConn.addReservationToDB(customer.getId(),
-                java.sql.Date.valueOf(reservationPicker.getValue()),
-                java.sql.Date.valueOf(reservationDateBegin.getValue()),
-                java.sql.Date.valueOf(reservationDateEnd.getValue()),
-                0,
-                0,
-                mhTableView.getSelectionModel().getSelectedItem().getId());
-        loadAllReservations();
+        boolean reservationExists = false;
+        if (!reservationIDField.getText().equals(null)){
+            reservationExists = dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()));
+        }
+        if (!reservationExists) {
+            Customer customer = customerBox.getSelectionModel().getSelectedItem();
+            dbConn.addReservationToDB(customer.getId(),
+                    java.sql.Date.valueOf(reservationPicker.getValue()),
+                    java.sql.Date.valueOf(reservationDateBegin.getValue()),
+                    java.sql.Date.valueOf(reservationDateEnd.getValue()),
+                    0,
+                    0,
+                    mhTableView.getSelectionModel().getSelectedItem().getId());
+            loadAllReservations();
+        }
+
+        else {
+
+            System.out.println("Reservation already exists, use the update button.");
+
+        }
+        dbConn = null;
 
     }
 }
