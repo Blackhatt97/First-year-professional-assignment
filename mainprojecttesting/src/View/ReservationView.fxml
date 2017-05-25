@@ -72,7 +72,7 @@
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Rent" />
             <Button mnemonicParsing="false" onAction="#resetAll" prefHeight="40.0" prefWidth="115.0" text="Reset fields" />
             <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Delete" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Update" />
+            <Button mnemonicParsing="false" onAction="#updateReservation" prefHeight="40.0" prefWidth="115.0" text="Update" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Load all" />
             <Button mnemonicParsing="false" onAction="#createReservation" prefHeight="40.0" prefWidth="115.0" text="Create" />
          </children>

@@ -33,7 +33,6 @@ public class ReservationViewController {
     private CustomerData customerData = new CustomerData();
     private ReservationData reservationData = new ReservationData();
 
-    ArrayList<LocalDate> range = new ArrayList<>();
     DateChecker dateChecker = new DateChecker();
     ArrayList<Pair<LocalDate, LocalDate>> dateRanges = new ArrayList<>();
     @FXML
@@ -179,8 +178,6 @@ public class ReservationViewController {
             dateRanges = dbConn.getAllReservationDatesForMotorhome(motorhome.getId());
             dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
             dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
-
-
             dbConn = null;
 
     }
@@ -239,6 +236,12 @@ public class ReservationViewController {
         mhTypeCheck.setValue(null);
         mhTableView.getItems().clear();
         reservationTable.getSelectionModel().clearSelection();
+
+    }
+
+    public void updateReservation(ActionEvent actionEvent) {
+
+
 
     }
 }

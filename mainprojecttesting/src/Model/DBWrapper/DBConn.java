@@ -34,6 +34,19 @@ public class DBConn {
 
     }
 
+    public void updateReservation(int reservationID,
+                                  int customerID,
+                                  java.sql.Date reservationDate,
+                                  java.sql.Date startDate,
+                                  java.sql.Date endDate,
+                                  int pickup,
+                                  int dropoff,
+                                  int motorhomeID
+                                  ){
+
+
+    }
+
     public void addReservationToDB(int customerID,
                                    java.sql.Date reservationDate,
                                    java.sql.Date startDate,
