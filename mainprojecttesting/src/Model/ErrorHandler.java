@@ -69,8 +69,4 @@ public class ErrorHandler {
         timeline.play();
 
     }
-
-    public static void emptyFieldsHandler(){
-
-    }
 }
