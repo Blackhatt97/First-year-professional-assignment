@@ -72,7 +72,7 @@
             <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Delete" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Update" />
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Load all" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Create" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Create contract" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" layoutX="459.0" layoutY="420.0" prefHeight="40.0" prefWidth="242.0">

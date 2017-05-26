@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
@@ -15,7 +19,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReservationViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ReservationViewController">
    <children>
       <TableView fx:id="reservationTable" prefHeight="200.0" prefWidth="700.0">
          <columns>
@@ -27,7 +31,7 @@
             <TableColumn prefWidth="138.0" text="MH ID"><cellValueFactory><PropertyValueFactory property="motorhomeId" /></cellValueFactory></TableColumn>
          </columns>
       </TableView>
-      <GridPane alignment="CENTER_LEFT" layoutX="3.0" layoutY="204.0" prefHeight="231.0" prefWidth="600.0">
+      <GridPane alignment="CENTER_LEFT" layoutX="3.0" layoutY="204.0" prefHeight="231.0" prefWidth="689.0">
          <children>
             <TextField fx:id="reservationIDField" editable="false" GridPane.columnIndex="1" />
             <DatePicker fx:id="reservationDateBegin" editable="false" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -38,17 +42,21 @@
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="69.0" text="End Date:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <DatePicker fx:id="reservationDateEnd" editable="false" prefHeight="25.0" prefWidth="219.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <DatePicker fx:id="reservationPicker" editable="false" prefHeight="25.0" prefWidth="243.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="114.0" text="Motorhome Type:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
-            <ChoiceBox fx:id="mhTypeCheck" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="114.0" text="Motorhome Type:" GridPane.columnIndex="3" GridPane.halignment="RIGHT" />
+            <ChoiceBox fx:id="mhTypeCheck" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="4" />
             <ComboBox fx:id="customerBox" prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="106.0" text="Search Customer:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
-            <TextField fx:id="searchField" prefHeight="25.0" prefWidth="198.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="searchField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="122.0" promptText="Search customer" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+            <ChoiceBox prefHeight="25.0" prefWidth="216.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="62.0" text="Season:" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+            <TextField prefHeight="25.0" prefWidth="116.0" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="45.0" text="Price:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="115.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="201.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="111.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="174.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="193.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="225.0" minWidth="10.0" prefWidth="132.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="123.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="121.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -60,11 +68,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" />
          </rowConstraints>
       </GridPane>
-      <TableView fx:id="mhTableView" layoutX="324.0" layoutY="242.0" prefHeight="156.0" prefWidth="359.0">
+      <TableView fx:id="mhTableView" layoutX="324.0" layoutY="242.0" prefHeight="156.0" prefWidth="367.0">
         <columns>
            <TableColumn prefWidth="75.0" text="ID"><cellValueFactory><PropertyValueFactory property="id" /></cellValueFactory></TableColumn>
            <TableColumn prefWidth="180.0" text="Plate"><cellValueFactory><PropertyValueFactory property="regPlate" /></cellValueFactory></TableColumn>
-           <TableColumn prefWidth="103.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
+           <TableColumn prefWidth="111.0" text="Brand"><cellValueFactory><PropertyValueFactory property="brand" /></cellValueFactory></TableColumn>
         </columns>
       </TableView>
       <HBox alignment="CENTER_RIGHT" layoutX="-1.0" layoutY="460.0" prefHeight="40.0" prefWidth="700.0">
