@@ -93,28 +93,29 @@ public class UserViewController {
 
     @FXML
     public void create(ActionEvent actionEvent) {
-        java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
+
 
         String pass = passField.getText();
         String rPass = retypePassField.getText();
 
         //HERE WE MAKE SECURITY FOR FIELDS AND PASS
+        if(pass.equals(rPass)) {
 
-        DBConn dbConn = new DBConn();
-        dbConn.addUserToDB(fNameField.getText(),
-                lNameField.getText(),
-                datepicker,
-                emailField.getText(),
-                addressField.getText(),
-                (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
-                retypePassField.getText());
+            java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
+            DBConn dbConn = new DBConn();
+            dbConn.addUserToDB(fNameField.getText(),
+                    lNameField.getText(),
+                    datepicker,
+                    emailField.getText(),
+                    addressField.getText(),
+                    (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
+                    retypePassField.getText());
 
-
-
-        System.out.println("New User Created!");
+            System.out.println("New User Created!");
+        } else {
+            ErrorHandler.popUp("User creation","The passwords doesnt match","Retype Password");
+        }
         loadAllUsers();
-        dbConn = null;
-
     }
 
     public void delete(ActionEvent event) {
