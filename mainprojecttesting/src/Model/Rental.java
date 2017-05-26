@@ -3,9 +3,6 @@ package Model;
 import java.sql.Date;
 import java.util.ArrayList;
 
-/**
- * Created by blackhatt on 14/05/2017.
- */
 public class Rental {
 
     private int id;
@@ -16,7 +13,7 @@ public class Rental {
     private double pickup;
     private double dropoff;
     private int type;
-    private ArrayList<Extras> extra = new ArrayList<>();
+    private ArrayList<Extras> extra;
 
     public Rental(int id,
                   int custId,
@@ -26,7 +23,7 @@ public class Rental {
                   double pickup,
                   double dropoff,
                   int type,
-                  ArrayList<Extras> extra){
+                  ArrayList<Extras> extra) {
 
         this.id = id;
         this.custId = custId;

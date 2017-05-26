@@ -18,7 +18,6 @@ public class ExtrasData {
     public void loadList() {
         DBConn dbConn = new DBConn();
         extrasList = dbConn.getAllExtras();
-        dbConn = null;
     }
 
 }

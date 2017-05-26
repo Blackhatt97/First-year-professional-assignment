@@ -48,7 +48,7 @@
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="100.0" text="Motorhome Type:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <ChoiceBox prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="40.0" text="Extras:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <ComboBox prefHeight="25.0" prefWidth="232.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <ComboBox fx:id="extrasBox" prefHeight="25.0" prefWidth="232.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="40.0" text="Price:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <TextField editable="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
          </children>
@@ -78,7 +78,7 @@
       <HBox alignment="CENTER_RIGHT" layoutX="459.0" layoutY="420.0" prefHeight="40.0" prefWidth="242.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Calculate price" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="115.0" text="Add extras" />
+            <Button mnemonicParsing="false" onAction="#addExtras" prefHeight="40.0" prefWidth="115.0" text="Add extras" />
          </children>
       </HBox>
    </children>
