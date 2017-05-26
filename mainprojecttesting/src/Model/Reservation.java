@@ -15,6 +15,7 @@ public class Reservation {
     private double pickup;
     private double dropoff;
     private int motorhomeId;
+    private String season;
 
 
     public Reservation(int id,
@@ -24,7 +25,8 @@ public class Reservation {
                   Date endDate,
                   double pickup,
                   double dropoff,
-                  int motorhomeId){
+                  int motorhomeId,
+                  String season){
 
         this.id = id;
         this.custId = custId;
@@ -34,6 +36,7 @@ public class Reservation {
         this.pickup = pickup;
         this.dropoff = dropoff;
         this.motorhomeId = motorhomeId;
+        this.season = season;
 
     }
 
@@ -101,4 +104,11 @@ public class Reservation {
         this.motorhomeId = motorhomeId;
     }
 
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
 }

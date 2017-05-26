@@ -34,6 +34,27 @@ public class DBConn {
 
     }
 
+    public double getTypePrice(int typeNo){
+
+        double price = 0;
+        String sql = "SELECT price_day FROM types WHERE id =" + String.valueOf(typeNo);
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                price = resultSet.getInt(1);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return price ;
+
+    }
+
     public Reservation getReservationFromDB(int reservationID){
 
         Reservation reservation = null;
@@ -51,7 +72,8 @@ public class DBConn {
                         resultSet.getDate(5),
                         resultSet.getInt(6),
                         resultSet.getInt(7),
-                        resultSet.getInt(8));
+                        resultSet.getInt(8),
+                        resultSet.getString(9));
             }
             connection.close();
         } catch (SQLException e) {
@@ -69,12 +91,13 @@ public class DBConn {
                                   java.sql.Date endDate,
                                   int pickup,
                                   int dropoff,
-                                  int motorhomeID
+                                  int motorhomeID,
+                                  String season
                                   ){
 
         Connection connection = getConn();
         String sql = "UPDATE reservations SET cust_id = ?, date_res = ?, st_date = ?," +
-                "end_date = ?, pickup = ?, dropoff = ?, motorhome_id = ? WHERE id = ?";
+                "end_date = ?, pickup = ?, dropoff = ?, motorhome_id = ?, season = ? WHERE id = ?";
         PreparedStatement ps = null;
 
         try {
@@ -87,7 +110,8 @@ public class DBConn {
             ps.setInt(5, pickup);
             ps.setInt(6, dropoff);
             ps.setInt(7, motorhomeID);
-            ps.setInt(8, reservationID);
+            ps.setString(8, season);
+            ps.setInt(9, reservationID);
             ps.execute();
             connection.close();
 
@@ -104,11 +128,12 @@ public class DBConn {
                                    java.sql.Date endDate,
                                    int pickup,
                                    int dropoff,
-                                   int motorhomeID){
+                                   int motorhomeID,
+                                   String season){
 
         Connection connection = getConn();
-        String sql = "INSERT INTO `reservations` (`cust_id`, `date_res`, `st_date`, `end_date`, `pickup`, `dropoff`, `motorhome_id`) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `reservations` (`cust_id`, `date_res`, `st_date`, `end_date`, `pickup`, `dropoff`, `motorhome_id`, `season`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = null;
 
@@ -148,7 +173,8 @@ public class DBConn {
                         resultSet.getDate(5),
                         resultSet.getInt(6),
                         resultSet.getInt(7),
-                        resultSet.getInt(8));
+                        resultSet.getInt(8),
+                        resultSet.getString(9));
                 reservations.add(reservation);
             }
             connection.close();
