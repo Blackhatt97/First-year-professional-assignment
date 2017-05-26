@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +23,8 @@ public class ReservationViewController {
     @FXML private TableView reservationTable;
     @FXML private DatePicker reservationDateEnd;
     @FXML private DatePicker reservationDateBegin;
+    @FXML private ChoiceBox<String> seasonChoiceBox;
+    @FXML private TextField priceField;
     @FXML DatePicker reservationPicker;
     @FXML ChoiceBox<Pair<Integer, String>> mhTypeCheck;
     @FXML TableView<Motorhome> mhTableView;
@@ -37,6 +40,9 @@ public class ReservationViewController {
     ArrayList<Pair<LocalDate, LocalDate>> dateRanges = new ArrayList<>();
     @FXML
     public void initialize() {
+
+        //populate seasons choicebox
+        seasonChoiceBox.getItems().addAll(reservationData.getSeasons());
 
         //loading all reservations and adding listener to reservation table
         loadAllReservations();
@@ -120,6 +126,15 @@ public class ReservationViewController {
                 dateChecker.setDisableAfterAndBeforeRange(reservationDateBegin, disableBeforeClosestReservation, reservationDateEnd.getValue());
                 LocalDate endDate = reservationDateEnd.getValue();
                 System.out.println("End Date: " + endDate.toString());
+
+                DBConn dbConn = new DBConn();
+                priceField.setText(String.valueOf(reservationData.getPrice(reservationDateBegin.getValue(),
+                        reservationDateEnd.getValue(),
+                        seasonChoiceBox.getValue(),
+                        mhTypeCheck.getValue().getKey(),
+                        dbConn)));
+                dbConn = null;
+
             }
 
         });
@@ -135,6 +150,7 @@ public class ReservationViewController {
 
     private void updateFields(Reservation reservation) {
 
+        seasonChoiceBox.setValue(reservation.getSeason());
         reservationIDField.setText(String.valueOf(reservation.getId()));
 
         customerBox.setItems(customerData.getCustomerList());
@@ -142,8 +158,9 @@ public class ReservationViewController {
 
         reservationPicker.setValue(reservation.getReservationDate().toLocalDate());
         DBConn dbConn = new DBConn();
+        int motorhomeType = dbConn.getMotorhomeType(reservation.getMotorhomeId());
         mhTypeCheck.getSelectionModel()
-                .select(typeData.searchById(dbConn.getMotorhomeType(reservation.getMotorhomeId())));
+                .select(typeData.searchById(motorhomeType));
 
         Motorhome motorhome = motorhomeData.searchById(reservation.getMotorhomeId());
         mhTableView.getSelectionModel().select(motorhome);
@@ -167,6 +184,12 @@ public class ReservationViewController {
 
         LocalDate disableBeforeClosestReservation = dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
         dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateBegin, disableBeforeClosestReservation, reservationDateEnd.getValue(), currentRange);
+
+        priceField.setText(String.valueOf(reservationData.getPrice(reservationDateBegin.getValue(),
+                reservationDateEnd.getValue(),
+                reservation.getSeason(),
+                motorhomeType,
+                dbConn)));
         dbConn = null;
 
     }
@@ -205,7 +228,8 @@ public class ReservationViewController {
                     java.sql.Date.valueOf(reservationDateEnd.getValue()),
                     0,
                     0,
-                    mhTableView.getSelectionModel().getSelectedItem().getId());
+                    mhTableView.getSelectionModel().getSelectedItem().getId(),
+                    seasonChoiceBox.getValue());
             loadAllReservations();
             resetFields();
         }
@@ -251,7 +275,8 @@ public class ReservationViewController {
                 java.sql.Date.valueOf(reservationDateEnd.getValue()),
                 0,
                 0,
-                mhTableView.getSelectionModel().getSelectedItem().getId());
+                mhTableView.getSelectionModel().getSelectedItem().getId(),
+                seasonChoiceBox.getValue());
         //below is slow.. after reloading the reservations the selection is gone and we either have to refetch the reservation from db and update field
         //or the user has to re click on the reservation she was on... how to fix? if we "remember" the row index, what if the user was sorting? then
         //we will get the wrong reservation.. maybe store any sorting values too? otherwise this is good
