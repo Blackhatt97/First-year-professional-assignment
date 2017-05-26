@@ -26,7 +26,7 @@ public class Reservation {
                   double pickup,
                   double dropoff,
                   int motorhomeId,
-                  String season){
+                  String season) {
 
         this.id = id;
         this.custId = custId;
