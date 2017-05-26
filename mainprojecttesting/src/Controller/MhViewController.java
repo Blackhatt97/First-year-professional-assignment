@@ -112,12 +112,15 @@ public class MhViewController {
     //Bogdan
     @FXML
     public void delete(ActionEvent actionEvent) {
-        Motorhome selectedCellIndex = motorhomeTable.getSelectionModel().getSelectedItem();
-        int motorhome = selectedCellIndex.getId();
-        DBConn dbConn = new DBConn();
-        dbConn.deleteFromDB(motorhome, "motorhomes");
+        if(!motorhomeTable.getSelectionModel().isEmpty()) {
+            Motorhome selectedCellIndex = motorhomeTable.getSelectionModel().getSelectedItem();
+            int motorhome = selectedCellIndex.getId();
+            DBConn dbConn = new DBConn();
+            dbConn.deleteFromDB(motorhome, "motorhomes");
+        } else System.out.println("Selection empty");
         loadAllMotorHomes();
         motorhomeTable.refresh();
+        resetAll(actionEvent);
     }
 
     @FXML
