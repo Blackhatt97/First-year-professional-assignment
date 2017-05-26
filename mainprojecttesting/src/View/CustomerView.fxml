@@ -28,7 +28,6 @@
       </TableView>
       <GridPane alignment="CENTER_LEFT" layoutX="7.0" layoutY="221.0" prefHeight="226.0" prefWidth="687.0" styleClass="gridPane" stylesheets="@../stylesheet.css">
          <children>
-
             <TextField fx:id="idField" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
