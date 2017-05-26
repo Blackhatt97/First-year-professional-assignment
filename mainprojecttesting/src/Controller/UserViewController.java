@@ -95,10 +95,6 @@ public class UserViewController {
     public void create(ActionEvent actionEvent) {
         java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
 
-        //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled,
-        // say which fields are missing
-        //if the user fails to enter stuff into them, if a field is incorrect tell the user which field is incorrect
-
         String pass = passField.getText();
         String rPass = retypePassField.getText();
 
@@ -122,12 +118,13 @@ public class UserViewController {
     }
 
     public void delete(ActionEvent event) {
-        User selectedRow = usersTable.getSelectionModel().getSelectedItem();
-        int usrId = selectedRow.getId();
-        DBConn dbConn = new DBConn();
-        dbConn.deleteFromDB(usrId, "users");
+        if(!usersTable.getSelectionModel().isEmpty()) {
+            User selectedRow = usersTable.getSelectionModel().getSelectedItem();
+            int usrId = selectedRow.getId();
+            DBConn dbConn = new DBConn();
+            dbConn.deleteFromDB(usrId, "users");
+        } else System.out.println("Selection empty");
         loadAllUsers();
-        dbConn = null;
     }
 
     public void resetAll(ActionEvent actionEvent) {
