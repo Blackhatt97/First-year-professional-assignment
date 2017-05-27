@@ -260,6 +260,8 @@ public class ReservationViewController {
         mhTypeCheck.setValue(null);
         mhTableView.getItems().clear();
         reservationTable.getSelectionModel().clearSelection();
+        seasonChoiceBox.getSelectionModel().select(null);
+        priceField.setText("");
 
     }
 
@@ -284,7 +286,23 @@ public class ReservationViewController {
         Reservation reservation = dbConn.getReservationFromDB(currentReservationID);
         updateFields(reservation);
 
-        dbConn = null;
+    }
 
+    @FXML
+    public void loadAll(ActionEvent e) {
+        loadAllReservations();
+    }
+
+    @FXML
+    public void rent(ActionEvent e) {
+        DBConn dbConn = new DBConn();
+        if (!reservationIDField.getText().isEmpty() &&
+                dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()))) {
+            Reservation reservation = (Reservation) reservationTable.getSelectionModel().getSelectedItem();
+            dbConn.addRentalToDB(reservation);
+            dbConn.deleteFromDB(reservation.getId(), "reservations");
+            loadAllReservations();
+            resetFields();
+        }
     }
 }

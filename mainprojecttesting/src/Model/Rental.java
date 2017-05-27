@@ -10,20 +10,21 @@ public class Rental {
     private Date currentDate;
     private Date startDate;
     private Date endDate;
-    private double pickup;
-    private double dropoff;
-    private int type;
+    private int pickup;
+    private int dropoff;
     private ArrayList<Extras> extra;
+    private int motorhomeId;
+    private String season;
 
     public Rental(int id,
                   int custId,
                   Date currentDate,
                   Date startDate,
                   Date end_date,
-                  double pickup,
-                  double dropoff,
-                  int type,
-                  ArrayList<Extras> extra) {
+                  int pickup,
+                  int dropoff,
+                  int motorhomeId,
+                  String season) {
 
         this.id = id;
         this.custId = custId;
@@ -32,9 +33,26 @@ public class Rental {
         this.endDate = end_date;
         this.pickup = pickup;
         this.dropoff = dropoff;
-        this.type = type;
-        this.extra = extra;
+        this.extra = null;
+        this.motorhomeId = motorhomeId;
+        this.season = season;
 
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public int getMotorhomeId() {
+        return motorhomeId;
+    }
+
+    public void setMotorhomeId(int motorhomeId) {
+        this.motorhomeId = motorhomeId;
     }
 
     public int getId() {
@@ -77,28 +95,20 @@ public class Rental {
         this.endDate = endDate;
     }
 
-    public double getPickup() {
+    public int getPickup() {
         return pickup;
     }
 
-    public void setPickup(double pickup) {
+    public void setPickup(int pickup) {
         this.pickup = pickup;
     }
 
-    public double getDropoff() {
+    public int getDropoff() {
         return dropoff;
     }
 
-    public void setDropoff(double dropoff) {
+    public void setDropoff(int dropoff) {
         this.dropoff = dropoff;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 
     public ArrayList<Extras> getExtra() {

@@ -150,13 +150,111 @@ public class DBConn {
             preparedStatement.execute();
             connection.close();
 
-        } catch (java.sql.SQLException e){
+        } catch (SQLException e){
             e.printStackTrace();
         }
 
     }
 
-    public ObservableList<Reservation> getAllReservations(){
+    public void addRentalToDB(Reservation reservation) {
+        Connection connection = getConn();
+        String sql = "INSERT INTO `rentals` " +
+                "(`cust_id`, `date_rent`, `st_date`, `end_date`, `pickup`, `dropoff`, `motorhome_id_fk`, `season`) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, reservation.getCustId());
+            preparedStatement.setDate(2, Date.valueOf(LocalDate.now()));
+            preparedStatement.setDate(3, reservation.getStartDate());
+            preparedStatement.setDate(4, reservation.getEndDate());
+            preparedStatement.setInt(5, reservation.getPickup());
+            preparedStatement.setInt(6, reservation.getDropoff());
+            preparedStatement.setInt(7, reservation.getMotorhomeId());
+            preparedStatement.setString(8, reservation.getSeason());
+            preparedStatement.execute();
+            connection.close();
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public ObservableList<Rental> getAllRentals() {
+
+        ObservableList<Rental> rentals = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM `rentals`";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Rental rental = new Rental(
+                        resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getDate(3),
+                        resultSet.getDate(4),
+                        resultSet.getDate(5),
+                        resultSet.getInt(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8),
+                        resultSet.getString(9)
+                );
+                ArrayList<Extras> extras = new ArrayList<>();
+                extras.addAll(getRentalExtras(rental.getId()));
+                rental.setExtra(extras);
+                rentals.add(rental);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+
+        }
+        return rentals;
+    }
+
+    public ObservableList<Extras> getRentalExtras(int rentalId) {
+
+        ObservableList<Extras> extras = FXCollections.observableArrayList();
+        String sql = "SELECT extras.id, extras.name, extras.type, extras.price FROM `extras` JOIN `extrasrental`" +
+                " ON extrasrental.extras_id = extras.id WHERE `rental_id` = ?";
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, rentalId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Extras extra = new Extras(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getInt(4)
+                );
+                extras.add(extra);
+            }
+        } catch (SQLException ex) {
+
+        }
+        return extras;
+
+    }
+
+    public void sendExtrasToDB(ObservableList<Extras> extras, int rentalId) {
+        String sql = "INSERT INTO `extrasrental` (`extras_id`, `rental_id`) VALUES (?,?)";
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            for (Extras extra : extras) {
+                preparedStatement.setInt(1, extra.getId());
+                preparedStatement.setInt(2, rentalId);
+                preparedStatement.execute();
+            }
+            connection.close();
+        } catch (SQLException ex) {
+
+        }
+    }
+
+    public ObservableList<Reservation> getAllReservations() {
 
         ObservableList<Reservation> reservations = FXCollections.observableArrayList();
         String sql = "SELECT * FROM reservations";
@@ -166,7 +264,8 @@ public class DBConn {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Reservation reservation = new Reservation(resultSet.getInt(1),
+                Reservation reservation = new Reservation(
+                        resultSet.getInt(1),
                         resultSet.getInt(2),
                         resultSet.getDate(3),
                         resultSet.getDate(4),
@@ -174,7 +273,8 @@ public class DBConn {
                         resultSet.getInt(6),
                         resultSet.getInt(7),
                         resultSet.getInt(8),
-                        resultSet.getString(9));
+                        resultSet.getString(9)
+                );
                 reservations.add(reservation);
             }
             connection.close();
@@ -184,7 +284,7 @@ public class DBConn {
         return reservations;
     }
 
-    public ArrayList<Pair<LocalDate, LocalDate>> getAllReservationDatesForMotorhome(int motorhomeId){
+    public ArrayList<Pair<LocalDate, LocalDate>> getAllReservationDatesForMotorhome(int motorhomeId) {
 
         ArrayList<Pair<LocalDate, LocalDate>> dates = new ArrayList<>();
         String sql = "SELECT st_date, end_date FROM reservations WHERE motorhome_id =" + String.valueOf(motorhomeId);
@@ -206,22 +306,22 @@ public class DBConn {
         return dates;
     }
 
-    public boolean checkIfReservationExists(int reservationId){
+    public boolean checkIfReservationExists(int reservationId) {
 
-        String sql = "SELECT * FROM reservations WHERE id =" + String.valueOf(reservationId);
+        String sql = "SELECT * FROM reservations WHERE id = ?";
         boolean reservationExists = false;
         try {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, reservationId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-              reservationExists = true;
+                reservationExists = true;
             }
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return reservationExists;
 
     }
@@ -263,6 +363,24 @@ public class DBConn {
         try {
 
             ps = con.prepareStatement(deleteQuery);
+            ps.setInt(1, id);
+            ps.execute();
+            con.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public void deleteRentalExtras(int id) {
+
+        Connection con = getConn();
+
+        String sql = "DELETE FROM `extrasrental` WHERE `rental_id` = ?";
+        try {
+
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
             con.close();

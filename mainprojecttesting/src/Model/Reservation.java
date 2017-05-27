@@ -2,9 +2,6 @@ package Model;
 
 import java.sql.Date;
 
-/**
- * Created by blackhatt on 14/05/2017.
- */
 public class Reservation {
 
     private int id;
@@ -12,8 +9,8 @@ public class Reservation {
     private Date reservationDate;
     private Date startDate;
     private Date endDate;
-    private double pickup;
-    private double dropoff;
+    private int pickup;
+    private int dropoff;
     private int motorhomeId;
     private String season;
 
@@ -23,8 +20,8 @@ public class Reservation {
                   Date reservationDate,
                   Date startDate,
                   Date endDate,
-                  double pickup,
-                  double dropoff,
+                  int pickup,
+                  int dropoff,
                   int motorhomeId,
                   String season) {
 
@@ -80,19 +77,19 @@ public class Reservation {
         this.endDate = endDate;
     }
 
-    public double getPickup() {
+    public int getPickup() {
         return pickup;
     }
 
-    public void setPickup(double pickup) {
+    public void setPickup(int pickup) {
         this.pickup = pickup;
     }
 
-    public double getDropoff() {
+    public int getDropoff() {
         return dropoff;
     }
 
-    public void setDropoff(double dropoff) {
+    public void setDropoff(int dropoff) {
         this.dropoff = dropoff;
     }
 

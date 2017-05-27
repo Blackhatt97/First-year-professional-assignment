@@ -1,21 +1,25 @@
 package Controller;
 
+import Model.DBWrapper.DBConn;
+import Model.Extras;
 import Model.ExtrasData;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 public class ExtrasPopupController {
 
-    @FXML TableView allExtras;
-    @FXML TableView purchaseExtras;
+    @FXML TableView<Extras> allExtras;
+    @FXML TableView<Extras> purchaseExtras;
+    @FXML Button doneButton;
 
     private ExtrasData extrasData = new ExtrasData();
-
-    @FXML
-    public void initialize() {
-        loadAllExtras();
-    }
+    private int rentalId;
 
     @FXML
     public void addExtra(ActionEvent e) {
@@ -38,12 +42,22 @@ public class ExtrasPopupController {
 
     @FXML
     public void sendExtras(ActionEvent e) {
-
+        DBConn dbConn = new DBConn();
+        dbConn.deleteRentalExtras(rentalId);
+        dbConn.sendExtrasToDB(purchaseExtras.getItems(), rentalId);
+        Stage stage = (Stage) doneButton.getScene().getWindow();
+        stage.close();
     }
 
     private void loadAllExtras() {
         extrasData.loadList();
         allExtras.setItems(extrasData.getExtrasList());
+        DBConn dbConn = new DBConn();
+        purchaseExtras.setItems(dbConn.getRentalExtras(rentalId));
+    }
+
+    public void setRentalId(int rentalId) {
+        this.rentalId = rentalId;
     }
 
 }

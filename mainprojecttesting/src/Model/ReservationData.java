@@ -34,7 +34,6 @@ public class ReservationData {
     public void loadList() {
         DBConn dbConn = new DBConn();
         reservationList = dbConn.getAllReservations();
-        dbConn = null;
     }
 
     public double getPrice(LocalDate start, LocalDate end, String season, int motorhomeType, DBConn dbConn){
