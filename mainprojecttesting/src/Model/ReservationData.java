@@ -36,21 +36,5 @@ public class ReservationData {
         reservationList = dbConn.getAllReservations();
     }
 
-    public double getPrice(LocalDate start, LocalDate end, String season, int motorhomeType, DBConn dbConn){
-
-            long daysBetween = ChronoUnit.DAYS.between(start, end);
-            double daysBetween1 = daysBetween + 1;
-            System.out.println(daysBetween1);
-            double seasonMultiplier = 1;
-            if (season.equals("Middle")){
-                seasonMultiplier = seasonMultiplier*1.3;
-            }
-            else if (season.equals("Peak")){
-                seasonMultiplier = seasonMultiplier*1.3*1.6;
-            }
-            double pricePerDay = dbConn.getTypePrice(motorhomeType);
-            double totalPrice = pricePerDay*daysBetween1*seasonMultiplier;
-            return totalPrice;
-    }
 
 }

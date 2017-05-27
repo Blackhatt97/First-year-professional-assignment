@@ -127,14 +127,11 @@ public class ReservationViewController {
                 LocalDate endDate = reservationDateEnd.getValue();
                 System.out.println("End Date: " + endDate.toString());
 
-                DBConn dbConn = new DBConn();
-                priceField.setText(String.valueOf(reservationData.getPrice(reservationDateBegin.getValue(),
+                PriceCalculator calculator = new PriceCalculator();
+                priceField.setText(String.valueOf(calculator.getPrice(reservationDateBegin.getValue(),
                         reservationDateEnd.getValue(),
                         seasonChoiceBox.getValue(),
-                        mhTypeCheck.getValue().getKey(),
-                        dbConn)));
-                dbConn = null;
-
+                        mhTypeCheck.getValue().getKey())));
             }
 
         });
@@ -185,13 +182,11 @@ public class ReservationViewController {
         LocalDate disableBeforeClosestReservation = dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
         dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateBegin, disableBeforeClosestReservation, reservationDateEnd.getValue(), currentRange);
 
-        priceField.setText(String.valueOf(reservationData.getPrice(reservationDateBegin.getValue(),
+        PriceCalculator calculator = new PriceCalculator();
+        priceField.setText(String.valueOf(calculator.getPrice(reservationDateBegin.getValue(),
                 reservationDateEnd.getValue(),
                 reservation.getSeason(),
-                motorhomeType,
-                dbConn)));
-        dbConn = null;
-
+                motorhomeType)));
     }
 
     private void updateDatePickersWithMotorhome(Motorhome motorhome){

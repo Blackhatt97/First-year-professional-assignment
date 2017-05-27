@@ -2,10 +2,12 @@ package Controller;
 
 import Model.DBWrapper.DBConn;
 import Model.Extras;
+import Model.PriceCalculator;
 import Model.Rental;
 import Model.RentalData;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class RentalViewController {
 
@@ -82,10 +85,18 @@ public class RentalViewController {
 
     @FXML
     public void loadExtras(ActionEvent e) {
+        loadRentalExtras();
+    }
+
+    private void loadRentalExtras() {
         Rental rental = rentalTable.getSelectionModel().getSelectedItem();
         if (rental != null && !idField.getText().isEmpty()) {
             DBConn dbConn = new DBConn();
-            extrasBox.setItems(dbConn.getRentalExtras(rental.getId()));
+            ArrayList<Extras> extrasArrayList = new ArrayList<>();
+            ObservableList<Extras> extrasObservableList = dbConn.getRentalExtras(rental.getId());
+            extrasArrayList.addAll(extrasObservableList);
+            extrasBox.setItems(extrasObservableList);
+            rental.setExtra(extrasArrayList);
         }
     }
 
@@ -119,7 +130,22 @@ public class RentalViewController {
 
     @FXML
     public void calculatePrice(ActionEvent e) {
-        // to do
+        loadRentalExtras();
+        Rental rental = rentalTable.getSelectionModel().getSelectedItem();
+        if (rental != null && !idField.getText().isEmpty()) {
+            DBConn dbConn = new DBConn();
+            PriceCalculator priceCalculator = new PriceCalculator();
+            double price1 = priceCalculator.getPrice(
+                    rental.getStartDate().toLocalDate(),
+                    rental.getEndDate().toLocalDate(),
+                    rental.getSeason(),
+                    dbConn.getMotorhomeType(rental.getMotorhomeId())
+            );
+            double price2 = priceCalculator.getExtrasPrice(rental.getExtra());
+            double extraKmPrice = Double.parseDouble(extraKmField.getText()) * 0.7;
+            double extraGasPrice = emptyTank.isSelected() ? 70.0 : 0.0;
+            priceField.setText(Double.toString(price1 + price2 + extraKmPrice + extraGasPrice));
+        }
     }
 
     @FXML
