@@ -122,10 +122,12 @@ public class RepairViewController {
     }
 
     public void delete(ActionEvent actionEvent) {
-        Repair selectedCell = repairTable.getSelectionModel().getSelectedItem();
-        int repair = selectedCell.getId();
-        DBConn dbConn = new DBConn();
-        dbConn.deleteFromDB(repair,"repairs");
+        if(!repairTable.getSelectionModel().isEmpty()) {
+            Repair selectedCell = repairTable.getSelectionModel().getSelectedItem();
+            int repair = selectedCell.getId();
+            DBConn dbConn = new DBConn();
+            dbConn.deleteFromDB(repair, "repairs");
+        } else System.out.println("Selection empty");
         loadAllRepairs();
         resetFields(actionEvent);
         repairTable.refresh();

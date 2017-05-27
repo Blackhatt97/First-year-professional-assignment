@@ -105,12 +105,14 @@ public class CustomerViewController {
     }
 
     public void delete(ActionEvent actionEvent) {
-        Customer selectedRow = customerTable.getSelectionModel().getSelectedItem();
-        int custId = selectedRow.getId();
-        DBConn dbConn = new DBConn();
-        dbConn.deleteFromDB(custId, "customers");
+        if(!customerTable.getSelectionModel().isEmpty()) {
+            Customer selectedRow = customerTable.getSelectionModel().getSelectedItem();
+            int custId = selectedRow.getId();
+            DBConn dbConn = new DBConn();
+            dbConn.deleteFromDB(custId, "customers");
+        } else System.out.println("Selection empty");
         loadAllCustomers();
-        dbConn = null;
+        //dbConn = null;
     }
 
     public void resetAll(ActionEvent actionEvent) {

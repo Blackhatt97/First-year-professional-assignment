@@ -30,6 +30,7 @@ public class ExtrasPopupController {
 
     @FXML
     public void removeExtra(ActionEvent e) {
+        //maybe change this to purchaseExtras.getSelectionModel().isEmpty???
         if (purchaseExtras.getSelectionModel().getSelectedItem() != null) {
             purchaseExtras.getItems().remove(purchaseExtras.getSelectionModel().getSelectedItem());
         }
