@@ -37,8 +37,7 @@ public class RentalViewController {
 
     @FXML
     public void initialize() {
-        rentalData.loadList();
-        rentalTable.setItems(rentalData.getRentalList());
+        loadAllRentals();
 
         rentalTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Rental>() {
             @Override
@@ -88,6 +87,49 @@ public class RentalViewController {
             DBConn dbConn = new DBConn();
             extrasBox.setItems(dbConn.getRentalExtras(rental.getId()));
         }
+    }
+
+    private void loadAllRentals() {
+        rentalData.loadList();
+        rentalTable.setItems(rentalData.getRentalList());
+    }
+
+    @FXML
+    public void loadRentals(ActionEvent e) {
+        loadAllRentals();
+    }
+
+    @FXML
+    public void resetFields(ActionEvent e) {
+        rentalTable.getSelectionModel().select(null);
+        idField.setText("");
+        custIdField.setText("");
+        pickupField.setText("");
+        dropoffField.setText("");
+        mhIdField.setText("");
+        seasonField.setText("");
+        startDate.setValue(null);
+        endDate.setValue(null);
+        rentalDate.setValue(null);
+        priceField.setText("");
+        extraKmField.setText("");
+        emptyTank.setSelected(false);
+        extrasBox.setItems(null);
+    }
+
+    @FXML
+    public void calculatePrice(ActionEvent e) {
+        // to do
+    }
+
+    @FXML
+    public void createContract(ActionEvent e) {
+        // to do
+    }
+
+    @FXML
+    public void updateRental(ActionEvent e) {
+        // to do
     }
 
 }
