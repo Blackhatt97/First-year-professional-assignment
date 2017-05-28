@@ -34,6 +34,48 @@ public class DBConn {
 
     }
 
+    public void addCancelledReservationInvoiceToDB(int reservationID, String cancellationText){
+
+        Connection connection = getConn();
+        String sql = "INSERT INTO `contracts` (`reservation_id`, `invoice_string`) " +
+                "VALUES (?, ?)";
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,reservationID);
+            preparedStatement.setString(2, cancellationText);
+            preparedStatement.execute();
+            connection.close();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public String getCancelledReservationText(int reservationID){
+
+        String sql = "SELECT invoice_string FROM contracts WHERE reservation_id =" + String.valueOf(reservationID);
+        String cancelText = null;
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                cancelText = resultSet.getString(1);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cancelText;
+
+    }
+
     public double getTypePrice(int typeNo){
 
         double price = 0;
@@ -296,10 +338,15 @@ public class DBConn {
         }
     }
 
-    public ObservableList<Reservation> getAllReservations() {
+    public ObservableList<Reservation> getAllReservations(boolean loadCancelled) {
+
+        int loadCancelledInt = 0;
+        if (loadCancelled){
+            loadCancelledInt = 1;
+        }
 
         ObservableList<Reservation> reservations = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM reservations";
+        String sql = "SELECT * FROM reservations WHERE is_cancelled =" + String.valueOf(loadCancelledInt);
 
         try {
             Connection connection = getConn();
@@ -326,7 +373,7 @@ public class DBConn {
         return reservations;
     }
 
-    public ArrayList<Pair<LocalDate, LocalDate>> getAllReservationDatesForMotorhome(int motorhomeId) {
+    public ArrayList<Pair<LocalDate, LocalDate>> getAllReservationAndRentalDatesForMotorhome(int motorhomeId) {
 
         ArrayList<Pair<LocalDate, LocalDate>> dates = new ArrayList<>();
         String sql = "SELECT st_date, end_date FROM reservations WHERE motorhome_id ='" + String.valueOf(motorhomeId) +
@@ -334,6 +381,22 @@ public class DBConn {
         try {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                LocalDate localDateStart = resultSet.getDate(1).toLocalDate();
+                LocalDate localDateEnd = resultSet.getDate(2).toLocalDate();
+                Pair<LocalDate, LocalDate> localDatePair = new Pair<>(localDateStart, localDateEnd);
+                dates.add(localDatePair);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql2 = "SELECT st_date, end_date FROM rentals WHERE motorhome_id_fk =" + String.valueOf(motorhomeId);
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql2);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 LocalDate localDateStart = resultSet.getDate(1).toLocalDate();

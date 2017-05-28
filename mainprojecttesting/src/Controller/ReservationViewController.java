@@ -171,7 +171,7 @@ public class ReservationViewController {
 
         //get all reservations begin and end dates as periods for the selected motorhome
         dateRanges.clear();
-        dateRanges = dbConn.getAllReservationDatesForMotorhome(reservation.getMotorhomeId());
+        dateRanges = dbConn.getAllReservationAndRentalDatesForMotorhome(reservation.getMotorhomeId());
 
         //add them to date ranges
         //then disable those ranges in the datepickers
@@ -199,7 +199,7 @@ public class ReservationViewController {
 
             DBConn dbConn = new DBConn();
             dateRanges.clear();
-            dateRanges = dbConn.getAllReservationDatesForMotorhome(motorhome.getId());
+            dateRanges = dbConn.getAllReservationAndRentalDatesForMotorhome(motorhome.getId());
             dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
             dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
             dbConn = null;
@@ -208,7 +208,11 @@ public class ReservationViewController {
 
     public void loadAllReservations(){
 
-        reservationData.loadList();
+        boolean loadCancelled = false;
+        if (toggleCancelled.isSelected()){
+            loadCancelled = true;
+        }
+        reservationData.loadList(loadCancelled);
         reservationTable.setItems(reservationData.getReservationList());
 
 
@@ -317,6 +321,7 @@ public class ReservationViewController {
 
         reservationCancel();
         resetFields();
+        loadAllReservations();
 
     }
 
@@ -336,5 +341,12 @@ public class ReservationViewController {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public void cancelToggled(ActionEvent actionEvent) {
+
+        resetFields();
+        loadAllReservations();
+
     }
 }

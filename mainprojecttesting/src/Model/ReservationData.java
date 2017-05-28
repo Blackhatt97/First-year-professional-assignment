@@ -31,9 +31,9 @@ public class ReservationData {
         return reservationList;
     }
 
-    public void loadList() {
+    public void loadList(boolean loadCancelled) {
         DBConn dbConn = new DBConn();
-        reservationList = dbConn.getAllReservations();
+        reservationList = dbConn.getAllReservations(loadCancelled);
     }
 
 

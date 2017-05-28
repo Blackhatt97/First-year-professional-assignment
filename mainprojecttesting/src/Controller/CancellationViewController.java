@@ -52,13 +52,21 @@ public class CancellationViewController {
 
         DBConn dbConn = new DBConn();
         boolean isCancelled = dbConn.isReservationCancelled(reservationID);
-        if (isCancelled){
-            cancelText.setText("THIS RESERVATION IS ALREADY CANCELLED");
+        if (!isCancelled){
+
+            Contract contract = new Contract();
+            cancelText.setText(cancelText.getText() + "\n" + contract.createCancellationText(reservationID, initPrice));
+
+        }
+
+        else {
+
             cancelReservation.setDisable(true);
+            cancelText.setText("THIS RESERVATION IS ALREADY CANCELLED");
+            cancelText.setText(cancelText.getText() + dbConn.getCancelledReservationText(reservationID));
+
         }
         dbConn = null;
-        Contract contract = new Contract();
-        cancelText.setText(cancelText.getText() + "\n" + contract.createCancellationText(reservationID, initPrice));
 
     }
 
@@ -66,8 +74,9 @@ public class CancellationViewController {
 
         DBConn dbConn = new DBConn();
         dbConn.cancelReservation(reservationID);
+        dbConn.addCancelledReservationInvoiceToDB(reservationID, cancelText.getText());
         writeCancellationText();
-        dbConn = null;
+        dbConn =  null;
 
     }
 }
