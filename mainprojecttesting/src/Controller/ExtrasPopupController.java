@@ -3,9 +3,6 @@ package Controller;
 import Model.DBWrapper.DBConn;
 import Model.Extras;
 import Model.ExtrasData;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,7 +27,6 @@ public class ExtrasPopupController {
 
     @FXML
     public void removeExtra(ActionEvent e) {
-        //maybe change this to purchaseExtras.getSelectionModel().isEmpty???
         if (purchaseExtras.getSelectionModel().getSelectedItem() != null) {
             purchaseExtras.getItems().remove(purchaseExtras.getSelectionModel().getSelectedItem());
         }

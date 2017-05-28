@@ -16,7 +16,6 @@ import javafx.util.Pair;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +34,7 @@ public class ReservationViewController {
     @FXML TableView<Motorhome> mhTableView;
     @FXML ComboBox<Customer> customerBox;
     @FXML TextField searchField;
+    @FXML ToggleButton toggleCancelled;
 
     private TypeData typeData = new TypeData();
     private MotorhomeData motorhomeData = new MotorhomeData();
@@ -307,20 +307,20 @@ public class ReservationViewController {
                 resetFields();
             }
             else {
-                reservationDelete();
+                reservationCancel();
             }
         }
     }
 
+    @FXML
+    public void cancelReservation(ActionEvent actionEvent) {
 
-    public void deleteReservation(ActionEvent actionEvent) {
-
-        reservationDelete();
+        reservationCancel();
         resetFields();
 
     }
 
-    public void reservationDelete(){
+    public void reservationCancel() {
 
         if (reservationTable.getSelectionModel().getSelectedItem() != null && reservationIDField != null) {
             try {

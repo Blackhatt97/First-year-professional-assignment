@@ -61,7 +61,6 @@ public class ExtrasViewController {
                 nameField.getText(),
                 Double.parseDouble(priceField.getText()),
                 0);
-        dbConn = null;
         loadAll();
     }
 
@@ -78,6 +77,7 @@ public class ExtrasViewController {
     }
 
     public void resetFields(ActionEvent actionEvent) {
+        // to do
     }
 
     public void updateExtra(ActionEvent actionEvent) {
@@ -89,11 +89,11 @@ public class ExtrasViewController {
                 nameField.getText(),
                 typeChoiceBox.getSelectionModel().getSelectedItem().toString(),
                 Double.parseDouble(priceField.getText()));
-        dbConn = null;
         loadAll();
 
     }
 
     public void deleteExtra(ActionEvent actionEvent) {
+        // to do
     }
 }

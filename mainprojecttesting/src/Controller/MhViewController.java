@@ -17,9 +17,9 @@ public class MhViewController {
 
     @FXML GridPane gridPaneMh;
     @FXML TextField idField;
-    @FXML ChoiceBox statusChoiceBox;
+    @FXML ChoiceBox<Pair<Integer, String>> statusChoiceBox;
     @FXML TextField plateNumberField;
-    @FXML ChoiceBox typeChoiceBox;
+    @FXML ChoiceBox<Pair<Integer, String>> typeChoiceBox;
     @FXML TextField brandField;
     @FXML TextField fabYearField;
     @FXML TextField kilometrageField;

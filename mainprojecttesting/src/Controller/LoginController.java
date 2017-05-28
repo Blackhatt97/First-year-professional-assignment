@@ -32,7 +32,7 @@ public class LoginController {
         LoginWrapper loginWrapper = new LoginWrapper();
         User user = loginWrapper.loginAuthentication(userName, password);
 
-        freezeCount ++;
+        freezeCount++;
         if (user != null && freezeCount < 5) {
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/MainView.fxml"));
@@ -50,10 +50,9 @@ public class LoginController {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-        }
-        else if(user == null && freezeCount == 4) {
-           freezeCount = 0;
-           failedAttempts += 5;
+        } else if (user == null && freezeCount == 4) {
+            freezeCount = 0;
+            failedAttempts += 5;
 
             ErrorHandler.bruteForceSafe(labelId, loginButton, failedAttempts);
         }
