@@ -1,8 +1,13 @@
 package Controller;
 
+import Model.Contract;
 import Model.DBWrapper.DBConn;
 import Model.PriceCalculator;
 import Model.Reservation;
+import com.sun.xml.internal.stream.util.ThreadLocalBufferAllocator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -14,14 +19,26 @@ import java.time.temporal.ChronoUnit;
  */
 public class CancellationViewController {
 
-    @FXML private TextField cancelText;
-    private int reservationID = 0;
-    private double initPrice = 0;
+    @FXML private Button cancelReservation;
+    @FXML private TextArea cancelText;
+    private int reservationID;
+    private double initPrice;
 
     @FXML public void initialize(){
 
-        writeCancellationText();
+        Thread one = new Thread(() -> {
+            try {
+                Thread.sleep(10);
+                writeCancellationText();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        one.start();
+
     }
+
+
 
     public void setInitPrice(double initPrice) {
         this.initPrice = initPrice;
@@ -34,29 +51,23 @@ public class CancellationViewController {
     private void writeCancellationText(){
 
         DBConn dbConn = new DBConn();
-        String intro = "Cancellation details for the reservation of ID: " + reservationID + "\n";
-        Reservation reservation = dbConn.getReservationFromDB(reservationID);
-        long period = ChronoUnit.DAYS.between(LocalDate.now(), reservation.getStartDate().toLocalDate());
-        String periodBeforeStart = "Number of days before starting date: " + period + "\n";
-        double percentageCost = 0;
-        if (period >= 50){
-            percentageCost = 0.2;
+        boolean isCancelled = dbConn.isReservationCancelled(reservationID);
+        if (isCancelled){
+            cancelText.setText("THIS RESERVATION IS ALREADY CANCELLED");
+            cancelReservation.setDisable(true);
         }
-        else if (period <= 49 && period >= 15){
-            percentageCost = 0.5;
-        }
-        else if (period < 15){
-            percentageCost = 0.85;
-        }
-        else if(period == 0){
-            percentageCost = 0.95;
-        }
-        String percentageOfPrice = "Percentage amount to pay of total price amounts to: " + percentageCost + "\n";
-        double totalPrice = initPrice*percentageCost;
-        String cancellationPrice = "Total price for cancellation: " + totalPrice + "\n";
+        dbConn = null;
+        Contract contract = new Contract();
+        cancelText.setText(cancelText.getText() + "\n" + contract.createCancellationText(reservationID, initPrice));
 
-        String totalString = intro + periodBeforeStart + percentageOfPrice + cancellationPrice;
-        cancelText.setText(totalString);
+    }
+
+    public void cancelReservation(ActionEvent actionEvent) {
+
+        DBConn dbConn = new DBConn();
+        dbConn.cancelReservation(reservationID);
+        writeCancellationText();
+        dbConn = null;
 
     }
 }

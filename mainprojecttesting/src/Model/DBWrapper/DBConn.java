@@ -55,6 +55,27 @@ public class DBConn {
 
     }
 
+    public boolean isReservationCancelled(int reservationID){
+
+        String sql = "SELECT is_cancelled FROM reservations WHERE id =" + String.valueOf(reservationID);
+        boolean cancelled = false;
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+               if (resultSet.getInt(1) == 1){
+                   cancelled = true;
+               }
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cancelled;
+
+    }
+
     public Reservation getReservationFromDB(int reservationID){
 
         Reservation reservation = null;
@@ -119,6 +140,26 @@ public class DBConn {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void cancelReservation(int reservationID){
+
+            Connection connection = getConn();
+            String sql = "UPDATE reservations SET is_cancelled = ? WHERE id = ?";
+            PreparedStatement ps = null;
+
+            try {
+
+                ps = connection.prepareStatement(sql);
+                ps.setInt(1, 1);
+                ps.setInt(2, reservationID);
+                ps.execute();
+                connection.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
     }
 
@@ -288,7 +329,8 @@ public class DBConn {
     public ArrayList<Pair<LocalDate, LocalDate>> getAllReservationDatesForMotorhome(int motorhomeId) {
 
         ArrayList<Pair<LocalDate, LocalDate>> dates = new ArrayList<>();
-        String sql = "SELECT st_date, end_date FROM reservations WHERE motorhome_id =" + String.valueOf(motorhomeId);
+        String sql = "SELECT st_date, end_date FROM reservations WHERE motorhome_id ='" + String.valueOf(motorhomeId) +
+                "' AND is_cancelled = '0'";
         try {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

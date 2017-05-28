@@ -299,16 +299,28 @@ public class ReservationViewController {
         DBConn dbConn = new DBConn();
         if (!reservationIDField.getText().isEmpty() &&
                 dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()))) {
-            Reservation reservation = (Reservation) reservationTable.getSelectionModel().getSelectedItem();
-            dbConn.addRentalToDB(reservation);
-            dbConn.deleteFromDB(reservation.getId(), "reservations");
-            loadAllReservations();
-            resetFields();
+            if (!dbConn.isReservationCancelled(Integer.parseInt(reservationIDField.getText()))) {
+                Reservation reservation = (Reservation) reservationTable.getSelectionModel().getSelectedItem();
+                dbConn.addRentalToDB(reservation);
+                dbConn.deleteFromDB(reservation.getId(), "reservations");
+                loadAllReservations();
+                resetFields();
+            }
+            else {
+                reservationDelete();
+            }
         }
     }
 
 
     public void deleteReservation(ActionEvent actionEvent) {
+
+        reservationDelete();
+        resetFields();
+
+    }
+
+    public void reservationDelete(){
 
         if (reservationTable.getSelectionModel().getSelectedItem() != null && reservationIDField != null) {
             try {
@@ -321,9 +333,8 @@ public class ReservationViewController {
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.show();
             } catch (IOException ex) {
-
+                ex.printStackTrace();
             }
         }
-
     }
 }
