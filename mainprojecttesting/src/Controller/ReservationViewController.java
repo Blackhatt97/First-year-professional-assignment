@@ -7,9 +7,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -43,6 +48,7 @@ public class ReservationViewController {
 
         //populate seasons choicebox
         seasonChoiceBox.getItems().addAll(reservationData.getSeasons());
+        seasonChoiceBox.setValue("Low");
 
         //loading all reservations and adding listener to reservation table
         loadAllReservations();
@@ -255,7 +261,7 @@ public class ReservationViewController {
         mhTypeCheck.setValue(null);
         mhTableView.getItems().clear();
         reservationTable.getSelectionModel().clearSelection();
-        seasonChoiceBox.getSelectionModel().select(null);
+        //seasonChoiceBox.getSelectionModel().select(null);
         priceField.setText("");
 
     }
@@ -299,5 +305,25 @@ public class ReservationViewController {
             loadAllReservations();
             resetFields();
         }
+    }
+
+
+    public void deleteReservation(ActionEvent actionEvent) {
+
+        if (reservationTable.getSelectionModel().getSelectedItem() != null && reservationIDField != null) {
+            try {
+                FXMLLoader root = new FXMLLoader(getClass().getResource("/View/CancellationView.fxml"));
+                Scene scene = new Scene(root.load());
+                ((CancellationViewController) root.getController()).setReservationID(Integer.parseInt(reservationIDField.getText()));
+                ((CancellationViewController) root.getController()).setInitPrice(Double.valueOf(priceField.getText()));
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+            } catch (IOException ex) {
+
+            }
+        }
+
     }
 }

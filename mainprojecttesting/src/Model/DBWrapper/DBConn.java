@@ -147,6 +147,7 @@ public class DBConn {
             preparedStatement.setInt(5, pickup);
             preparedStatement.setInt(6, dropoff);
             preparedStatement.setInt(7, motorhomeID);
+            preparedStatement.setString(8, season);
             preparedStatement.execute();
             connection.close();
 
