@@ -35,8 +35,7 @@ public class UserViewController {
     public void initialize() {
 
         loadAllUsers();
-
-        typeChoiceBox.getItems().addAll("Administrator","Staff","Maintenance");
+        choiceBoxPresets();
 
         usersTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() {
             @Override
@@ -49,6 +48,11 @@ public class UserViewController {
             }
         });
     }
+
+    private void choiceBoxPresets() {
+        typeChoiceBox.getItems().addAll("Administrator","Staff","Maintenance");
+    }
+
     private void updateFields(User cs) {
         idField.setText(Integer.toString(cs.getId()));
         fNameField.setText(cs.getFname());
@@ -70,52 +74,53 @@ public class UserViewController {
     }
     @FXML
     public void update(ActionEvent actionEvent) {
+        resetBorders();
+        if (checkErrors() == 0 && !idField.getText().isEmpty()) {
 
-        DBConn dbConn = new DBConn();
+            DBConn dbConn = new DBConn();
+            String newPass = null;
 
-           String newPass = null;
-        if (!passField.getText().trim().isEmpty() && retypePassField.getText().equals(passField.getText())){
-            newPass = passField.getText();
+            if (retypePassField.getText().equals(passField.getText())) {
+                newPass = passField.getText();
+
+                java.sql.Date date = java.sql.Date.valueOf(birthDatePicker.getValue());
+                dbConn.updateUser(Integer.parseInt(idField.getText()),
+                        fNameField.getText(),
+                        lNameField.getText(),
+                        emailField.getText(),
+                        typeChoiceBox.getSelectionModel().getSelectedItem(),
+                        addressField.getText(),
+                        date,
+                        newPass);
+            } else ErrorHandler.popUp("User update", "The passwords dont match", "Retype your Password");
+
+            loadAllUsers();
         }
-
-        java.sql.Date date = java.sql.Date.valueOf(birthDatePicker.getValue());
-        dbConn.updateUser(Integer.parseInt(idField.getText()),
-                fNameField.getText(),
-                lNameField.getText(),
-                emailField.getText(),
-                typeChoiceBox.getSelectionModel().getSelectedItem(),
-                addressField.getText(),
-                date,
-                newPass);
-
-        loadAllUsers();
     }
 
     @FXML
     public void create(ActionEvent actionEvent) {
+        resetBorders();
+        if (checkErrors() == 0) {
+            //HERE WE MAKE SECURITY FOR FIELDS AND PASS
+            if (retypePassField.getText().equals(passField.getText())) {
 
+                java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
+                DBConn dbConn = new DBConn();
+                dbConn.addUserToDB(fNameField.getText(),
+                        lNameField.getText(),
+                        datepicker,
+                        emailField.getText(),
+                        addressField.getText(),
+                        (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
+                        passField.getText());
 
-        String pass = passField.getText();
-        String rPass = retypePassField.getText();
-
-        //HERE WE MAKE SECURITY FOR FIELDS AND PASS
-        if(pass.equals(rPass)) {
-
-            java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
-            DBConn dbConn = new DBConn();
-            dbConn.addUserToDB(fNameField.getText(),
-                    lNameField.getText(),
-                    datepicker,
-                    emailField.getText(),
-                    addressField.getText(),
-                    (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
-                    retypePassField.getText());
-
-            System.out.println("New User Created!");
-        } else {
-            ErrorHandler.popUp("User creation","The passwords doesnt match","Retype Password");
+                System.out.println("New User Created!");
+            } else {
+                ErrorHandler.popUp("User creation", "The passwords dont match", "Retype your Password");
+            }
+            loadAllUsers();
         }
-        loadAllUsers();
     }
 
     public void delete(ActionEvent event) {
@@ -139,5 +144,49 @@ public class UserViewController {
         passField.setText("");
         retypePassField.setText("");
         usersTable.getSelectionModel().select(null);
+    }
+
+    private void resetBorders() {
+        fNameField.setStyle("-fx-background-color: white");
+        lNameField.setStyle("-fx-background-color: white");
+        typeChoiceBox.setStyle("-fx-background-color: white");
+        emailField.setStyle("-fx-background-color: white");
+        addressField.setStyle("-fx-background-color: white");
+        birthDatePicker.setStyle("-fx-background-color: white");
+        passField.setStyle("-fx-background-color: white");
+        retypePassField.setStyle("-fx-background-color: white");
+    }
+
+    private int checkErrors() {
+        int counter = 0;
+        if (fNameField.getText().isEmpty()) {
+            fNameField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (lNameField.getText().isEmpty()) {
+            lNameField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (typeChoiceBox.getSelectionModel().isEmpty()) {
+            typeChoiceBox.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (emailField.getText().isEmpty()) {
+            emailField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (addressField.getText().isEmpty()) {
+            addressField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (passField.getText().isEmpty()) {
+            passField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (retypePassField.getText().isEmpty()){
+            retypePassField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        return counter;
     }
 }
