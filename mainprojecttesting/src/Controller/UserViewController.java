@@ -147,14 +147,14 @@ public class UserViewController {
     }
 
     private void resetBorders() {
-        fNameField.setStyle("-fx-background-color: white");
-        lNameField.setStyle("-fx-background-color: white");
-        typeChoiceBox.setStyle("-fx-background-color: white");
-        emailField.setStyle("-fx-background-color: white");
-        addressField.setStyle("-fx-background-color: white");
-        birthDatePicker.setStyle("-fx-background-color: white");
-        passField.setStyle("-fx-background-color: white");
-        retypePassField.setStyle("-fx-background-color: white");
+        fNameField.setStyle("-fx-border-color: transparent");
+        lNameField.setStyle("-fx-border-color: transparent");
+        typeChoiceBox.setStyle("-fx-border-color: transparent");
+        emailField.setStyle("-fx-border-color: transparent");
+        addressField.setStyle("-fx-border-color: transparent");
+        birthDatePicker.setStyle("-fx-border-color: transparent");
+        passField.setStyle("-fx-border-color: transparent");
+        retypePassField.setStyle("-fx-border-color: transparent");
     }
 
     private int checkErrors() {
