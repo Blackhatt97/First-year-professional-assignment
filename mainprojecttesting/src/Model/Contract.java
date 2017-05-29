@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
  */
 public class Contract {
 
-    public String createCancellationText(int reservationID, double initPrice ){
+    public String createCancellationText(int reservationID, double initPrice ) {
 
         DBConn dbConn = new DBConn();
         String intro = "Cancellation details for the reservation of ID: " + reservationID + "\n";
@@ -23,26 +23,23 @@ public class Contract {
         long period = ChronoUnit.DAYS.between(LocalDate.now(), reservation.getStartDate().toLocalDate());
         String periodBeforeStart = "Number of days before starting date: " + period + "\n";
         double percentageCost = 0;
-        if (period >= 50){
+        if (period >= 50) {
             percentageCost = 0.2;
-        }
-        else if (period <= 49 && period >= 15){
+        } else if (period <= 49 && period >= 15) {
             percentageCost = 0.5;
-        }
-        else if (period < 15){
+        } else if (period < 15) {
             percentageCost = 0.85;
         }
         int periodInt = Math.toIntExact(period);
-        if(periodInt == 0){
+        if (periodInt == 0) {
             percentageCost = 0.95;
         }
         String percentageOfPrice = "Percentage of total price amounts to: " + percentageCost + "\n";
-        double totalPrice = initPrice*percentageCost;
+        double totalPrice = initPrice * percentageCost;
         String cancellationPrice = "Total price for cancellation: " + totalPrice + "\n";
 
-        String totalString = intro + dayOfReservation + customerDetails + motorhomeDetails + startingAndEndDates  +
+        String totalString = intro + dayOfReservation + customerDetails + motorhomeDetails + startingAndEndDates +
                 periodBeforeStart + percentageOfPrice + cancellationPrice;
-        dbConn = null;
         return totalString;
     }
 

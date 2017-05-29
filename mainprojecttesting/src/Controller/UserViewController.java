@@ -23,7 +23,7 @@ public class UserViewController {
     public DatePicker birthDatePicker;
     public TextField emailField;
     public TextField addressField;
-    public ChoiceBox typeChoiceBox;
+    public ChoiceBox<String> typeChoiceBox;
     public PasswordField passField;
     public PasswordField retypePassField;
 
@@ -83,7 +83,7 @@ public class UserViewController {
                 fNameField.getText(),
                 lNameField.getText(),
                 emailField.getText(),
-                (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
+                typeChoiceBox.getSelectionModel().getSelectedItem(),
                 addressField.getText(),
                 date,
                 newPass);

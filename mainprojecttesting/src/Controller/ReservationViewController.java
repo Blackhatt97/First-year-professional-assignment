@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class ReservationViewController {
 
     @FXML private TextField reservationIDField;
-    @FXML private TableView reservationTable;
+    @FXML private TableView<Reservation> reservationTable;
     @FXML private DatePicker reservationDateEnd;
     @FXML private DatePicker reservationDateBegin;
     @FXML private ChoiceBox<String> seasonChoiceBox;
@@ -202,7 +202,6 @@ public class ReservationViewController {
             dateRanges = dbConn.getAllReservationAndRentalDatesForMotorhome(motorhome.getId());
             dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
             dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
-            dbConn = null;
 
     }
 
@@ -304,7 +303,7 @@ public class ReservationViewController {
         if (!reservationIDField.getText().isEmpty() &&
                 dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()))) {
             if (!dbConn.isReservationCancelled(Integer.parseInt(reservationIDField.getText()))) {
-                Reservation reservation = (Reservation) reservationTable.getSelectionModel().getSelectedItem();
+                Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
                 dbConn.addRentalToDB(reservation);
                 dbConn.deleteFromDB(reservation.getId(), "reservations");
                 loadAllReservations();
