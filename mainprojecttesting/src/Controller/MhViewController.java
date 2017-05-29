@@ -126,10 +126,15 @@ public class MhViewController {
     @FXML
     public void loadAll(ActionEvent actionEvent) {
         loadAllMotorHomes();
+        resetAllFields();
     }
 
     @FXML
     public void resetAll(ActionEvent actionEvent) {
+        resetAllFields();
+    }
+
+    private void resetAllFields() {
         motorhomeTable.getSelectionModel().select(null);
         idField.setText("");
         statusChoiceBox.getSelectionModel().select(null);

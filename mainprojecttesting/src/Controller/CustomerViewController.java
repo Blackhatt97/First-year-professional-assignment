@@ -63,45 +63,41 @@ public class CustomerViewController {
 
     @FXML
     public void create(ActionEvent actionEvent) {
-
-        //Add checkers for integers, add labels to fields in GUI to tell the user which fields have to be filled, say which fields are missing
-        //if the user fails to enter stuff into them, if a field is incorrect tell the user which field is incorrect
-        DBConn dbConn = new DBConn();
-        DatePicker datepicker = birthDate;
-//        LocalDate localdate = datepicker.getValue();
-//        Instant instant = Instant.from(localdate.atStartOfDay(ZoneId.systemDefault()));
-//        Date date = Date.from(instant);
-//        java.sql.Timestamp timestamp = java.sql.Timestamp.from(date.toInstant());
-        java.sql.Date timestamp = java.sql.Date.valueOf(datepicker.getValue());
-        dbConn.addCustomerToDB(firstName.getText(),
-                lastNameField.getText(),
-                timestamp,
-                emailField.getText(),
-                addressField.getText());
-        System.out.println("New Motorhome Created!");
-        loadAllCustomers();
-        dbConn = null;
-
+        if (checkErrors() == 0) {
+            resetBorders();
+            DBConn dbConn = new DBConn();
+            DatePicker datepicker = birthDate;
+            java.sql.Date timestamp = java.sql.Date.valueOf(datepicker.getValue());
+            dbConn.addCustomerToDB(firstName.getText(),
+                    lastNameField.getText(),
+                    timestamp,
+                    emailField.getText(),
+                    addressField.getText());
+            loadAllCustomers();
+        }
     }
     public void update(ActionEvent actionEvent) {
+        if (checkErrors() == 0) {
+            resetBorders();
+            DatePicker datePicker = birthDate;
+            java.sql.Date timestamp = java.sql.Date.valueOf(datePicker.getValue());
 
-        DatePicker datePicker = birthDate;
-        java.sql.Date timestamp = java.sql.Date.valueOf(datePicker.getValue());
-
-        DBConn dbConn = new DBConn();
-        dbConn.updateCustomer(Integer.parseInt(idField.getText()),
-                firstName.getText(),
-                lastNameField.getText(),
-                timestamp,
-                addressField.getText(),
-                emailField.getText());
-        loadAllCustomers();
-
+            DBConn dbConn = new DBConn();
+            dbConn.updateCustomer(Integer.parseInt(idField.getText()),
+                    firstName.getText(),
+                    lastNameField.getText(),
+                    timestamp,
+                    addressField.getText(),
+                    emailField.getText());
+            loadAllCustomers();
+        }
     }
 
     private void loadAllCustomers() {
         data.loadList();
         customerTable.setItems(data.getCustomerList());
+        resetAllFields();
+
     }
 
     public void delete(ActionEvent actionEvent) {
@@ -110,12 +106,15 @@ public class CustomerViewController {
             int custId = selectedRow.getId();
             DBConn dbConn = new DBConn();
             dbConn.deleteFromDB(custId, "customers");
-        } else System.out.println("Selection empty");
+        }
         loadAllCustomers();
-        //dbConn = null;
     }
 
     public void resetAll(ActionEvent actionEvent) {
+        resetAllFields();
+    }
+
+    private void resetAllFields() {
         idField.setText("");
         firstName.setText("");
         lastNameField.setText("");
@@ -125,6 +124,45 @@ public class CustomerViewController {
         customerTable.getSelectionModel().select(null);
     }
 
-    public void load(ActionEvent actionEvent) { loadAllCustomers();
+    public void load(ActionEvent actionEvent) {
+        loadAllCustomers();
+    }
+
+    private int checkErrors() {
+        int counter = 0;
+        if (idField.getText().isEmpty()) {
+            idField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (firstName.getText().isEmpty()) {
+            firstName.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (lastNameField.getText().isEmpty()) {
+            lastNameField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (emailField.getText().isEmpty()) {
+            emailField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (addressField.getText().isEmpty()) {
+            addressField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (birthDate.getEditor().getText().isEmpty()) {
+            birthDate.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        return counter;
+    }
+
+    private void resetBorders() {
+        idField.setStyle("-fx-border-color: transparent");
+        firstName.setStyle("-fx-border-color: transparent");
+        lastNameField.setStyle("-fx-border-color: transparent");
+        emailField.setStyle("-fx-border-color: transparent");
+        addressField.setStyle("-fx-border-color: transparent");
+        birthDate.setStyle("-fx-border-color: transparent");
     }
 }
