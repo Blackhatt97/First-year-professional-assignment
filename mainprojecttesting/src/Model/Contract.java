@@ -43,4 +43,10 @@ public class Contract {
         return totalString;
     }
 
+    public String createRentalText(int rentalID, double price){
+
+    String rental = null;
+    return rental;
+    }
+
 }

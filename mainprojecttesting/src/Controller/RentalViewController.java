@@ -150,7 +150,24 @@ public class RentalViewController {
 
     @FXML
     public void createContract(ActionEvent e) {
-        // to do
+
+        if (rentalTable.getSelectionModel().getSelectedItem() != null && idField.getText() != null){
+
+            try {
+                FXMLLoader root = new FXMLLoader(getClass().getResource("/View/RentalContractView.fxml"));
+                Scene scene = new Scene(root.load());
+                ((RentalContractViewController) root.getController()).setRentalID(Integer.parseInt(idField.getText()));
+                ((RentalContractViewController) root.getController()).setTotalPrice(Double.valueOf(priceField.getText()));
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        }
+
     }
 
     @FXML
