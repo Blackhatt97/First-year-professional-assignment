@@ -142,13 +142,13 @@ public class MhViewController {
     }
 
     private void resetBorders() {
-        kilometrageField.setStyle("-fx-background-color: white");
-        fabYearField.setStyle("-fx-background-color: white");
-        brandField.setStyle("-fx-background-color: white");
-        typeChoiceBox.setStyle("-fx-background-color: white");
-        plateNumberField.setStyle("-fx-background-color: white");
-        statusChoiceBox.setStyle("-fx-background-color: white");
-        idField.setStyle("-fx-background-color: white");
+        kilometrageField.setStyle("-fx-border-color: transparent");
+        fabYearField.setStyle("-fx-border-color: transparent");
+        brandField.setStyle("-fx-border-color: transparent");
+        typeChoiceBox.setStyle("-fx-border-color: transparent");
+        plateNumberField.setStyle("-fx-border-color: transparent");
+        statusChoiceBox.setStyle("-fx-border-color: transparent");
+        idField.setStyle("-fx-border-color: transparent");
     }
 
     private int checkErrors() {

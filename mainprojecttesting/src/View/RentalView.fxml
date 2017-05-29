@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -15,7 +19,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RentalViewController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="700.0" styleClass="anchorPane" stylesheets="@../stylesheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RentalViewController">
    <children>
       <TableView fx:id="rentalTable" prefHeight="200.0" prefWidth="700.0">
          <columns>
@@ -31,7 +35,7 @@
             <TextField fx:id="idField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="55.0" GridPane.columnIndex="1" />
             <TextField fx:id="custIdField" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
             <DatePicker fx:id="startDate" editable="false" prefHeight="25.0" prefWidth="269.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="pickupField" editable="false" GridPane.columnIndex="3" />
+            <TextField fx:id="pickupField" GridPane.columnIndex="3" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="20.0" text="ID:" GridPane.halignment="RIGHT" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="97.0" text="Cust.ID:" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="100.0" text="Rental Date:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
@@ -41,7 +45,7 @@
             <DatePicker fx:id="endDate" editable="false" prefHeight="25.0" prefWidth="229.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <DatePicker fx:id="rentalDate" editable="false" prefHeight="25.0" prefWidth="231.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="71.0" text="Dropoff km:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-            <TextField fx:id="dropoffField" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <TextField fx:id="dropoffField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="100.0" text="Motorhome ID:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="40.0" text="Extras:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <ComboBox fx:id="extrasBox" prefHeight="25.0" prefWidth="232.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
