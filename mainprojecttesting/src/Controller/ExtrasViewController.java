@@ -13,9 +13,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-/**
- * Created by blackhatt on 16/05/2017.
- */
 public class ExtrasViewController {
 
     @FXML private TextField idField;
@@ -24,9 +21,10 @@ public class ExtrasViewController {
     @FXML private ChoiceBox<ExtrasTypes> typeChoiceBox;
     @FXML private TableView<Extras> extrasTable;
 
-    ExtrasData extrasData = new ExtrasData();
+    private ExtrasData extrasData = new ExtrasData();
 
-    @FXML public void initialize(){
+    @FXML
+    public void initialize() {
 
         loadAll();
         typeChoiceBox.getItems().addAll(ExtrasTypes.values());
@@ -34,7 +32,7 @@ public class ExtrasViewController {
         extrasTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Extras>() {
             @Override
             public void changed(ObservableValue<? extends Extras> observable, Extras oldValue, Extras newValue) {
-                if(extrasTable.getSelectionModel().getSelectedItem() != null) {
+                if (extrasTable.getSelectionModel().getSelectedItem() != null) {
                     TableView.TableViewSelectionModel selectionModel = extrasTable.getSelectionModel();
                     Object selectedItem = selectionModel.getSelectedItem();
                     updateFields((Extras) selectedItem);
@@ -44,56 +42,109 @@ public class ExtrasViewController {
 
     }
 
-    public void updateFields(Extras extras){
-
-        System.out.println(extras.getId());
+    private void updateFields(Extras extras) {
         idField.setText(String.valueOf(extras.getId()));
         nameField.setText(extras.getName());
         priceField.setText(String.valueOf(extras.getPrice()));
         typeChoiceBox.getSelectionModel().select(ExtrasTypes.valueOf(extras.getType()));
-
     }
 
+    @FXML
     public void createExtra(ActionEvent actionEvent) {
-        //add checker correct inputs for fields
-        DBConn dbConn = new DBConn();
-        dbConn.addExtrasToDB(typeChoiceBox.getSelectionModel().getSelectedItem().toString(),
-                nameField.getText(),
-                Double.parseDouble(priceField.getText()),
-                0);
-        loadAll();
+        resetBorders();
+        if (checkErrors() == 0) {
+            DBConn dbConn = new DBConn();
+            dbConn.addExtrasToDB(typeChoiceBox.getSelectionModel().getSelectedItem().toString(),
+                    nameField.getText(),
+                    Double.parseDouble(priceField.getText()),
+                    0);
+            loadAll();
+        }
     }
 
+    @FXML
     public void loadAllExtras(ActionEvent actionEvent) {
         loadAll();
+        resetAllFields();
     }
 
-    public void loadAll(){
-
+    private void loadAll() {
         extrasData.loadList();
         extrasTable.setItems(extrasData.getExtrasList());
-        extrasTable.refresh();
-
     }
 
+    @FXML
     public void resetFields(ActionEvent actionEvent) {
-        // to do
+        resetAllFields();
     }
 
+    private void resetAllFields() {
+        idField.setText("");
+        nameField.setText("");
+        typeChoiceBox.getSelectionModel().select(null);
+        priceField.setText("");
+    }
+
+    @FXML
     public void updateExtra(ActionEvent actionEvent) {
-        //check for double
-        DBConn dbConn = new DBConn();
-        Extras extras = extrasTable.getSelectionModel().getSelectedItem();
-        int idOfExtra = extras.getId();
-        dbConn.updateExtras(idOfExtra,
-                nameField.getText(),
-                typeChoiceBox.getSelectionModel().getSelectedItem().toString(),
-                Double.parseDouble(priceField.getText()));
-        loadAll();
-
+        resetBorders();
+        Extras extra = extrasTable.getSelectionModel().getSelectedItem();
+        if (extra != null && !idField.getText().isEmpty() && checkErrors() == 0) {
+            DBConn dbConn = new DBConn();
+            dbConn.updateExtras(
+                    extra.getId(),
+                    nameField.getText(),
+                    typeChoiceBox.getSelectionModel().getSelectedItem().toString(),
+                    Double.parseDouble(priceField.getText())
+            );
+            loadAll();
+        }
     }
 
+    @FXML
     public void deleteExtra(ActionEvent actionEvent) {
-        // to do
+        resetBorders();
+        Extras extra = extrasTable.getSelectionModel().getSelectedItem();
+        if (extra != null) {
+            DBConn dbConn = new DBConn();
+            dbConn.deleteFromDB(extra.getId(), "extras");
+        }
+        resetAllFields();
+        loadAll();
+    }
+
+    private void resetBorders() {
+        nameField.setStyle("-fx-border-color: transparent");
+        priceField.setStyle("-fx-border-color: transparent");
+        typeChoiceBox.setStyle("-fx-border-color: transparent");
+    }
+
+    private int checkErrors() {
+        int counter = 0;
+        if (nameField.getText().isEmpty()) {
+            nameField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (typeChoiceBox.getSelectionModel().isEmpty()) {
+            typeChoiceBox.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (priceField.getText().isEmpty()) {
+            priceField.setStyle("-fx-border-color: red;");
+            counter++;
+        } else {
+            counter += checkDouble(priceField);
+        }
+        return counter;
+    }
+
+    private int checkDouble(TextField field) {
+        try {
+            Double.parseDouble(field.getText());
+        } catch (NumberFormatException ex) {
+            field.setStyle("-fx-border-color: red;");
+            return 1;
+        }
+        return 0;
     }
 }

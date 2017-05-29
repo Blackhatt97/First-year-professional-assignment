@@ -112,6 +112,10 @@ public class RentalViewController {
 
     @FXML
     public void resetFields(ActionEvent e) {
+        resetAllFields();
+    }
+
+    private void resetAllFields() {
         rentalTable.getSelectionModel().select(null);
         idField.setText("");
         custIdField.setText("");
@@ -132,32 +136,36 @@ public class RentalViewController {
     public void calculatePrice(ActionEvent e) {
         loadRentalExtras();
         Rental rental = rentalTable.getSelectionModel().getSelectedItem();
-        if (rental != null && !idField.getText().isEmpty()) {
-            DBConn dbConn = new DBConn();
-            PriceCalculator priceCalculator = new PriceCalculator();
-            double price1 = priceCalculator.getPrice(
-                    rental.getStartDate().toLocalDate(),
-                    rental.getEndDate().toLocalDate(),
-                    rental.getSeason(),
-                    dbConn.getMotorhomeType(rental.getMotorhomeId())
-            );
-            double price2 = priceCalculator.getExtrasPrice(rental.getExtra());
-            double extraKmPrice = Double.parseDouble(extraKmField.getText()) * 0.7;
-            double extraGasPrice = emptyTank.isSelected() ? 70.0 : 0.0;
-            priceField.setText(Double.toString(price1 + price2 + extraKmPrice + extraGasPrice));
+        if (rental != null) {
+            priceField.setText(Double.toString(calculatePricing(rental)));
         }
+    }
+
+    private double calculatePricing(Rental rental) {
+        DBConn dbConn = new DBConn();
+        PriceCalculator priceCalculator = new PriceCalculator();
+        return priceCalculator.getTotalPrice(
+                rental.getStartDate().toLocalDate(),
+                rental.getEndDate().toLocalDate(),
+                rental.getSeason(),
+                dbConn.getMotorhomeType(rental.getMotorhomeId()),
+                rental.getExtra(),
+                Integer.parseInt(extraKmField.getText()),
+                Integer.parseInt(dropoffField.getText()),
+                Integer.parseInt(pickupField.getText()),
+                emptyTank.isSelected()
+        );
     }
 
     @FXML
     public void createContract(ActionEvent e) {
-
-        if (rentalTable.getSelectionModel().getSelectedItem() != null && idField.getText() != null){
-
+        Rental rental = rentalTable.getSelectionModel().getSelectedItem();
+        if (rental != null && !idField.getText().isEmpty()) {
             try {
                 FXMLLoader root = new FXMLLoader(getClass().getResource("/View/RentalContractView.fxml"));
                 Scene scene = new Scene(root.load());
-                ((RentalContractViewController) root.getController()).setRentalID(Integer.parseInt(idField.getText()));
-                ((RentalContractViewController) root.getController()).setTotalPrice(Double.valueOf(priceField.getText()));
+                ((RentalContractViewController) root.getController()).setRentalID(rental.getId());
+                ((RentalContractViewController) root.getController()).setTotalPrice(calculatePricing(rental));
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -165,9 +173,7 @@ public class RentalViewController {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         }
-
     }
 
     @FXML

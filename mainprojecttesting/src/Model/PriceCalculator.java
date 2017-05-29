@@ -24,6 +24,17 @@ public class PriceCalculator {
         return totalPrice;
     }
 
+    public double getTotalPrice(LocalDate start, LocalDate end, String season, int mhType, ArrayList<Extras> extras,
+                                int extraKm, int dropoff, int pickup, boolean emptyTank) {
+        double result = 0;
+        result += getPrice(start, end, season, mhType);
+        result += getExtrasPrice(extras);
+        result += extraKm;
+        result += (dropoff + pickup) * 0.7;
+        result += emptyTank ? 70 : 0;
+        return result;
+    }
+
     public double getExtrasPrice(ArrayList<Extras> extras) {
         double total = 0;
         for (Extras extra : extras) {
