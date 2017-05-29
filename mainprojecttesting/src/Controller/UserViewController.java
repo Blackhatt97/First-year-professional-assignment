@@ -44,6 +44,9 @@ public class UserViewController {
                     TableView.TableViewSelectionModel selectionModel = usersTable.getSelectionModel();
                     Object selectedItem = selectionModel.getSelectedItem();
                     updateFields((User) selectedItem);
+                    passField.setText("");
+                    retypePassField.setText("");
+                    resetBorders();
                 }
             }
         });
@@ -75,14 +78,9 @@ public class UserViewController {
     @FXML
     public void update(ActionEvent actionEvent) {
         resetBorders();
-        if (checkErrors() == 0 && !idField.getText().isEmpty()) {
-
-            DBConn dbConn = new DBConn();
-            String newPass = null;
-
-            if (retypePassField.getText().equals(passField.getText())) {
-                newPass = passField.getText();
-
+        if (passField.getText().isEmpty() && retypePassField.getText().isEmpty()) {
+            if (checkErrorsNoPassword() == 0 && !idField.getText().isEmpty()) {
+                DBConn dbConn = new DBConn();
                 java.sql.Date date = java.sql.Date.valueOf(birthDatePicker.getValue());
                 dbConn.updateUser(Integer.parseInt(idField.getText()),
                         fNameField.getText(),
@@ -90,18 +88,36 @@ public class UserViewController {
                         emailField.getText(),
                         typeChoiceBox.getSelectionModel().getSelectedItem(),
                         addressField.getText(),
-                        date,
-                        newPass);
-            } else ErrorHandler.popUp("User update", "The passwords dont match", "Retype your Password");
-
+                        date);
+            }
             loadAllUsers();
+        } else {
+            if (checkErrors() + checkErrorsNoPassword() == 0 && !idField.getText().isEmpty()) {
+                if (retypePassField.getText().equals(passField.getText())) {
+                    String newPass = passField.getText();
+                    DBConn dbConn = new DBConn();
+                    java.sql.Date date = java.sql.Date.valueOf(birthDatePicker.getValue());
+                    dbConn.updateUser(Integer.parseInt(idField.getText()),
+                            fNameField.getText(),
+                            lNameField.getText(),
+                            emailField.getText(),
+                            typeChoiceBox.getSelectionModel().getSelectedItem(),
+                            addressField.getText(),
+                            date,
+                            newPass);
+                } else {
+                    ErrorHandler.popUp("User update", "The passwords don't match", "Retype your Password");
+                }
+
+                loadAllUsers();
+            }
         }
     }
 
     @FXML
     public void create(ActionEvent actionEvent) {
         resetBorders();
-        if (checkErrors() == 0) {
+        if (checkErrors() + checkErrorsNoPassword() == 0) {
             //HERE WE MAKE SECURITY FOR FIELDS AND PASS
             if (retypePassField.getText().equals(passField.getText())) {
 
@@ -112,12 +128,12 @@ public class UserViewController {
                         datepicker,
                         emailField.getText(),
                         addressField.getText(),
-                        (String) typeChoiceBox.getSelectionModel().getSelectedItem(),
+                        typeChoiceBox.getSelectionModel().getSelectedItem(),
                         passField.getText());
 
                 System.out.println("New User Created!");
             } else {
-                ErrorHandler.popUp("User creation", "The passwords dont match", "Retype your Password");
+                ErrorHandler.popUp("User creation", "The passwords don't match", "Retype your Password");
             }
             loadAllUsers();
         }
@@ -129,11 +145,18 @@ public class UserViewController {
             int usrId = selectedRow.getId();
             DBConn dbConn = new DBConn();
             dbConn.deleteFromDB(usrId, "users");
-        } else System.out.println("Selection empty");
+        } else {
+            System.out.println("Selection empty");
+        }
         loadAllUsers();
+        resetAllFields();
     }
 
     public void resetAll(ActionEvent actionEvent) {
+        resetAllFields();
+    }
+
+    private void resetAllFields() {
         idField.setText("");
         fNameField.setText("");
         lNameField.setText("");
@@ -159,6 +182,19 @@ public class UserViewController {
 
     private int checkErrors() {
         int counter = 0;
+        if (passField.getText().isEmpty()) {
+            passField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (retypePassField.getText().isEmpty()){
+            retypePassField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        return counter;
+    }
+
+    private int checkErrorsNoPassword() {
+        int counter = 0;
         if (fNameField.getText().isEmpty()) {
             fNameField.setStyle("-fx-border-color: red;");
             counter++;
@@ -177,14 +213,6 @@ public class UserViewController {
         }
         if (addressField.getText().isEmpty()) {
             addressField.setStyle("-fx-border-color: red;");
-            counter++;
-        }
-        if (passField.getText().isEmpty()) {
-            passField.setStyle("-fx-border-color: red;");
-            counter++;
-        }
-        if (retypePassField.getText().isEmpty()){
-            retypePassField.setStyle("-fx-border-color: red;");
             counter++;
         }
         return counter;

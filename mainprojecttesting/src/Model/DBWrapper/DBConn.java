@@ -1009,7 +1009,7 @@ public class DBConn {
 
 
     public void updateUser(int id, String fname, String lname, String email,
-                           String type, String address, java.sql.Date date_birth, String newPass) {
+                           String type, String address, java.sql.Date dateBirth, String newPass) {
 
         Connection connection = getConn();
         String sql = "UPDATE `users` SET `f_name` = ?, `l_name` = ?, `email` = ?," +
@@ -1024,9 +1024,36 @@ public class DBConn {
             ps.setString(3, email);
             ps.setString(4, type);
             ps.setString(5, address);
-            ps.setDate(6, date_birth);
+            ps.setDate(6, dateBirth);
             ps.setString(7, newPass);
             ps.setInt(8, id);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateUser(int id, String fname, String lname, String email,
+                           String type, String address, java.sql.Date dateBirth) {
+
+        Connection connection = getConn();
+        String sql = "UPDATE `users` SET `f_name` = ?, `l_name` = ?, `email` = ?," +
+                "`type_user`= ?, `address` = ?, `date_birth` = ? WHERE `id` = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setString(1,fname );
+            ps.setString(2, lname);
+            ps.setString(3, email);
+            ps.setString(4, type);
+            ps.setString(5, address);
+            ps.setDate(6, dateBirth);
+            ps.setInt(7, id);
             ps.execute();
             connection.close();
 
