@@ -56,6 +56,28 @@ public class DBConn {
 
     }
 
+    public void addCreatedRentalContractTextToDB(int rentalID, String contractText){
+
+        Connection connection = getConn();
+        String sql = "INSERT INTO `contracts` (`rental_id`, `invoice_string`) " +
+                "VALUES (?, ?)";
+
+        PreparedStatement preparedStatement = null;
+
+        try {
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,rentalID);
+            preparedStatement.setString(2, contractText);
+            preparedStatement.execute();
+            connection.close();
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
     public String getCancelledReservationText(int reservationID){
 
         String sql = "SELECT invoice_string FROM contracts WHERE reservation_id =" + String.valueOf(reservationID);
@@ -73,6 +95,26 @@ public class DBConn {
         }
 
         return cancelText;
+
+    }
+
+    public String getRentalContractText(int rentalID){
+
+        String sql = "SELECT invoice_string FROM contracts WHERE rental_id =" + String.valueOf(rentalID);
+        String rentalText = null;
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                rentalText = resultSet.getString(1);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rentalText;
 
     }
 
@@ -260,6 +302,80 @@ public class DBConn {
         } catch (SQLException ex) {
 
         }
+    }
+
+    public boolean isRentalContractCreated(int rentalID){
+
+        String sql = "SELECT contract_created FROM rentals WHERE id =" + String.valueOf(rentalID);
+        boolean cancelled = false;
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getInt(1) == 1){
+                    cancelled = true;
+                }
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cancelled;
+
+    }
+
+    public void createRentalContract(int rentalID){
+
+        Connection connection = getConn();
+        String sql = "UPDATE rentals SET contract_created = ? WHERE id = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ps.setInt(2, rentalID);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public Rental getRentalFromDB(int rentalID){
+
+        Rental rental = null;
+        String sql = "SELECT * FROM `rentals` WHERE id =" + String.valueOf(rentalID);
+
+        try {
+            Connection connection = getConn();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                rental = new Rental(
+                        resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getDate(3),
+                        resultSet.getDate(4),
+                        resultSet.getDate(5),
+                        resultSet.getInt(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8),
+                        resultSet.getString(9)
+                );
+                ArrayList<Extras> extras = new ArrayList<>();
+                extras.addAll(getRentalExtras(rental.getId()));
+                rental.setExtra(extras);
+            }
+            connection.close();
+        } catch (SQLException ex) {
+
+        }
+        return rental;
+
     }
 
     public ObservableList<Rental> getAllRentals() {

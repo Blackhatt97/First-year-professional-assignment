@@ -45,8 +45,22 @@ public class Contract {
 
     public String createRentalText(int rentalID, double price){
 
-    String rental = null;
-    return rental;
+        DBConn dbConn = new DBConn();
+        String intro = "Rental contract details for rental of ID: " + rentalID + "\n";
+        Rental rental = dbConn.getRentalFromDB(rentalID);
+        String dayOfRental = "Rental was created on: " + rental.getCurrentDate().toString() + "\n";
+        String customerDetails = "Customer ID: " + rental.getCustId() + "\n";
+        String motorhomeDetails = "Motorhome ID: " + rental.getMotorhomeId() + "\n";
+        String startingAndEndDates = "Starting date: " + rental.getStartDate().toString() + " | Ending date: " +
+                rental.getEndDate().toString() + "\n";
+        long period = ChronoUnit.DAYS.between(rental.getStartDate().toLocalDate(), rental.getEndDate().toLocalDate());
+        String totalPeriod = "Total rental period: " + period + " | Season: " + rental.getSeason() + "\n";
+        String totalPrice = "Total price: " + price + "\n";
+
+        String totalText = intro + dayOfRental + customerDetails + motorhomeDetails + startingAndEndDates +
+                totalPeriod + totalPrice;
+
+        return totalText;
     }
 
 }

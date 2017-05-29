@@ -1,7 +1,10 @@
 package Controller;
 
+import Model.Contract;
+import Model.DBWrapper.DBConn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 /**
@@ -9,6 +12,7 @@ import javafx.scene.control.TextArea;
  */
 public class RentalContractViewController {
 
+    @FXML private Button rentalContract;
     @FXML private TextArea rentalText;
     int rentalID;
     double totalPrice;
@@ -18,7 +22,7 @@ public class RentalContractViewController {
         Thread one = new Thread(() -> {
             try {
                 Thread.sleep(10);
-                rentalText.setText(String.valueOf(rentalID) + " " + String.valueOf(totalPrice));
+                writeRentalContractText();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -37,12 +41,33 @@ public class RentalContractViewController {
 
     private void writeRentalContractText(){
 
+        DBConn dbConn = new DBConn();
+        boolean isCreated = dbConn.isRentalContractCreated(rentalID);
+        if (!isCreated){
 
+            Contract contract = new Contract();
+            rentalText.setText(rentalText.getText() + "\n" + contract.createRentalText(rentalID, totalPrice));
+
+        }
+
+        else {
+
+            rentalContract.setDisable(true);
+            rentalText.setText("THIS RENTAL CONTRACT IS ALREADY CREATED");
+            rentalText.setText(rentalText.getText() + dbConn.getRentalContractText(rentalID));
+
+        }
+        dbConn = null;
 
     }
 
     public void createRental(ActionEvent actionEvent) {
 
+        DBConn dbConn = new DBConn();
+        dbConn.createRentalContract(rentalID);
+        dbConn.addCreatedRentalContractTextToDB(rentalID, rentalText.getText());
+        writeRentalContractText();
+        dbConn =  null;
 
     }
 }
