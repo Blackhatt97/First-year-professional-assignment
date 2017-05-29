@@ -97,7 +97,6 @@ public class CustomerViewController {
         data.loadList();
         customerTable.setItems(data.getCustomerList());
         resetAllFields();
-
     }
 
     public void delete(ActionEvent actionEvent) {
