@@ -97,7 +97,6 @@ public class CustomerViewController {
         data.loadList();
         customerTable.setItems(data.getCustomerList());
         resetAllFields();
-
     }
 
     public void delete(ActionEvent actionEvent) {
@@ -130,10 +129,6 @@ public class CustomerViewController {
 
     private int checkErrors() {
         int counter = 0;
-//        if (idField.getText().isEmpty()) {
-//            idField.setStyle("-fx-border-color: red;");
-//            counter++;
-//        }d    d
         if (firstName.getText().isEmpty()) {
             firstName.setStyle("-fx-border-color: red;");
             counter++;
@@ -158,7 +153,6 @@ public class CustomerViewController {
     }
 
     private void resetBorders() {
-        idField.setStyle("-fx-border-color: transparent");
         firstName.setStyle("-fx-border-color: transparent");
         lastNameField.setStyle("-fx-border-color: transparent");
         emailField.setStyle("-fx-border-color: transparent");
