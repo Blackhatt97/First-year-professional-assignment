@@ -17,6 +17,9 @@ public class DateChecker {
     public DateChecker(){
     }
 
+    //this method takes an endDate of a reservation and takes in all other reservations
+    //it then finds all reservation starting dates after the end date
+    //it then finds the closest one to the endDate and returns it
     public LocalDate findClosestReservationDateBefore(ArrayList<Pair<LocalDate, LocalDate>> datepairs, LocalDate endDate){
 
         ArrayList<LocalDate> allEndDatesBeforeEndDate = new ArrayList<>();
@@ -38,6 +41,9 @@ public class DateChecker {
         return closestDate;
     }
 
+    //this method takes in an startDate of a reservation and takes in all other reservations
+    //it then finds all reservation ending dates before the startDate
+    //it then finds the closest one to the startDate and returns it
     public LocalDate findClosestReservationDateAfter(ArrayList<Pair<LocalDate, LocalDate>> datePairs, LocalDate startDate) {
 
         ArrayList<LocalDate> allStartDatesAfterStartDate = new ArrayList<>();
@@ -56,6 +62,9 @@ public class DateChecker {
         return closestDate;
     }
 
+    //this method and all methods below work in a similar fashion - they create a new Datepicker with new datecells and
+    //disables and recolors cells before/after/within given date ranges and then sets those new datecell values to the datepicker
+    //that was passed as a paramater in the method.
     public void setDisabledRange(DatePicker datePicker, ArrayList<Pair<LocalDate, LocalDate>> pairArrayList, boolean disableBeforeToday){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
