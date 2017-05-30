@@ -48,7 +48,8 @@ public class ReservationViewController {
         seasonChoiceBox.getItems().addAll(reservationData.getSeasons());
         seasonChoiceBox.setValue("Low");
 
-        //loading all reservations and adding listener to reservation table
+        //loading all reservations and adding listener to reservation table which executes the update fields method with
+        //the selected reservation from the reservation table
         loadAllReservations();
         reservationTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Reservation>() {
             @Override
@@ -62,7 +63,7 @@ public class ReservationViewController {
             }
         });
 
-        //listener for motorhome table
+        //listener for motorhome table that updates the datepickers with the selected motorhome reservation dates
         mhTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {
             @Override
             public void changed(ObservableValue<? extends Motorhome> observable,
@@ -115,6 +116,8 @@ public class ReservationViewController {
             }
         });
 
+        //event listener for the begin date datepicker, listens for the start date and disables appropriate dates for
+        //the endDate datepicker
         reservationPicker.setValue(LocalDate.now());
         reservationDateBegin.setOnAction((event) -> {
             if (reservationDateBegin.getValue() != null) {
@@ -125,6 +128,8 @@ public class ReservationViewController {
             }
         });
 
+        //event listener for the end date datepicker, listens for the end date and disables appropriate dates for
+        //the beginDate datepicker and also calculates the price for the given date range
         reservationDateEnd.setOnAction((event) -> {
             if (reservationDateEnd.getValue() != null) {
                 LocalDate disableBeforeClosestReservation =
@@ -143,6 +148,7 @@ public class ReservationViewController {
         });
     }
 
+    //this method updates the customer ChoixeBox with customers that match the selected search query
     private void updateCustomerBox(ObservableList<Customer> data) {
         customerBox.setItems(data);
         customerBox.hide();
@@ -150,6 +156,7 @@ public class ReservationViewController {
         customerBox.show();
     }
 
+    //updates all fields with data for the selected reservation
     private void updateFields(Reservation reservation) {
 
         seasonChoiceBox.setValue(reservation.getSeason());
@@ -198,6 +205,7 @@ public class ReservationViewController {
                 motorhomeType)));
     }
 
+    //this disables the dates in the datepickers where the given motorhome is reserved
     private void updateDatePickersWithMotorhome(Motorhome motorhome) {
         DBConn dbConn = new DBConn();
         dateRanges.clear();
@@ -206,6 +214,7 @@ public class ReservationViewController {
         dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
     }
 
+    //this method loads all of the reservations
     private void loadAllReservations() {
         boolean loadCancelled = false;
         if (toggleCancelled.isSelected()) {
@@ -215,6 +224,7 @@ public class ReservationViewController {
         reservationTable.setItems(reservationData.getReservationList());
     }
 
+    //this method gathers all of the values from all fields and creates a reservation in the database with them
     @FXML
     public void createReservation(ActionEvent actionEvent) {
         resetBorders();
@@ -240,6 +250,7 @@ public class ReservationViewController {
         }
     }
 
+
     private int checkInteger(TextField field) {
         try {
             Integer.parseInt(field.getText());
@@ -255,6 +266,7 @@ public class ReservationViewController {
         resetFields();
     }
 
+    //this method resets all fields
     private void resetFields() {
         reservationIDField.setText("");
         customerBox.setValue(null);
@@ -267,6 +279,8 @@ public class ReservationViewController {
         priceField.setText("");
     }
 
+    //this method updates the reservation with the values that are found in the datepickers and all other fields
+    //apart from the id field
     @FXML
     public void updateReservation(ActionEvent actionEvent) {
         resetBorders();
@@ -294,6 +308,7 @@ public class ReservationViewController {
         loadAllReservations();
     }
 
+    //this creates a rental from the reservation
     @FXML
     public void rent(ActionEvent e) {
         Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
@@ -310,6 +325,7 @@ public class ReservationViewController {
         }
     }
 
+    //this cancels a reservation
     @FXML
     public void cancelReservation(ActionEvent actionEvent) {
         reservationCancel();
@@ -338,6 +354,7 @@ public class ReservationViewController {
         }
     }
 
+    //this error checks fields if their value is a double
     private int checkDouble(TextField field) {
         try {
             Double.parseDouble(field.getText());
@@ -365,6 +382,7 @@ public class ReservationViewController {
         priceField.setStyle("-fx-border-color: transparent");
     }
 
+    //this method checks fields for incorrect inputs
     private int checkErrors() {
         int counter = 0;
         if (customerBox.getSelectionModel().isEmpty()) {

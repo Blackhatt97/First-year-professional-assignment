@@ -39,6 +39,7 @@ public class RentalViewController {
     RentalData rentalData = new RentalData();
 
     @FXML
+    //this method is executed upon the initialization of the controller
     public void initialize() {
         loadAllRentals();
 
