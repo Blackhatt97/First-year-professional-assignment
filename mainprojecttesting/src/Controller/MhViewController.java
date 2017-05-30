@@ -117,7 +117,7 @@ public class MhViewController {
         }
         loadAllMotorHomes();
         motorhomeTable.refresh();
-        resetAll(actionEvent);
+        resetAllFields();
     }
 
     @FXML
