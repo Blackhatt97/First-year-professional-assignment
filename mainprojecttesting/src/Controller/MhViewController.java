@@ -74,7 +74,6 @@ public class MhViewController {
         motorhomeTable.setItems(data.getMotorhomeList());
     }
 
-    //Vaidaras
     @FXML
     public void create(ActionEvent actionEvent) {
         resetBorders();
@@ -91,7 +90,6 @@ public class MhViewController {
         }
     }
 
-    //TBD by Raz
     @FXML
     public void update(ActionEvent actionEvent) {
         resetBorders();
@@ -109,7 +107,6 @@ public class MhViewController {
         }
     }
 
-    //Bogdan
     @FXML
     public void delete(ActionEvent actionEvent) {
         if(!motorhomeTable.getSelectionModel().isEmpty()) {
@@ -117,7 +114,7 @@ public class MhViewController {
             int motorhome = selectedCellIndex.getId();
             DBConn dbConn = new DBConn();
             dbConn.deleteFromDB(motorhome, "motorhomes");
-        } else System.out.println("Selection empty");
+        }
         loadAllMotorHomes();
         motorhomeTable.refresh();
         resetAll(actionEvent);
