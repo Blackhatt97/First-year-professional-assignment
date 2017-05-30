@@ -34,6 +34,27 @@ public class DBConn {
 
     }
 
+    public void updateRental(int pickup, int dropoff, int rentalID){
+
+        Connection connection = getConn();
+        String sql = "UPDATE rentals SET pickup = ?, dropoff = ? WHERE id = ?";
+        PreparedStatement ps = null;
+
+        try {
+
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, pickup);
+            ps.setInt(2, dropoff);
+            ps.setInt(3, rentalID);
+            ps.execute();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void addCancelledReservationInvoiceToDB(int reservationID, String cancellationText){
 
         Connection connection = getConn();

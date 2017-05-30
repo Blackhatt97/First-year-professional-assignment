@@ -64,6 +64,8 @@ public class RentalViewController {
         startDate.setValue(rental.getStartDate().toLocalDate());
         endDate.setValue(rental.getEndDate().toLocalDate());
         rentalDate.setValue(rental.getCurrentDate().toLocalDate());
+        loadRentalExtras();
+
     }
 
     @FXML
@@ -178,7 +180,11 @@ public class RentalViewController {
 
     @FXML
     public void updateRental(ActionEvent e) {
-        // to do
+        DBConn dbConn = new DBConn();
+        dbConn.updateRental(Integer.parseInt(pickupField.getText()),
+                Integer.parseInt(dropoffField.getText()),
+                Integer.parseInt(idField.getText()));
+        loadAllRentals();
     }
 
 }
