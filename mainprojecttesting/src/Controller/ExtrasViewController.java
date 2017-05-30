@@ -79,10 +79,12 @@ public class ExtrasViewController {
     }
 
     private void resetAllFields() {
+        extrasTable.getSelectionModel().select(null);
         idField.setText("");
         nameField.setText("");
         typeChoiceBox.getSelectionModel().select(null);
         priceField.setText("");
+        resetBorders();
     }
 
     @FXML

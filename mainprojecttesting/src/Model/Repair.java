@@ -1,12 +1,7 @@
 package Model;
 
-import Model.DBWrapper.DBConn;
-
 import java.sql.Date;
 
-/**
- * Created by blackhatt on 14/05/2017.
- */
 public class Repair {
 
     private int id;
@@ -15,7 +10,7 @@ public class Repair {
     private String description;
     private int mhIdFk;
     private Date repDate;
-    private String plate ;
+    private String plate;
 
 
     public Repair(int id,
@@ -24,8 +19,7 @@ public class Repair {
                   String plate,
                   double price,
                   String description,
-                  Date repDate){
-
+                  Date repDate) {
         this.id = id;
         this.type = type;
         this.description = description;
@@ -79,11 +73,11 @@ public class Repair {
         this.description = description;
     }
 
-    public int getMhIdFk() {
+    public int getMhId() {
         return mhIdFk;
     }
 
-    public void setMhIdFk(int mhIdFk) {
+    public void setMhId(int mhIdFk) {
         this.mhIdFk = mhIdFk;
     }
 }

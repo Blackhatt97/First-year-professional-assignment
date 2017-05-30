@@ -121,6 +121,7 @@ public class CustomerViewController {
         addressField.setText("");
         birthDate.setValue(null);
         customerTable.getSelectionModel().select(null);
+        resetBorders();
     }
 
     public void load(ActionEvent actionEvent) {

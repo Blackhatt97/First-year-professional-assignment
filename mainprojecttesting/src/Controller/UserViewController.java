@@ -167,6 +167,7 @@ public class UserViewController {
         passField.setText("");
         retypePassField.setText("");
         usersTable.getSelectionModel().select(null);
+        resetBorders();
     }
 
     private void resetBorders() {

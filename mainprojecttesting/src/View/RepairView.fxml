@@ -57,11 +57,11 @@
       <Label layoutX="482.0" layoutY="212.0" text="Description" />
       <HBox alignment="CENTER_RIGHT" layoutX="99.0" layoutY="460.0" prefHeight="40.0" prefWidth="600.0">
          <children>
-            <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetFields" prefHeight="40.0" prefWidth="115.0" text="Reset fields" />
-            <Button fx:id="deleteButton" lineSpacing="5.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="115.0" text="Delete" />
-            <Button fx:id="updateButton" mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="115.0" text="Update" />
-            <Button fx:id="loadMhButton" mnemonicParsing="false" onAction="#loadMotorhomeLog" prefHeight="40.0" prefWidth="115.0" text="Load motorhome" />
-            <Button fx:id="createButton" mnemonicParsing="false" onAction="#create" prefHeight="40.0" prefWidth="115.0" text="Create" />
+            <Button mnemonicParsing="false" onAction="#resetFields" prefHeight="40.0" prefWidth="115.0" text="Reset fields" />
+            <Button lineSpacing="5.0" mnemonicParsing="false" onAction="#delete" prefHeight="40.0" prefWidth="115.0" text="Delete" />
+            <Button mnemonicParsing="false" onAction="#update" prefHeight="40.0" prefWidth="115.0" text="Update" />
+            <Button mnemonicParsing="false" onAction="#loadMotorhomeLog" prefHeight="40.0" prefWidth="115.0" text="Load motorhome" />
+            <Button mnemonicParsing="false" onAction="#create" prefHeight="40.0" prefWidth="115.0" text="Create" />
          </children>
       </HBox>
       <GridPane layoutX="338.0" layoutY="340.0" prefHeight="92.0" prefWidth="349.0">
