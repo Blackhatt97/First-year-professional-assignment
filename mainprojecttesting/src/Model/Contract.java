@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
  */
 public class Contract {
 
-    public String createCancellationText(int reservationID, double initPrice ) {
+    public String createCancellationText(int reservationID, double initPrice) {
 
         DBConn dbConn = new DBConn();
         String intro = "Cancellation details for the reservation of ID: " + reservationID + "\n";
@@ -28,7 +28,7 @@ public class Contract {
         } else if (period <= 49 && period >= 15) {
             percentageCost = 0.5;
         } else if (period < 15) {
-            percentageCost = 0.85;
+            percentageCost = 0.8;
         }
         int periodInt = Math.toIntExact(period);
         if (periodInt == 0) {
@@ -36,6 +36,7 @@ public class Contract {
         }
         String percentageOfPrice = "Percentage of total price amounts to: " + percentageCost + "\n";
         double totalPrice = initPrice * percentageCost;
+        totalPrice = totalPrice < 200 ? 200 : totalPrice;
         String cancellationPrice = "Total price for cancellation: " + totalPrice + "\n";
 
         String totalString = intro + dayOfReservation + customerDetails + motorhomeDetails + startingAndEndDates +
@@ -43,7 +44,7 @@ public class Contract {
         return totalString;
     }
 
-    public String createRentalText(int rentalID, double price){
+    public String createRentalText(int rentalID, double price) {
 
         DBConn dbConn = new DBConn();
         String intro = "Rental contract details for rental of ID: " + rentalID + "\n";

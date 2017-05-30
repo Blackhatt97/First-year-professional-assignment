@@ -20,30 +20,18 @@ import java.util.ArrayList;
 
 public class ReservationViewController {
 
-    @FXML
-    private TextField reservationIDField;
-    @FXML
-    private TableView<Reservation> reservationTable;
-    @FXML
-    private DatePicker reservationDateEnd;
-    @FXML
-    private DatePicker reservationDateBegin;
-    @FXML
-    private ChoiceBox<String> seasonChoiceBox;
-    @FXML
-    private TextField priceField;
-    @FXML
-    DatePicker reservationPicker;
-    @FXML
-    ChoiceBox<Pair<Integer, String>> mhTypeCheck;
-    @FXML
-    TableView<Motorhome> mhTableView;
-    @FXML
-    ComboBox<Customer> customerBox;
-    @FXML
-    TextField searchField;
-    @FXML
-    ToggleButton toggleCancelled;
+    @FXML private TextField reservationIDField;
+    @FXML private TableView<Reservation> reservationTable;
+    @FXML private DatePicker reservationDateEnd;
+    @FXML private DatePicker reservationDateBegin;
+    @FXML private ChoiceBox<String> seasonChoiceBox;
+    @FXML private TextField priceField;
+    @FXML DatePicker reservationPicker;
+    @FXML ChoiceBox<Pair<Integer, String>> mhTypeCheck;
+    @FXML TableView<Motorhome> mhTableView;
+    @FXML ComboBox<Customer> customerBox;
+    @FXML TextField searchField;
+    @FXML ToggleButton toggleCancelled;
 
     private TypeData typeData = new TypeData();
     private MotorhomeData motorhomeData = new MotorhomeData();
@@ -256,7 +244,6 @@ public class ReservationViewController {
     }
 
     private void resetFields() {
-
         reservationIDField.setText("");
         customerBox.setValue(null);
         reservationPicker.setValue(LocalDate.now());
@@ -265,9 +252,7 @@ public class ReservationViewController {
         mhTypeCheck.setValue(null);
         mhTableView.getItems().clear();
         reservationTable.getSelectionModel().clearSelection();
-        //seasonChoiceBox.getSelectionModel().select(null);
         priceField.setText("");
-
     }
 
     @FXML
