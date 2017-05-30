@@ -18,31 +18,41 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-/**
- * Created by blackhatt on 16/05/2017.
- */
 public class ReservationViewController {
 
-    @FXML private TextField reservationIDField;
-    @FXML private TableView<Reservation> reservationTable;
-    @FXML private DatePicker reservationDateEnd;
-    @FXML private DatePicker reservationDateBegin;
-    @FXML private ChoiceBox<String> seasonChoiceBox;
-    @FXML private TextField priceField;
-    @FXML DatePicker reservationPicker;
-    @FXML ChoiceBox<Pair<Integer, String>> mhTypeCheck;
-    @FXML TableView<Motorhome> mhTableView;
-    @FXML ComboBox<Customer> customerBox;
-    @FXML TextField searchField;
-    @FXML ToggleButton toggleCancelled;
+    @FXML
+    private TextField reservationIDField;
+    @FXML
+    private TableView<Reservation> reservationTable;
+    @FXML
+    private DatePicker reservationDateEnd;
+    @FXML
+    private DatePicker reservationDateBegin;
+    @FXML
+    private ChoiceBox<String> seasonChoiceBox;
+    @FXML
+    private TextField priceField;
+    @FXML
+    DatePicker reservationPicker;
+    @FXML
+    ChoiceBox<Pair<Integer, String>> mhTypeCheck;
+    @FXML
+    TableView<Motorhome> mhTableView;
+    @FXML
+    ComboBox<Customer> customerBox;
+    @FXML
+    TextField searchField;
+    @FXML
+    ToggleButton toggleCancelled;
 
     private TypeData typeData = new TypeData();
     private MotorhomeData motorhomeData = new MotorhomeData();
     private CustomerData customerData = new CustomerData();
     private ReservationData reservationData = new ReservationData();
 
-    DateChecker dateChecker = new DateChecker();
-    ArrayList<Pair<LocalDate, LocalDate>> dateRanges = new ArrayList<>();
+    private DateChecker dateChecker = new DateChecker();
+    private ArrayList<Pair<LocalDate, LocalDate>> dateRanges = new ArrayList<>();
+
     @FXML
     public void initialize() {
 
@@ -54,7 +64,8 @@ public class ReservationViewController {
         loadAllReservations();
         reservationTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Reservation>() {
             @Override
-            public void changed(ObservableValue<? extends Reservation> observable, Reservation oldValue, Reservation newValue) {
+            public void changed(ObservableValue<? extends Reservation> observable,
+                                Reservation oldValue, Reservation newValue) {
                 if (reservationTable.getSelectionModel().getSelectedItem() != null) {
                     TableView.TableViewSelectionModel selectionModel = reservationTable.getSelectionModel();
                     Object selectedItem = selectionModel.getSelectedItem();
@@ -66,7 +77,8 @@ public class ReservationViewController {
         //listener for motorhome table
         mhTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Motorhome>() {
             @Override
-            public void changed(ObservableValue<? extends Motorhome> observable, Motorhome oldValue, Motorhome newValue) {
+            public void changed(ObservableValue<? extends Motorhome> observable,
+                                Motorhome oldValue, Motorhome newValue) {
                 if (mhTableView.getSelectionModel().getSelectedItem() != null) {
                     TableView.TableViewSelectionModel selectionModel = mhTableView.getSelectionModel();
                     Object selectedItem = selectionModel.getSelectedItem();
@@ -87,15 +99,15 @@ public class ReservationViewController {
         mhTypeCheck.getSelectionModel()
                 .selectedItemProperty()
                 .addListener(new ChangeListener<Pair<Integer, String>>() {
-            @Override
-            public void changed(ObservableValue<? extends Pair<Integer, String>> observable,
-                                Pair<Integer, String> oldValue, Pair<Integer, String> newValue) {
-                if (mhTypeCheck.getSelectionModel().getSelectedItem() != null) {
-                    motorhomeData.loadList(newValue.getKey());
-                    mhTableView.setItems(motorhomeData.getMotorhomeList());
-                }
-            }
-        });
+                    @Override
+                    public void changed(ObservableValue<? extends Pair<Integer, String>> observable,
+                                        Pair<Integer, String> oldValue, Pair<Integer, String> newValue) {
+                        if (mhTypeCheck.getSelectionModel().getSelectedItem() != null) {
+                            motorhomeData.loadList(newValue.getKey());
+                            mhTableView.setItems(motorhomeData.getMotorhomeList());
+                        }
+                    }
+                });
 
         //searching for customers inside choice box by string values in text field
         searchField.textProperty().addListener(new ChangeListener<String>() {
@@ -118,20 +130,19 @@ public class ReservationViewController {
         reservationPicker.setValue(LocalDate.now());
         reservationDateBegin.setOnAction((event) -> {
             if (reservationDateBegin.getValue() != null) {
-                LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDateAfter(dateRanges, reservationDateBegin.getValue());
-                dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation);
-                LocalDate startDate = reservationDateBegin.getValue();
-                System.out.println("Start Date: " + startDate.toString());
+                LocalDate disableAfterClosestReservation =
+                        dateChecker.findClosestReservationDateAfter(dateRanges, reservationDateBegin.getValue());
+                dateChecker.setDisableAfterAndBeforeRange(reservationDateEnd,
+                        reservationDateBegin.getValue(), disableAfterClosestReservation);
             }
-
         });
 
         reservationDateEnd.setOnAction((event) -> {
             if (reservationDateEnd.getValue() != null) {
-                LocalDate disableBeforeClosestReservation = dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
-                dateChecker.setDisableAfterAndBeforeRange(reservationDateBegin, disableBeforeClosestReservation, reservationDateEnd.getValue());
-                LocalDate endDate = reservationDateEnd.getValue();
-                System.out.println("End Date: " + endDate.toString());
+                LocalDate disableBeforeClosestReservation =
+                        dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
+                dateChecker.setDisableAfterAndBeforeRange(reservationDateBegin,
+                        disableBeforeClosestReservation, reservationDateEnd.getValue());
 
                 PriceCalculator calculator = new PriceCalculator();
                 priceField.setText(String.valueOf(calculator.getPrice(reservationDateBegin.getValue(),
@@ -139,9 +150,7 @@ public class ReservationViewController {
                         seasonChoiceBox.getValue(),
                         mhTypeCheck.getValue().getKey())));
             }
-
         });
-
     }
 
     private void updateCustomerBox(ObservableList<Customer> data) {
@@ -175,18 +184,25 @@ public class ReservationViewController {
 
         //add them to date ranges
         //then disable those ranges in the datepickers
-        Pair<LocalDate, LocalDate> currentRange = new Pair<LocalDate, LocalDate>(reservation.getStartDate().toLocalDate(), reservation.getEndDate().toLocalDate());
-        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateEnd, dateRanges, true, currentRange);
-        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateBegin, dateRanges, true, currentRange);
+        Pair<LocalDate, LocalDate> currentRange = new Pair<LocalDate, LocalDate>(reservation.getStartDate().toLocalDate(),
+                reservation.getEndDate().toLocalDate());
+        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateEnd,
+                dateRanges, true, currentRange);
+        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateBegin,
+                dateRanges, true, currentRange);
         //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
         reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
         reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
 
-        LocalDate disableAfterClosestReservation = dateChecker.findClosestReservationDateAfter(dateRanges, reservationDateBegin.getValue());
-        dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateEnd, reservationDateBegin.getValue(), disableAfterClosestReservation, currentRange);
+        LocalDate disableAfterClosestReservation =
+                dateChecker.findClosestReservationDateAfter(dateRanges, reservationDateBegin.getValue());
+        dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateEnd,
+                reservationDateBegin.getValue(), disableAfterClosestReservation, currentRange);
 
-        LocalDate disableBeforeClosestReservation = dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
-        dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateBegin, disableBeforeClosestReservation, reservationDateEnd.getValue(), currentRange);
+        LocalDate disableBeforeClosestReservation =
+                dateChecker.findClosestReservationDateBefore(dateRanges, reservationDateEnd.getValue());
+        dateChecker.setDisableAfterAndBeforeRangeWithHighlight(reservationDateBegin,
+                disableBeforeClosestReservation, reservationDateEnd.getValue(), currentRange);
 
         PriceCalculator calculator = new PriceCalculator();
         priceField.setText(String.valueOf(calculator.getPrice(reservationDateBegin.getValue(),
@@ -195,33 +211,28 @@ public class ReservationViewController {
                 motorhomeType)));
     }
 
-    private void updateDatePickersWithMotorhome(Motorhome motorhome){
-
-            DBConn dbConn = new DBConn();
-            dateRanges.clear();
-            dateRanges = dbConn.getAllReservationAndRentalDatesForMotorhome(motorhome.getId());
-            dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
-            dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
-
+    private void updateDatePickersWithMotorhome(Motorhome motorhome) {
+        DBConn dbConn = new DBConn();
+        dateRanges.clear();
+        dateRanges = dbConn.getAllReservationAndRentalDatesForMotorhome(motorhome.getId());
+        dateChecker.setDisabledRange(reservationDateEnd, dateRanges, true);
+        dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
     }
 
-    public void loadAllReservations(){
-
+    public void loadAllReservations() {
         boolean loadCancelled = false;
-        if (toggleCancelled.isSelected()){
+        if (toggleCancelled.isSelected()) {
             loadCancelled = true;
         }
         reservationData.loadList(loadCancelled);
         reservationTable.setItems(reservationData.getReservationList());
-
-
     }
 
+    @FXML
     public void createReservation(ActionEvent actionEvent) {
-
         DBConn dbConn = new DBConn();
         boolean reservationExists = false;
-        if (!reservationIDField.getText().equals("")){
+        if (!reservationIDField.getText().isEmpty()) {
             reservationExists = dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()));
         }
         if (!reservationExists) {
@@ -237,24 +248,14 @@ public class ReservationViewController {
             loadAllReservations();
             resetFields();
         }
-
-        else {
-
-            System.out.println("Reservation already exists, use the update button.");
-
-        }
-        dbConn = null;
-
-
     }
 
+    @FXML
     public void resetAll(ActionEvent actionEvent) {
-
         resetFields();
-
     }
 
-    private void resetFields(){
+    private void resetFields() {
 
         reservationIDField.setText("");
         customerBox.setValue(null);
@@ -269,8 +270,8 @@ public class ReservationViewController {
 
     }
 
+    @FXML
     public void updateReservation(ActionEvent actionEvent) {
-
         DBConn dbConn = new DBConn();
         Customer customer = customerBox.getSelectionModel().getSelectedItem();
         int currentReservationID = Integer.parseInt(reservationIDField.getText());
@@ -283,13 +284,9 @@ public class ReservationViewController {
                 0,
                 mhTableView.getSelectionModel().getSelectedItem().getId(),
                 seasonChoiceBox.getValue());
-        //below is slow.. after reloading the reservations the selection is gone and we either have to refetch the reservation from db and update field
-        //or the user has to re click on the reservation she was on... how to fix? if we "remember" the row index, what if the user was sorting? then
-        //we will get the wrong reservation.. maybe store any sorting values too? otherwise this is good
         loadAllReservations();
         Reservation reservation = dbConn.getReservationFromDB(currentReservationID);
         updateFields(reservation);
-
     }
 
     @FXML
@@ -308,8 +305,7 @@ public class ReservationViewController {
                 dbConn.deleteFromDB(reservation.getId(), "reservations");
                 loadAllReservations();
                 resetFields();
-            }
-            else {
+            } else {
                 reservationCancel();
             }
         }
@@ -317,21 +313,20 @@ public class ReservationViewController {
 
     @FXML
     public void cancelReservation(ActionEvent actionEvent) {
-
         reservationCancel();
         resetFields();
         loadAllReservations();
-
     }
 
-    public void reservationCancel() {
-
-        if (reservationTable.getSelectionModel().getSelectedItem() != null && reservationIDField != null) {
+    private void reservationCancel() {
+        if (reservationTable.getSelectionModel().getSelectedItem() != null) {
             try {
                 FXMLLoader root = new FXMLLoader(getClass().getResource("/View/CancellationView.fxml"));
                 Scene scene = new Scene(root.load());
-                ((CancellationViewController) root.getController()).setReservationID(Integer.parseInt(reservationIDField.getText()));
-                ((CancellationViewController) root.getController()).setInitPrice(Double.valueOf(priceField.getText()));
+                ((CancellationViewController) root.getController())
+                        .setReservationID(Integer.parseInt(reservationIDField.getText()));
+                ((CancellationViewController) root.getController())
+                        .setInitPrice(Double.valueOf(priceField.getText()));
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -342,10 +337,9 @@ public class ReservationViewController {
         }
     }
 
+    @FXML
     public void cancelToggled(ActionEvent actionEvent) {
-
         resetFields();
         loadAllReservations();
-
     }
 }
