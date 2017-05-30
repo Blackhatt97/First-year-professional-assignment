@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 public class ReservationViewController {
 
-    @FXML private TextField reservationIDField;
-    @FXML private TableView<Reservation> reservationTable;
-    @FXML private DatePicker reservationDateEnd;
-    @FXML private DatePicker reservationDateBegin;
-    @FXML private ChoiceBox<String> seasonChoiceBox;
-    @FXML private TextField priceField;
+    @FXML TextField reservationIDField;
+    @FXML TableView<Reservation> reservationTable;
+    @FXML DatePicker reservationDateEnd;
+    @FXML DatePicker reservationDateBegin;
+    @FXML ChoiceBox<String> seasonChoiceBox;
+    @FXML TextField priceField;
     @FXML DatePicker reservationPicker;
     @FXML ChoiceBox<Pair<Integer, String>> mhTypeCheck;
     @FXML TableView<Motorhome> mhTableView;
@@ -207,7 +207,7 @@ public class ReservationViewController {
         dateChecker.setDisabledRange(reservationDateBegin, dateRanges, true);
     }
 
-    public void loadAllReservations() {
+    private void loadAllReservations() {
         boolean loadCancelled = false;
         if (toggleCancelled.isSelected()) {
             loadCancelled = true;
@@ -218,24 +218,37 @@ public class ReservationViewController {
 
     @FXML
     public void createReservation(ActionEvent actionEvent) {
-        DBConn dbConn = new DBConn();
-        boolean reservationExists = false;
-        if (!reservationIDField.getText().isEmpty()) {
-            reservationExists = dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()));
+        resetBorders();
+        if (checkErrors() == 0) {
+            DBConn dbConn = new DBConn();
+            boolean reservationExists = false;
+            if (!reservationIDField.getText().isEmpty() && checkInteger(reservationIDField) == 0) {
+                reservationExists = dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()));
+            }
+            if (!reservationExists) {
+                Customer customer = customerBox.getSelectionModel().getSelectedItem();
+                dbConn.addReservationToDB(customer.getId(),
+                        java.sql.Date.valueOf(reservationPicker.getValue()),
+                        java.sql.Date.valueOf(reservationDateBegin.getValue()),
+                        java.sql.Date.valueOf(reservationDateEnd.getValue()),
+                        0,
+                        0,
+                        mhTableView.getSelectionModel().getSelectedItem().getId(),
+                        seasonChoiceBox.getValue());
+                loadAllReservations();
+                resetFields();
+            }
         }
-        if (!reservationExists) {
-            Customer customer = customerBox.getSelectionModel().getSelectedItem();
-            dbConn.addReservationToDB(customer.getId(),
-                    java.sql.Date.valueOf(reservationPicker.getValue()),
-                    java.sql.Date.valueOf(reservationDateBegin.getValue()),
-                    java.sql.Date.valueOf(reservationDateEnd.getValue()),
-                    0,
-                    0,
-                    mhTableView.getSelectionModel().getSelectedItem().getId(),
-                    seasonChoiceBox.getValue());
-            loadAllReservations();
-            resetFields();
+    }
+
+    private int checkInteger(TextField field) {
+        try {
+            Integer.parseInt(field.getText());
+        } catch (NumberFormatException ex) {
+            field.setStyle("-fx-border-color: red;");
+            return 1;
         }
+        return 0;
     }
 
     @FXML
@@ -257,21 +270,24 @@ public class ReservationViewController {
 
     @FXML
     public void updateReservation(ActionEvent actionEvent) {
-        DBConn dbConn = new DBConn();
-        Customer customer = customerBox.getSelectionModel().getSelectedItem();
-        int currentReservationID = Integer.parseInt(reservationIDField.getText());
-        dbConn.updateReservation(Integer.parseInt(reservationIDField.getText()),
-                customer.getId(),
-                java.sql.Date.valueOf(reservationPicker.getValue()),
-                java.sql.Date.valueOf(reservationDateBegin.getValue()),
-                java.sql.Date.valueOf(reservationDateEnd.getValue()),
-                0,
-                0,
-                mhTableView.getSelectionModel().getSelectedItem().getId(),
-                seasonChoiceBox.getValue());
-        loadAllReservations();
-        Reservation reservation = dbConn.getReservationFromDB(currentReservationID);
-        updateFields(reservation);
+        resetBorders();
+        Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
+        if (reservation != null && checkErrors() == 0) {
+            DBConn dbConn = new DBConn();
+            Customer customer = customerBox.getSelectionModel().getSelectedItem();
+            dbConn.updateReservation(
+                    reservation.getId(),
+                    customer.getId(),
+                    java.sql.Date.valueOf(reservationPicker.getValue()),
+                    java.sql.Date.valueOf(reservationDateBegin.getValue()),
+                    java.sql.Date.valueOf(reservationDateEnd.getValue()),
+                    0,
+                    0,
+                    mhTableView.getSelectionModel().getSelectedItem().getId(),
+                    seasonChoiceBox.getValue()
+            );
+            loadAllReservations();
+        }
     }
 
     @FXML
@@ -281,11 +297,10 @@ public class ReservationViewController {
 
     @FXML
     public void rent(ActionEvent e) {
+        Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
         DBConn dbConn = new DBConn();
-        if (!reservationIDField.getText().isEmpty() &&
-                dbConn.checkIfReservationExists(Integer.parseInt(reservationIDField.getText()))) {
-            if (!dbConn.isReservationCancelled(Integer.parseInt(reservationIDField.getText()))) {
-                Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
+        if (reservation != null && dbConn.checkIfReservationExists(reservation.getId())) {
+            if (!dbConn.isReservationCancelled(reservation.getId())) {
                 dbConn.addRentalToDB(reservation);
                 dbConn.deleteFromDB(reservation.getId(), "reservations");
                 loadAllReservations();
@@ -300,16 +315,18 @@ public class ReservationViewController {
     public void cancelReservation(ActionEvent actionEvent) {
         reservationCancel();
         resetFields();
+        resetBorders();
         loadAllReservations();
     }
 
     private void reservationCancel() {
-        if (reservationTable.getSelectionModel().getSelectedItem() != null) {
+        Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
+        if (reservation != null && checkDouble(priceField) == 0) {
             try {
                 FXMLLoader root = new FXMLLoader(getClass().getResource("/View/CancellationView.fxml"));
                 Scene scene = new Scene(root.load());
                 ((CancellationViewController) root.getController())
-                        .setReservationID(Integer.parseInt(reservationIDField.getText()));
+                        .setReservationID(reservation.getId());
                 ((CancellationViewController) root.getController())
                         .setInitPrice(Double.valueOf(priceField.getText()));
                 Stage stage = new Stage();
@@ -322,9 +339,55 @@ public class ReservationViewController {
         }
     }
 
+    private int checkDouble(TextField field) {
+        try {
+            Double.parseDouble(field.getText());
+        } catch (NumberFormatException ex) {
+            field.setStyle("-fx-border-color: red;");
+            return 1;
+        }
+        return 0;
+    }
+
     @FXML
     public void cancelToggled(ActionEvent actionEvent) {
         resetFields();
+        resetBorders();
         loadAllReservations();
+    }
+
+    private void resetBorders() {
+        customerBox.setStyle("-fx-border-color: transparent");
+        reservationPicker.setStyle("-fx-border-color: transparent");
+        reservationDateBegin.setStyle("-fx-border-color: transparent");
+        reservationDateEnd.setStyle("-fx-border-color: transparent");
+        mhTableView.setStyle("-fx-border-color: transparent");
+        reservationIDField.setStyle("-fx-border-color: transparent");
+        priceField.setStyle("-fx-border-color: transparent");
+    }
+
+    private int checkErrors() {
+        int counter = 0;
+        if (customerBox.getSelectionModel().isEmpty()) {
+            customerBox.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (reservationPicker.getEditor().getText().isEmpty()) {
+            reservationPicker.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (reservationDateBegin.getEditor().getText().isEmpty()) {
+            reservationDateBegin.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (reservationDateEnd.getEditor().getText().isEmpty()) {
+            reservationDateEnd.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (mhTableView.getSelectionModel().getSelectedItem() != null) {
+            mhTableView.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        return counter;
     }
 }
