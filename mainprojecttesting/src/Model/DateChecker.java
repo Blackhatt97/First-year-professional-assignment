@@ -68,7 +68,6 @@ public class DateChecker {
                         for (int i = 0; i < pairArrayList.size() ; i++) {
 
                             super.updateItem(item, empty);
-                            boolean cond = (item.isBefore(pairArrayList.get(i).getValue()) && item.isAfter(pairArrayList.get(i).getKey()));
                             if (item.isBefore(pairArrayList.get(i).getValue()) && item.isAfter(pairArrayList.get(i).getKey())) {
                                 setDisable(true);
                                 setStyle("-fx-background-color: #d3d3d3;");
@@ -82,12 +81,6 @@ public class DateChecker {
                                 setStyle("-fx-background-color: #d3d3d3;");
                             }
 
-//                            else {
-//                                setDisable(false);
-//                                setStyle("-fx-background-color: #CCFFFF;");
-//                                setStyle("-fx-font-fill: black;");
-//
-//                            }
                         }
 
                         if (disableBeforeToday){
@@ -161,7 +154,8 @@ public class DateChecker {
         datePicker.setDayCellFactory(dayCellFactory);
     }
     @SuppressWarnings("Duplicates")
-    public void setDisableAfterAndBeforeRangeWithHighlight(DatePicker datePicker, LocalDate startDate, LocalDate endDate, Pair<LocalDate, LocalDate> currentRange){
+    public void setDisableAfterAndBeforeRangeWithHighlight(DatePicker datePicker, LocalDate startDate, LocalDate endDate,
+                                                           Pair<LocalDate, LocalDate> currentRange){
         final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
 
             @Override
@@ -218,7 +212,6 @@ public class DateChecker {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        boolean cond = (item.isAfter(endDate));
                         if (item.isAfter(endDate)){
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
@@ -231,11 +224,6 @@ public class DateChecker {
                             setDisable(true);
                             setStyle("-fx-background-color: #d3d3d3;");
                         }
-//                        else{
-//                            setDisable(false);
-//                            setStyle("-fx-background-color: #CCFFFF;");
-//                            setStyle("-fx-font-fill: black;");
-//                        }
                     }
                 };
             }

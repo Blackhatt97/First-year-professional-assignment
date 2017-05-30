@@ -132,11 +132,13 @@ public class ReservationViewController {
                 dateChecker.setDisableAfterAndBeforeRange(reservationDateBegin,
                         disableBeforeClosestReservation, reservationDateEnd.getValue());
 
-                PriceCalculator calculator = new PriceCalculator();
-                priceField.setText(String.valueOf(calculator.getPrice(reservationDateBegin.getValue(),
-                        reservationDateEnd.getValue(),
-                        seasonChoiceBox.getValue(),
-                        mhTypeCheck.getValue().getKey())));
+                if (reservationDateBegin.getValue() != null) {
+                    PriceCalculator calculator = new PriceCalculator();
+                    priceField.setText(String.valueOf(calculator.getPrice(reservationDateBegin.getValue(),
+                            reservationDateEnd.getValue(),
+                            seasonChoiceBox.getValue(),
+                            mhTypeCheck.getValue().getKey())));
+                }
             }
         });
     }
@@ -172,12 +174,9 @@ public class ReservationViewController {
 
         //add them to date ranges
         //then disable those ranges in the datepickers
-        Pair<LocalDate, LocalDate> currentRange = new Pair<LocalDate, LocalDate>(reservation.getStartDate().toLocalDate(),
-                reservation.getEndDate().toLocalDate());
-        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateEnd,
-                dateRanges, true, currentRange);
-        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateBegin,
-                dateRanges, true, currentRange);
+        Pair<LocalDate, LocalDate> currentRange = new Pair<LocalDate, LocalDate>(reservation.getStartDate().toLocalDate(), reservation.getEndDate().toLocalDate());
+//        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateEnd, dateRanges, true, currentRange);
+//        dateChecker.setDisabledRangeWithHighlightedCurrentRange(reservationDateBegin, dateRanges, true, currentRange);
         //change the reservation begin and end fields to all of the reservations that the selected motorhome has?
         reservationDateBegin.setValue(reservation.getStartDate().toLocalDate());
         reservationDateEnd.setValue(reservation.getEndDate().toLocalDate());
