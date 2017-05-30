@@ -34,7 +34,7 @@ public class DBConn {
 
     }
 
-    public void updateRental(int pickup, int dropoff, int rentalID){
+    public void updateRental(int pickup, int dropoff, int rentalID) {
 
         Connection connection = getConn();
         String sql = "UPDATE rentals SET pickup = ?, dropoff = ? WHERE id = ?";
@@ -55,7 +55,7 @@ public class DBConn {
 
     }
 
-    public void addCancelledReservationInvoiceToDB(int reservationID, String cancellationText){
+    public void addCancelledReservationInvoiceToDB(int reservationID, String cancellationText) {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `contracts` (`reservation_id`, `invoice_string`) " +
@@ -66,18 +66,18 @@ public class DBConn {
         try {
 
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,reservationID);
+            preparedStatement.setInt(1, reservationID);
             preparedStatement.setString(2, cancellationText);
             preparedStatement.execute();
             connection.close();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void addCreatedRentalContractTextToDB(int rentalID, String contractText){
+    public void addCreatedRentalContractTextToDB(int rentalID, String contractText) {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `contracts` (`rental_id`, `invoice_string`) " +
@@ -88,18 +88,18 @@ public class DBConn {
         try {
 
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,rentalID);
+            preparedStatement.setInt(1, rentalID);
             preparedStatement.setString(2, contractText);
             preparedStatement.execute();
             connection.close();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
 
-    public String getCancelledReservationText(int reservationID){
+    public String getCancelledReservationText(int reservationID) {
 
         String sql = "SELECT invoice_string FROM contracts WHERE reservation_id =" + String.valueOf(reservationID);
         String cancelText = null;
@@ -119,7 +119,7 @@ public class DBConn {
 
     }
 
-    public String getRentalContractText(int rentalID){
+    public String getRentalContractText(int rentalID) {
 
         String sql = "SELECT invoice_string FROM contracts WHERE rental_id =" + String.valueOf(rentalID);
         String rentalText = null;
@@ -139,7 +139,7 @@ public class DBConn {
 
     }
 
-    public double getTypePrice(int typeNo){
+    public double getTypePrice(int typeNo) {
 
         double price = 0;
         String sql = "SELECT price_day FROM types WHERE id =" + String.valueOf(typeNo);
@@ -156,11 +156,11 @@ public class DBConn {
             e.printStackTrace();
         }
 
-        return price ;
+        return price;
 
     }
 
-    public boolean isReservationCancelled(int reservationID){
+    public boolean isReservationCancelled(int reservationID) {
 
         String sql = "SELECT is_cancelled FROM reservations WHERE id =" + String.valueOf(reservationID);
         boolean cancelled = false;
@@ -169,9 +169,9 @@ public class DBConn {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-               if (resultSet.getInt(1) == 1){
-                   cancelled = true;
-               }
+                if (resultSet.getInt(1) == 1) {
+                    cancelled = true;
+                }
             }
             connection.close();
         } catch (SQLException e) {
@@ -181,7 +181,7 @@ public class DBConn {
 
     }
 
-    public Reservation getReservationFromDB(int reservationID){
+    public Reservation getReservationFromDB(int reservationID) {
 
         Reservation reservation = null;
         String sql = "SELECT * FROM reservations WHERE id =" + String.valueOf(reservationID);
@@ -219,7 +219,7 @@ public class DBConn {
                                   int dropoff,
                                   int motorhomeID,
                                   String season
-                                  ){
+    ) {
 
         Connection connection = getConn();
         String sql = "UPDATE reservations SET cust_id = ?, date_res = ?, st_date = ?," +
@@ -248,23 +248,23 @@ public class DBConn {
 
     }
 
-    public void cancelReservation(int reservationID){
+    public void cancelReservation(int reservationID) {
 
-            Connection connection = getConn();
-            String sql = "UPDATE reservations SET is_cancelled = ? WHERE id = ?";
-            PreparedStatement ps = null;
+        Connection connection = getConn();
+        String sql = "UPDATE reservations SET is_cancelled = ? WHERE id = ?";
+        PreparedStatement ps = null;
 
-            try {
+        try {
 
-                ps = connection.prepareStatement(sql);
-                ps.setInt(1, 1);
-                ps.setInt(2, reservationID);
-                ps.execute();
-                connection.close();
+            ps = connection.prepareStatement(sql);
+            ps.setInt(1, 1);
+            ps.setInt(2, reservationID);
+            ps.execute();
+            connection.close();
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -275,10 +275,11 @@ public class DBConn {
                                    int pickup,
                                    int dropoff,
                                    int motorhomeID,
-                                   String season){
+                                   String season) {
 
         Connection connection = getConn();
-        String sql = "INSERT INTO `reservations` (`cust_id`, `date_res`, `st_date`, `end_date`, `pickup`, `dropoff`, `motorhome_id`, `season`) " +
+        String sql = "INSERT INTO `reservations` " +
+                "(`cust_id`, `date_res`, `st_date`, `end_date`, `pickup`, `dropoff`, `motorhome_id`, `season`) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = null;
@@ -288,7 +289,7 @@ public class DBConn {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, customerID);
             preparedStatement.setDate(2, reservationDate);
-            preparedStatement.setDate(3, startDate );
+            preparedStatement.setDate(3, startDate);
             preparedStatement.setDate(4, endDate);
             preparedStatement.setInt(5, pickup);
             preparedStatement.setInt(6, dropoff);
@@ -297,7 +298,7 @@ public class DBConn {
             preparedStatement.execute();
             connection.close();
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -325,7 +326,7 @@ public class DBConn {
         }
     }
 
-    public boolean isRentalContractCreated(int rentalID){
+    public boolean isRentalContractCreated(int rentalID) {
 
         String sql = "SELECT contract_created FROM rentals WHERE id =" + String.valueOf(rentalID);
         boolean cancelled = false;
@@ -334,7 +335,7 @@ public class DBConn {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                if (resultSet.getInt(1) == 1){
+                if (resultSet.getInt(1) == 1) {
                     cancelled = true;
                 }
             }
@@ -346,7 +347,7 @@ public class DBConn {
 
     }
 
-    public void createRentalContract(int rentalID){
+    public void createRentalContract(int rentalID) {
 
         Connection connection = getConn();
         String sql = "UPDATE rentals SET contract_created = ? WHERE id = ?";
@@ -366,7 +367,7 @@ public class DBConn {
 
     }
 
-    public Rental getRentalFromDB(int rentalID){
+    public Rental getRentalFromDB(int rentalID) {
 
         Rental rental = null;
         String sql = "SELECT * FROM `rentals` WHERE id =" + String.valueOf(rentalID);
@@ -478,7 +479,7 @@ public class DBConn {
     public ObservableList<Reservation> getAllReservations(boolean loadCancelled) {
 
         int loadCancelledInt = 0;
-        if (loadCancelled){
+        if (loadCancelled) {
             loadCancelledInt = 1;
         }
 
@@ -513,7 +514,8 @@ public class DBConn {
     public ArrayList<Pair<LocalDate, LocalDate>> getAllReservationAndRentalDatesForMotorhome(int motorhomeId) {
 
         ArrayList<Pair<LocalDate, LocalDate>> dates = new ArrayList<>();
-        String sql = "SELECT st_date, end_date FROM reservations WHERE motorhome_id ='" + String.valueOf(motorhomeId) +
+        String sql = "SELECT st_date, end_date FROM reservations WHERE motorhome_id ='" +
+                String.valueOf(motorhomeId) +
                 "' AND is_cancelled = '0'";
         try {
             Connection connection = getConn();
@@ -573,7 +575,7 @@ public class DBConn {
         return DB_NAME;
     }
 
-    public void addExtrasToDB(String type, String name, double price, int isRented){
+    public void addExtrasToDB(String type, String name, double price, int isRented) {
 
         Connection connection = getConn();
         String sql = "INSERT INTO `extras` (`type`, `name`, `price`, `isRented`) " +
@@ -591,7 +593,7 @@ public class DBConn {
             preparedStatement.execute();
             connection.close();
 
-        } catch (java.sql.SQLException e){
+        } catch (java.sql.SQLException e) {
             e.printStackTrace();
         }
 
@@ -698,24 +700,23 @@ public class DBConn {
 
     }
 
-    public void addRepairToDB(int mhIdFk, int type, double price, String descr, java.sql.Date repDate){
+    public void addRepairToDB(int mhIdFk, int type, double price, String descr, java.sql.Date repDate) {
 
         Connection con = getConn();
         String sql = "INSERT INTO `repairs` (`id`, `mh_id`, `type`, `plate`, `price`, `descr`,`date`)" +
                 " VALUES (null, ?, ?, ?, ?, ?, ?);";
-        try{
+        try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, mhIdFk);
             ps.setInt(2, type);
             ps.setString(3, getPlate(mhIdFk));
             ps.setDouble(4, price);
-            ps.setString(5,descr);
-            ps.setDate(6,repDate);
+            ps.setString(5, descr);
+            ps.setDate(6, repDate);
             ps.execute();
             con.close();
 
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
@@ -799,22 +800,21 @@ public class DBConn {
 
     }
 
-    public ArrayList<Integer> getMotorhomeId(){
+    public ArrayList<Integer> getMotorhomeId() {
 
         ArrayList<Integer> ids = new ArrayList<>();
         String sql = "SELECT * FROM `motorhomes` ";
-        try{
+        try {
             Connection con = getConn();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
 
                 ids.add(rs.getInt(1));
             }
             con.close();
 
-        }
-        catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return ids;
@@ -858,7 +858,7 @@ public class DBConn {
         if (typeId > -1) {
             sql += " WHERE type_id = ?";
         }
-            sql += " ORDER BY id DESC";
+        sql += " ORDER BY id DESC";
 
         try {
             Connection connection = getConn();
@@ -886,52 +886,51 @@ public class DBConn {
         return motorhomes;
     }
 
-    public int getStatus(int mhIdFk){
+    public int getStatus(int mhIdFk) {
 
         String sql = "SELECT * FROM `motorhomes` WHERE `id` = ? ;";
-        try{
+        try {
             int status = 0;
             Connection con = getConn();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,mhIdFk);
+            ps.setInt(1, mhIdFk);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 status = rs.getInt(5);
             }
             con.close();
             return status;
 
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return -1;
     }
 
 
-    public String getPlate(int mhId){
+    public String getPlate(int mhId) {
 
 
         String sql = "SELECT * FROM `motorhomes` WHERE `id` = ?";
 
-        try{
+        try {
             String plate = null;
             Connection con = getConn();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,mhId);
+            ps.setInt(1, mhId);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 plate = rs.getString(6);
             }
             con.close();
             return plate;
 
-        }
-        catch(SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
-         return null;
+        return null;
     }
+
     public ObservableList<Repair> getAllRepairs(int mhId) {
 
         ObservableList<Repair> repairs = FXCollections.observableArrayList();
@@ -940,7 +939,7 @@ public class DBConn {
         try {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,mhId);
+            preparedStatement.setInt(1, mhId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Repair repair = new Repair(resultSet.getInt(1),
@@ -1076,12 +1075,12 @@ public class DBConn {
     }
 
     public void updateRepair(int id,
-                              int mhId,
-                              int repairType,
-                              double price,
-                              String descr,
-                              Date date,
-                              int status){
+                             int mhId,
+                             int repairType,
+                             double price,
+                             String descr,
+                             Date date,
+                             int status) {
 
         Connection connection = getConn();
         String sql = "UPDATE repairs SET mh_id = ?, type = ?, plate = ?," +
@@ -1093,7 +1092,7 @@ public class DBConn {
         try {
 
             ps2 = connection.prepareStatement(sql2);
-            ps2.setInt(1,status);
+            ps2.setInt(1, status);
             ps2.execute();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, mhId);
@@ -1101,7 +1100,7 @@ public class DBConn {
             ps.setString(3, getPlate(mhId));
             ps.setDouble(4, price);
             ps.setString(5, descr);
-            ps.setDate(6,date);
+            ps.setDate(6, date);
             ps.setInt(7, id);
             ps.execute();
             connection.close();
@@ -1111,10 +1110,9 @@ public class DBConn {
         }
 
 
-
     }
 
-    public ObservableList<User> getAllUsers(){
+    public ObservableList<User> getAllUsers() {
 
         ObservableList<User> usersOL = FXCollections.observableArrayList();
         String sql = "SELECT * FROM users";
@@ -1123,7 +1121,7 @@ public class DBConn {
             Connection connection = getConn();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 User user = new User(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
@@ -1137,7 +1135,7 @@ public class DBConn {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < usersOL.size() ; i++) {
+        for (int i = 0; i < usersOL.size(); i++) {
             System.out.println(usersOL.get(i).getLname());
         }
 
@@ -1156,7 +1154,7 @@ public class DBConn {
         try {
 
             ps = connection.prepareStatement(sql);
-            ps.setString(1,fname );
+            ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, email);
             ps.setString(4, type);
@@ -1184,7 +1182,7 @@ public class DBConn {
         try {
 
             ps = connection.prepareStatement(sql);
-            ps.setString(1,fname );
+            ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, email);
             ps.setString(4, type);
@@ -1204,7 +1202,8 @@ public class DBConn {
                             String email, String address, String typeUser, String pass) {
 
         Connection connection = getConn();
-        String sql = "INSERT INTO `users` (`f_name`, `l_name`, `date_birth`, `email`, `address`, `type_user`, `pass`) " +
+        String sql = "INSERT INTO `users` " +
+                "(`f_name`, `l_name`, `date_birth`, `email`, `address`, `type_user`, `pass`) " +
                 "VALUES ( ?, ?, ?, ?, ?, ?, MD5(?))";
         PreparedStatement ps = null;
 

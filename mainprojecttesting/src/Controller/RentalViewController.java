@@ -36,7 +36,7 @@ public class RentalViewController {
     @FXML RadioButton emptyTank;
     @FXML TableView<Rental> rentalTable;
 
-    RentalData rentalData = new RentalData();
+    private RentalData rentalData = new RentalData();
 
     @FXML
     //this method is executed upon the initialization of the controller
@@ -66,16 +66,16 @@ public class RentalViewController {
         endDate.setValue(rental.getEndDate().toLocalDate());
         rentalDate.setValue(rental.getCurrentDate().toLocalDate());
         loadRentalExtras();
-
     }
 
     @FXML
     public void addExtras(ActionEvent e) {
-        if (rentalTable.getSelectionModel().getSelectedItem() != null && !idField.getText().isEmpty()) {
+        Rental rental = rentalTable.getSelectionModel().getSelectedItem();
+        if (rental != null && !idField.getText().isEmpty()) {
             try {
                 FXMLLoader root = new FXMLLoader(getClass().getResource("/View/ExtrasPopupView.fxml"));
                 Scene scene = new Scene(root.load());
-                ((ExtrasPopupController) root.getController()).setRentalId(Integer.parseInt(idField.getText()));
+                ((ExtrasPopupController) root.getController()).setRentalId(rental.getId());
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -106,6 +106,7 @@ public class RentalViewController {
     private void loadAllRentals() {
         rentalData.loadList();
         rentalTable.setItems(rentalData.getRentalList());
+        resetAllFields();
     }
 
     @FXML
@@ -162,8 +163,9 @@ public class RentalViewController {
 
     @FXML
     public void createContract(ActionEvent e) {
+        resetBorders();
         Rental rental = rentalTable.getSelectionModel().getSelectedItem();
-        if (rental != null && !idField.getText().isEmpty()) {
+        if (rental != null && !idField.getText().isEmpty() && checkErrors() == 0) {
             try {
                 FXMLLoader root = new FXMLLoader(getClass().getResource("/View/RentalContractView.fxml"));
                 Scene scene = new Scene(root.load());
@@ -181,11 +183,61 @@ public class RentalViewController {
 
     @FXML
     public void updateRental(ActionEvent e) {
-        DBConn dbConn = new DBConn();
-        dbConn.updateRental(Integer.parseInt(pickupField.getText()),
-                Integer.parseInt(dropoffField.getText()),
-                Integer.parseInt(idField.getText()));
-        loadAllRentals();
+        resetBorders();
+        Rental rental = rentalTable.getSelectionModel().getSelectedItem();
+        if (rental != null && !idField.getText().isEmpty() &&
+                checkInteger(pickupField) == 0 && checkInteger((dropoffField)) == 0) {
+            DBConn dbConn = new DBConn();
+            dbConn.updateRental(Integer.parseInt(pickupField.getText()),
+                    Integer.parseInt(dropoffField.getText()),
+                    rental.getId());
+            loadAllRentals();
+        }
+    }
+
+    private void resetBorders() {
+        pickupField.setStyle("-fx-border-color: transparent");
+        dropoffField.setStyle("-fx-border-color: transparent");
+        extraKmField.setStyle("-fx-border-color: transparent");
+        priceField.setStyle("-fx-border-color: transparent");
+    }
+
+    //this method checks fields for incorrect inputs
+    private int checkErrors() {
+        int counter = 0;
+        if (pickupField.getText().isEmpty()) {
+            pickupField.setStyle("-fx-border-color: red;");
+            counter++;
+        } else {
+            counter += checkInteger(pickupField);
+        }
+        if (dropoffField.getText().isEmpty()) {
+            dropoffField.setStyle("-fx-border-color: red;");
+            counter++;
+        } else {
+            counter += checkInteger(dropoffField);
+        }
+        if (extraKmField.getText().isEmpty()) {
+            extraKmField.setStyle("-fx-border-color: red;");
+            counter++;
+        } else {
+            counter += checkInteger(extraKmField);
+        }
+        if (priceField.getText().isEmpty()) {
+            priceField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        return counter;
+    }
+
+    private int checkInteger(TextField field) {
+        try {
+            Integer.parseInt(field.getText());
+        } catch (NumberFormatException ex) {
+            field.setStyle("-fx-border-color: red;");
+            return 1;
+        }
+        return 0;
     }
 
 }
