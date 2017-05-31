@@ -30,6 +30,8 @@ public class MhViewController {
     private TypeData typeData = new TypeData();
     private StatusData statusData = new StatusData();
 
+    //this method sets status and type of the motorhome in the relevant fields, it also enables a table listener
+    //that updates the fields with the relevant date of a selected motorhome
     @FXML
     public void initialize() {
         loadAllMotorHomes();
@@ -50,6 +52,7 @@ public class MhViewController {
         });
     }
 
+    //this method updates the fields
     private void updateFields(Motorhome mh) {
         idField.setText(Integer.toString(mh.getId()));
         statusChoiceBox.getSelectionModel().select(searchType(mh.getStatus(), statusData));
@@ -60,6 +63,7 @@ public class MhViewController {
         kilometrageField.setText(Integer.toString(mh.getMileage()));
     }
 
+    //this method loops through the types and return the type that was searched for
     private Pair<Integer, String> searchType(int key, DataInterface data) {
         for (Pair<Integer, String> pair : data.getData()) {
             if (pair.getKey() == key) {
@@ -69,11 +73,13 @@ public class MhViewController {
         return null;
     }
 
+    //this method loads all of the motorhomes
     private void loadAllMotorHomes() {
         data.loadList();
         motorhomeTable.setItems(data.getMotorhomeList());
     }
 
+    //this method creates a motorhome to the db
     @FXML
     public void create(ActionEvent actionEvent) {
         resetBorders();
@@ -90,6 +96,7 @@ public class MhViewController {
         }
     }
 
+    //this updates the motorhome in the DB with the values in the fields
     @FXML
     public void update(ActionEvent actionEvent) {
         resetBorders();
@@ -107,6 +114,7 @@ public class MhViewController {
         }
     }
 
+    //this deletes a motorhome from the DB
     @FXML
     public void delete(ActionEvent actionEvent) {
         if(!motorhomeTable.getSelectionModel().isEmpty()) {
@@ -120,6 +128,7 @@ public class MhViewController {
         resetAllFields();
     }
 
+    //this loads all of the motorhomes from the DB
     @FXML
     public void loadAll(ActionEvent actionEvent) {
         loadAllMotorHomes();
@@ -131,6 +140,7 @@ public class MhViewController {
         resetAllFields();
     }
 
+    //this resets all fields
     private void resetAllFields() {
         motorhomeTable.getSelectionModel().select(null);
         idField.setText("");
@@ -143,6 +153,7 @@ public class MhViewController {
         resetBorders();
     }
 
+    //this resets the borders after an incorrect input
     private void resetBorders() {
         kilometrageField.setStyle("-fx-border-color: transparent");
         fabYearField.setStyle("-fx-border-color: transparent");
@@ -153,6 +164,7 @@ public class MhViewController {
         idField.setStyle("-fx-border-color: transparent");
     }
 
+    //this checks for errors in the fields and puts a red border to signify that it is incorrect
     private int checkErrors() {
         int counter = 0;
         if (brandField.getText().isEmpty()) {
@@ -186,6 +198,7 @@ public class MhViewController {
         return counter;
     }
 
+    //this checks if integer fields are actual integers
     private int checkInteger(TextField field) {
         try {
             Integer.parseInt(field.getText());

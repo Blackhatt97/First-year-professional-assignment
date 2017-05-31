@@ -38,6 +38,8 @@ public class RepairViewController {
     private MotorhomeData mhData = new MotorhomeData();
     private ArrayList<Integer> mhIds = new ArrayList<>();
 
+    //this method is executed upon initialization of the controller and loads in all of the relevant data
+    //it also enables a listener to display relevant information in the fields for a selected repair
     @FXML
     public void initialize() {
         loadAllRepairs();
@@ -59,11 +61,13 @@ public class RepairViewController {
         });
     }
 
+    //this method loads all of the motorhome IDs
     private void loadMotorhomeIds() {
         DBConn dbConn = new DBConn();
         mhIds = dbConn.getMotorhomeId();
     }
 
+    //this updates all of the fields with values from the repair obj
     private void updateFields(Repair repair) {
         idField.setText(Integer.toString(repair.getId()));
         mhId.getSelectionModel().select(repair.getMhId());
@@ -74,6 +78,7 @@ public class RepairViewController {
         descrField.setText(repair.getDescription());
     }
 
+    //this searches and returns the searched for type
     private Pair<Integer, String> searchType(int key, DataInterface data) {
         for (Pair<Integer, String> pair : data.getData()) {
             if (pair.getKey() == key) {
@@ -83,12 +88,14 @@ public class RepairViewController {
         return null;
     }
 
+    //this loads in all repairs and displays them in the table view
     private void loadAllRepairs() {
         data.loadList();
         repairTable.setItems(data.getRepairList());
         loadMotorhomeIds();
     }
 
+    //this returns the status of a motorhome from the DB
     private int statusBoxValue(int mhId) {
         DBConn dbConn = new DBConn();
         return dbConn.getStatus(mhId);
@@ -99,6 +106,7 @@ public class RepairViewController {
         resetAllFields();
     }
 
+    //this resets all fields to empty values
     private void resetAllFields() {
         repairTable.getSelectionModel().select(null);
         idField.setText("");
@@ -111,6 +119,7 @@ public class RepairViewController {
         resetBorders();
     }
 
+    //this delets a repair from the DB
     @FXML
     public void delete(ActionEvent actionEvent) {
         if (!repairTable.getSelectionModel().isEmpty()) {
@@ -124,6 +133,7 @@ public class RepairViewController {
         repairTable.refresh();
     }
 
+    //this creates a repair in the DB
     @FXML
     public void create(ActionEvent actionEvent) {
         resetBorders();
@@ -141,6 +151,7 @@ public class RepairViewController {
         }
     }
 
+    //this updates a db with the values from the fields
     @FXML
     public void update(ActionEvent actionEvent) {
         resetBorders();
@@ -161,6 +172,7 @@ public class RepairViewController {
         }
     }
 
+    //this loads the motorhome log
     @FXML
     public void loadMotorhomeLog(ActionEvent actionEvent) {
         if (!mhId.getSelectionModel().isEmpty()) {

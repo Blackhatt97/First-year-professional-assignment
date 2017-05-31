@@ -59,6 +59,7 @@ public class ReservationViewController {
                     TableView.TableViewSelectionModel selectionModel = reservationTable.getSelectionModel();
                     Object selectedItem = selectionModel.getSelectedItem();
                     updateFields((Reservation) selectedItem);
+                    resetBorders();
                 }
             }
         });
@@ -334,6 +335,7 @@ public class ReservationViewController {
         loadAllReservations();
     }
 
+    //this displays a popup with details for a cancellation, including price and reservation data
     private void reservationCancel() {
         Reservation reservation = reservationTable.getSelectionModel().getSelectedItem();
         if (reservation != null && checkDouble(priceField) == 0) {
@@ -401,7 +403,7 @@ public class ReservationViewController {
             reservationDateEnd.setStyle("-fx-border-color: red;");
             counter++;
         }
-        if (mhTableView.getSelectionModel().getSelectedItem() != null) {
+        if (mhTableView.getSelectionModel().isEmpty()) {
             mhTableView.setStyle("-fx-border-color: red;");
             counter++;
         }

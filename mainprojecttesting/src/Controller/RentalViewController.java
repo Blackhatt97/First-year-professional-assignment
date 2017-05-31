@@ -39,7 +39,8 @@ public class RentalViewController {
     private RentalData rentalData = new RentalData();
 
     @FXML
-    //this method is executed upon the initialization of the controller
+    //this method is executed upon the initialization of the controller and loads all rentals from DB into the table view
+    //it also enables a listener for the table that updates the fields with the selected item in the table
     public void initialize() {
         loadAllRentals();
 
@@ -55,6 +56,7 @@ public class RentalViewController {
         });
     }
 
+    //this updates the fields with rental details
     private void updateFields(Rental rental) {
         idField.setText(Integer.toString(rental.getId()));
         custIdField.setText(Integer.toString(rental.getCustId()));
@@ -68,6 +70,7 @@ public class RentalViewController {
         loadRentalExtras();
     }
 
+    //this method creates a popup where extras can be added to the rental
     @FXML
     public void addExtras(ActionEvent e) {
         Rental rental = rentalTable.getSelectionModel().getSelectedItem();
@@ -91,6 +94,7 @@ public class RentalViewController {
         loadRentalExtras();
     }
 
+    //this loads all added extras for a specific rental
     private void loadRentalExtras() {
         Rental rental = rentalTable.getSelectionModel().getSelectedItem();
         if (rental != null && !idField.getText().isEmpty()) {
@@ -103,6 +107,7 @@ public class RentalViewController {
         }
     }
 
+    //this loads all rentals from the db
     private void loadAllRentals() {
         rentalData.loadList();
         rentalTable.setItems(rentalData.getRentalList());
@@ -119,6 +124,7 @@ public class RentalViewController {
         resetAllFields();
     }
 
+    //this resets all fields to empty values
     private void resetAllFields() {
         rentalTable.getSelectionModel().select(null);
         idField.setText("");
@@ -136,6 +142,7 @@ public class RentalViewController {
         extrasBox.setItems(null);
     }
 
+    //this calculates the price of a rental and sets the price field to the result
     @FXML
     public void calculatePrice(ActionEvent e) {
         loadRentalExtras();
@@ -145,6 +152,7 @@ public class RentalViewController {
         }
     }
 
+    //this takes in all relevant values to calculate a price for a rental and returns a price
     private double calculatePricing(Rental rental) {
         DBConn dbConn = new DBConn();
         PriceCalculator priceCalculator = new PriceCalculator();
@@ -161,6 +169,7 @@ public class RentalViewController {
         );
     }
 
+    //this method brings up a popup that shows the rental contract
     @FXML
     public void createContract(ActionEvent e) {
         resetBorders();
@@ -181,6 +190,7 @@ public class RentalViewController {
         }
     }
 
+    //this updates a rentals pickup and dropoff values in the DB
     @FXML
     public void updateRental(ActionEvent e) {
         resetBorders();
@@ -195,6 +205,7 @@ public class RentalViewController {
         }
     }
 
+    //this resets borders to transparent after an incorrect input has been corrected
     private void resetBorders() {
         pickupField.setStyle("-fx-border-color: transparent");
         dropoffField.setStyle("-fx-border-color: transparent");

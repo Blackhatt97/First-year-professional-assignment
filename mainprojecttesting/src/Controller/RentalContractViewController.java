@@ -17,6 +17,8 @@ public class RentalContractViewController {
     int rentalID;
     double totalPrice;
 
+    //this method calls upon writeRentalContract, it is done on another thread because we are passing parameters
+    //from another controller to this one and this happens after the controller is initialized.
     @FXML public void initialize(){
 
         Thread one = new Thread(() -> {
@@ -39,6 +41,8 @@ public class RentalContractViewController {
         this.totalPrice = totalPrice;
     }
 
+    //this method writes a fresh rental contract text if a rental contract hasn't already been created
+    //and fetches an existing text if the rental contract is already created
     private void writeRentalContractText(){
 
         DBConn dbConn = new DBConn();
@@ -61,6 +65,8 @@ public class RentalContractViewController {
 
     }
 
+    //this method is called upon when the rent button is pressed, this creates a rental contract in the database (boolean)
+    //and adds the rental text to the DB
     public void createRental(ActionEvent actionEvent) {
 
         DBConn dbConn = new DBConn();

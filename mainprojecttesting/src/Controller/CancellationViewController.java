@@ -24,6 +24,8 @@ public class CancellationViewController {
     private int reservationID;
     private double initPrice;
 
+    //this method calls upon writeCancellationText, it is done on another thread because we are passing parameters
+    //from another controller to this one and this happens after the controller is initialized.
     @FXML public void initialize(){
 
         Thread one = new Thread(() -> {
@@ -48,6 +50,8 @@ public class CancellationViewController {
         this.reservationID = reservationID;
     }
 
+    //this method writes a fresh cancellation text if the reservation hasn't already been cancelled
+    //and fetches an existing text if the cancellation is already cancelled
     private void writeCancellationText(){
 
         DBConn dbConn = new DBConn();
@@ -70,6 +74,8 @@ public class CancellationViewController {
 
     }
 
+    //this method is called upon when the cancel button is pressed, this cancels the reservation in the database (boolean)
+    //and adds the cancellation text to the DB
     public void cancelReservation(ActionEvent actionEvent) {
 
         DBConn dbConn = new DBConn();

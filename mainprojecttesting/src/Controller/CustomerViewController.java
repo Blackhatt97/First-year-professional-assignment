@@ -33,7 +33,9 @@ public class CustomerViewController {
     @FXML TableView<Customer> customerTable;
 
     private CustomerData data = new CustomerData();
-    
+
+    //this method, upon initialization of the controller enables a listener that updates the customer fields with
+    //relevant customer data
     @FXML
     public void initialize() {
 
@@ -52,6 +54,7 @@ public class CustomerViewController {
 
     }
 
+    //this updates the fields with values that belong to the customer obj
     private void updateFields(Customer cs) {
         idField.setText(Integer.toString(cs.getId()));
         firstName.setText(cs.getFname());
@@ -61,6 +64,7 @@ public class CustomerViewController {
         addressField.setText(cs.getAddress());
     }
 
+    //this creates a customer in the customers table in the DB with the values that are present in the fields
     @FXML
     public void create(ActionEvent actionEvent) {
         if (checkErrors() == 0) {
@@ -76,6 +80,8 @@ public class CustomerViewController {
             loadAllCustomers();
         }
     }
+
+    //this updates an existing customer in the DB with the values that are present in he fields
     public void update(ActionEvent actionEvent) {
         if (checkErrors() == 0) {
             resetBorders();
@@ -93,12 +99,14 @@ public class CustomerViewController {
         }
     }
 
+    //this populates the customer table with all the customers that exist in the DB
     private void loadAllCustomers() {
         data.loadList();
         customerTable.setItems(data.getCustomerList());
         resetAllFields();
     }
 
+    //this deletes a customer from the DB
     public void delete(ActionEvent actionEvent) {
         if(!customerTable.getSelectionModel().isEmpty()) {
             Customer selectedRow = customerTable.getSelectionModel().getSelectedItem();
@@ -113,6 +121,7 @@ public class CustomerViewController {
         resetAllFields();
     }
 
+    //this reset the fields to empty values
     private void resetAllFields() {
         idField.setText("");
         firstName.setText("");
@@ -128,6 +137,7 @@ public class CustomerViewController {
         loadAllCustomers();
     }
 
+    //this checks for errors in the fields
     private int checkErrors() {
         int counter = 0;
         if (firstName.getText().isEmpty()) {

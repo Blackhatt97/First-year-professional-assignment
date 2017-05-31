@@ -30,7 +30,8 @@ public class UserViewController {
 
     private UserData data = new UserData();
 
-
+    //this method is loaded upon controller initialization and loads all users in the db to the table view
+    //it also enables a listener to update fields with the selected item in the table view
     @FXML
     public void initialize() {
 
@@ -56,6 +57,7 @@ public class UserViewController {
         typeChoiceBox.getItems().addAll("Administrator","Staff","Maintenance");
     }
 
+    //this updates the fields with user data
     private void updateFields(User cs) {
         idField.setText(Integer.toString(cs.getId()));
         fNameField.setText(cs.getFname());
@@ -66,6 +68,7 @@ public class UserViewController {
         typeChoiceBox.setValue(cs.getType());
     }
 
+    //this loads in all of the users from db
     private void loadAllUsers() {
         data.loadList();
         usersTable.setItems(data.getUserList());
@@ -75,6 +78,8 @@ public class UserViewController {
     public void loadAll (ActionEvent actionEvent) {
         loadAllUsers();
     }
+
+    //this updates a user in the db with the values that are present in the fields
     @FXML
     public void update(ActionEvent actionEvent) {
         resetBorders();
@@ -114,6 +119,7 @@ public class UserViewController {
         }
     }
 
+    //this creates a new user in the db
     @FXML
     public void create(ActionEvent actionEvent) {
         resetBorders();
@@ -139,6 +145,7 @@ public class UserViewController {
         }
     }
 
+    //this deletes a user from the db
     public void delete(ActionEvent event) {
         if(!usersTable.getSelectionModel().isEmpty()) {
             User selectedRow = usersTable.getSelectionModel().getSelectedItem();
@@ -156,6 +163,7 @@ public class UserViewController {
         resetAllFields();
     }
 
+    //this resets all fields to empty values
     private void resetAllFields() {
         idField.setText("");
         fNameField.setText("");
