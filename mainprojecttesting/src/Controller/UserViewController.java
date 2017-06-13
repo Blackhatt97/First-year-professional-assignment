@@ -124,7 +124,6 @@ public class UserViewController {
     public void create(ActionEvent actionEvent) {
         resetBorders();
         if (checkErrors() + checkErrorsNoPassword() == 0) {
-            //HERE WE MAKE SECURITY FOR FIELDS AND PASS
             if (retypePassField.getText().equals(passField.getText())) {
 
                 java.sql.Date datepicker = java.sql.Date.valueOf(birthDatePicker.getValue());
@@ -222,6 +221,10 @@ public class UserViewController {
         }
         if (addressField.getText().isEmpty()) {
             addressField.setStyle("-fx-border-color: red;");
+            counter++;
+        }
+        if (birthDatePicker.getEditor().getText().isEmpty()) {
+            birthDatePicker.setStyle("-fx-border-color: red;");
             counter++;
         }
         return counter;
